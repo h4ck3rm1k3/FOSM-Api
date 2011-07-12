@@ -1,0 +1,17 @@
+[% INCLUDE osm_header.tt %]
+
+[% foreach changeset in changesets%]
+<changeset id="[% changeset.id %]" user="[% changeset.user %]" uid="[% changeset.uid %]" created_at="[% changeset.created_at %]" open="[% changeset.open %]"
+[%-if (changeset.bbox) -%]
+min_lon="[% changeset.bbox.min.lon %]"
+min_lat="[% changeset.bbox.min.lat %]"
+max_lon="[% changeset.bbox.max.lon %]"
+max_lat="[% changeset.bbox.max.lat %]"
+[%- end  -%]
+>
+[%- foreach tag in changeset.tags - %]
+<tag k="[%tag.name%]" v="[%tag.value%]"/>
+[%- END -%]
+</changeset>
+[% END %]
+[% INCLUDE osm_footer.tt %]

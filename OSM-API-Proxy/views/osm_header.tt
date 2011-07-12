@@ -1,0 +1,7 @@
+ <?xml version='1.0' standalone='no'?>
+  <osm version='0.6' generator='fapi: OSM Faked API' 
+   xmlns:fapi='http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html'
+   fapi:uri='[% request.uri_for(request.uri) %]'
+   fapi:planetDate='2011071100--' 
+   fapi:copyright='2011 James Michael DuPont and FOSM and OpenStreetMap contributors' 
+   fapi:instance='funky'>
