@@ -6,7 +6,14 @@ use Moose;
 use Moose::Util::TypeConstraints;
 has 'bbox' => (is=>'rw', isa=>'OSM::API::Box');
 has 'open' => (is=>'rw', isa=>'Bool');
+
+#use MooseX::Types::DateTime qw(TimeZone);
+use MooseX::Types::DateTimeX qw( DateTime );
+
+
 has 'created_at' => (is=>'rw', isa=>'String');
+#"2008-11-08T19:07:39+01:00"
+
 has 'userObj' => (is=>'rw', isa=>'OSM::API::User');
 has 'id' => (is=>'rw', isa=>'Int');
 

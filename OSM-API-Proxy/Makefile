@@ -11,10 +11,9 @@
 
 #   MakeMaker Parameters:
 
-#     ABSTRACT => q[YOUR APPLICATION ABSTRACT]
-#     AUTHOR => q[YOUR NAME <youremail@example.com>]
+#     ABSTRACT => q[a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html ]
+#     AUTHOR => q[James Michael DuPont  <JamesMikeDuPont@googlemail.com>]
 #     BUILD_REQUIRES => {  }
-#     LICENSE => q[perl]
 #     NAME => q[OSM::API::Proxy]
 #     PL_FILES => {  }
 #     PREREQ_PM => { Test::More=>q[0], YAML=>q[0], Dancer=>q[1.303] }
@@ -185,9 +184,30 @@ PERL_ARCHIVE       =
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/OSM/API/Proxy.pm
+TO_INST_PM = lib/OSM/API/Box.pm \
+	lib/OSM/API/ChangeSet.pm \
+	lib/OSM/API/Makefile \
+	lib/OSM/API/Point.pm \
+	lib/OSM/API/Proxy.pm \
+	lib/OSM/API/Tag.pm \
+	lib/OSM/API/Tags.pm \
+	lib/OSM/API/User.pm
 
-PM_TO_BLIB = lib/OSM/API/Proxy.pm \
+PM_TO_BLIB = lib/OSM/API/Tag.pm \
+	blib/lib/OSM/API/Tag.pm \
+	lib/OSM/API/User.pm \
+	blib/lib/OSM/API/User.pm \
+	lib/OSM/API/Point.pm \
+	blib/lib/OSM/API/Point.pm \
+	lib/OSM/API/Box.pm \
+	blib/lib/OSM/API/Box.pm \
+	lib/OSM/API/Makefile \
+	blib/lib/OSM/API/Makefile \
+	lib/OSM/API/Tags.pm \
+	blib/lib/OSM/API/Tags.pm \
+	lib/OSM/API/ChangeSet.pm \
+	blib/lib/OSM/API/ChangeSet.pm \
+	lib/OSM/API/Proxy.pm \
 	blib/lib/OSM/API/Proxy.pm
 
 
@@ -477,10 +497,10 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
 	$(NOECHO) $(ECHO) 'name:               OSM-API-Proxy' >> META_new.yml
 	$(NOECHO) $(ECHO) 'version:            0.1' >> META_new.yml
-	$(NOECHO) $(ECHO) 'abstract:           YOUR APPLICATION ABSTRACT' >> META_new.yml
+	$(NOECHO) $(ECHO) 'abstract:           a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html ' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    - YOUR NAME <youremail@example.com>' >> META_new.yml
-	$(NOECHO) $(ECHO) 'license:            perl' >> META_new.yml
+	$(NOECHO) $(ECHO) '    - James Michael DuPont  <JamesMikeDuPont@googlemail.com>' >> META_new.yml
+	$(NOECHO) $(ECHO) 'license:            unknown' >> META_new.yml
 	$(NOECHO) $(ECHO) 'distribution_type:  module' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
@@ -766,8 +786,8 @@ testdb_static :: testdb_dynamic
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
 	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.1">' > $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '    <ABSTRACT>YOUR APPLICATION ABSTRACT</ABSTRACT>' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '    <AUTHOR>YOUR NAME &lt;youremail@example.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <ABSTRACT>a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html </ABSTRACT>' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '    <AUTHOR>James Michael DuPont  &lt;JamesMikeDuPont@googlemail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Dancer::" VERSION="1.303" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::More" />' >> $(DISTNAME).ppd
@@ -782,6 +802,13 @@ ppd :
 
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/OSM/API/Tag.pm blib/lib/OSM/API/Tag.pm \
+	  lib/OSM/API/User.pm blib/lib/OSM/API/User.pm \
+	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
+	  lib/OSM/API/Box.pm blib/lib/OSM/API/Box.pm \
+	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile \
+	  lib/OSM/API/Tags.pm blib/lib/OSM/API/Tags.pm \
+	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
 	  lib/OSM/API/Proxy.pm blib/lib/OSM/API/Proxy.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 

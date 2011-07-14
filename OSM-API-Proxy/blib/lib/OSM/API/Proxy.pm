@@ -15,6 +15,14 @@ get '/api/capabilities/test' => sub {
     template 'capabilities.tt', {}, { layout => undef };
 };
 
+my $changetsetid = 12345678;
+
+put '/api/0.6/changeset/create' => sub {       
+    header('Content-Type' => 'text/plain');	
+    print $changetsetid++;
+    print "\n";
+};
+
 get '/api/capabilities' => sub {
     ' <osm version="0.6" generator="Interface to OpenStreetMap server via dancer">
    <api>
@@ -26,6 +34,27 @@ get '/api/capabilities' => sub {
      <timeout seconds="300"/>
    </api>
  </osm>';
+};
+
+get 'http://www.openstreetmap.org/api/0.6/map' => sub 
+{
+    template 'getmapbbox.tt', 
+    { 
+    }
+    , 
+    { layout => undef };
+
+};
+#http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML005
+#http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML006
+
+get '/api/0.6/user/preferences/' => sub {
+'<osm version="0.6" generator="OpenStreetMap server">
+    <preferences>
+       <preference k="somekey" v="somevalue" />
+    </preferences>
+  </osm>
+';
 };
 
 get '/api/0.6/map' => sub {
