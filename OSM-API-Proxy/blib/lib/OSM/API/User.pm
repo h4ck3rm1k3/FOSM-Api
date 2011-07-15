@@ -5,9 +5,9 @@ use Moose;
 use Moose::Util::TypeConstraints;
 #use MooseX::SemiAffordanceAccessor;
 
-has 'name' => (is=>'rw', isa=>'String');
+has 'name' => (is=>'rw', isa=>'Str');
 has 'uid' => (is=>'rw', isa=>'Int');
-has 'password' => (is=>'rw', isa=>'Int');
+has 'password' => (is=>'rw', isa=>'Str');
 has 'home_location' => (is=>'rw', isa=>'OSM::API::Point');
 
 has 'Foaf' => (

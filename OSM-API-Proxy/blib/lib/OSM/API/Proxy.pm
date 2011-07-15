@@ -18,9 +18,8 @@ get '/api/capabilities/test' => sub {
 my $changetsetid = 12345678;
 
 put '/api/0.6/changeset/create' => sub {       
-    header('Content-Type' => 'text/plain');	
-    print $changetsetid++;
-    print "\n";
+#    header('Content-Type' => 'text/plain');	
+    print $changetsetid++ . "\n";
 };
 
 get '/api/capabilities' => sub {

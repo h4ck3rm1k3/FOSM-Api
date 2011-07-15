@@ -15,12 +15,33 @@ get '/api/capabilities/test' => sub {
     template 'capabilities.tt', {}, { layout => undef };
 };
 
-my $changetsetid = 12345678;
+my $changetsetid = 1000001384;
 
 put '/api/0.6/changeset/create' => sub {       
     header('Content-Type' => 'text/plain');	
-    print $changetsetid++;
-    print "\n";
+#header('Server: Apache/2.2.16 (Debian)
+    header('Set-cookie' => '_osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly');
+    header('Vary' => 'Authorization,Accept-Encoding');
+    header('Keep-Alive' => 'timeout=15, max=100');
+    header('Connection' => 'Keep-Alive');
+    #header('Transfer-Encoding' => 'chunked');
+    
+    $changetsetid++ . "\n";
+
+# send this to another server 
+# HTTP/1.1 200 OK
+# Date: Fri, 15 Jul 2011 17:49:34 GMT
+# Server: Apache/2.2.16 (Debian)
+# Set-cookie: _osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly
+# Vary: Authorization,Accept-Encoding
+# Keep-Alive: timeout=15, max=100
+# Connection: Keep-Alive
+# Transfer-Encoding: chunked
+# Content-Type: text/plain
+# a
+# 1000001383
+
+
 };
 
 get '/api/capabilities' => sub {

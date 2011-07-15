@@ -186,9 +186,12 @@ PERL_ARCHIVE_AFTER =
 
 TO_INST_PM = lib/OSM/API/Box.pm \
 	lib/OSM/API/ChangeSet.pm \
+	lib/OSM/API/Changeset.pm \
 	lib/OSM/API/Makefile \
+	lib/OSM/API/OsmApi.pm \
 	lib/OSM/API/Point.pm \
 	lib/OSM/API/Proxy.pm \
+	lib/OSM/API/RemoteServerAgent.pm \
 	lib/OSM/API/Tag.pm \
 	lib/OSM/API/Tags.pm \
 	lib/OSM/API/User.pm
@@ -197,6 +200,10 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/Tag.pm \
 	lib/OSM/API/User.pm \
 	blib/lib/OSM/API/User.pm \
+	lib/OSM/API/RemoteServerAgent.pm \
+	blib/lib/OSM/API/RemoteServerAgent.pm \
+	lib/OSM/API/Changeset.pm \
+	blib/lib/OSM/API/Changeset.pm \
 	lib/OSM/API/Point.pm \
 	blib/lib/OSM/API/Point.pm \
 	lib/OSM/API/Box.pm \
@@ -205,6 +212,8 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/Makefile \
 	lib/OSM/API/Tags.pm \
 	blib/lib/OSM/API/Tags.pm \
+	lib/OSM/API/OsmApi.pm \
+	blib/lib/OSM/API/OsmApi.pm \
 	lib/OSM/API/ChangeSet.pm \
 	blib/lib/OSM/API/ChangeSet.pm \
 	lib/OSM/API/Proxy.pm \
@@ -804,10 +813,13 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  lib/OSM/API/Tag.pm blib/lib/OSM/API/Tag.pm \
 	  lib/OSM/API/User.pm blib/lib/OSM/API/User.pm \
+	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm \
+	  lib/OSM/API/Changeset.pm blib/lib/OSM/API/Changeset.pm \
 	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
 	  lib/OSM/API/Box.pm blib/lib/OSM/API/Box.pm \
 	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile \
 	  lib/OSM/API/Tags.pm blib/lib/OSM/API/Tags.pm \
+	  lib/OSM/API/OsmApi.pm blib/lib/OSM/API/OsmApi.pm \
 	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
 	  lib/OSM/API/Proxy.pm blib/lib/OSM/API/Proxy.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
