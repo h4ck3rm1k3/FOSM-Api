@@ -15,12 +15,6 @@ get '/api/capabilities/test' => sub {
     template 'capabilities.tt', {}, { layout => undef };
 };
 
-my $changetsetid = 12345678;
-
-put '/api/0.6/changeset/create' => sub {       
-#    header('Content-Type' => 'text/plain');	
-    print $changetsetid++ . "\n";
-};
 
 get '/api/capabilities' => sub {
     ' <osm version="0.6" generator="Interface to OpenStreetMap server via dancer">
@@ -141,6 +135,212 @@ get '/api/0.6/changesets' => sub {
 #         Bounded (?time=T1,T2) to query where the start time is between the given times. 
 #     Returns at most 100 changesets 
 };
+
+
+my $changetsetid = 1000001384;
+
+put '/api/0.6/changeset/create' => sub {       
+    header('Content-Type' => 'text/plain');	
+#header('Server: Apache/2.2.16 (Debian)
+    header('Set-cookie' => '_osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly');
+    header('Vary' => 'Authorization,Accept-Encoding');
+    header('Keep-Alive' => 'timeout=15, max=100');
+    header('Connection' => 'Keep-Alive');
+    #header('Transfer-Encoding' => 'chunked');
+    
+    $changetsetid++ . "\n";
+
+# send this to another server 
+# HTTP/1.1 200 OK
+# Date: Fri, 15 Jul 2011 17:49:34 GMT
+# Server: Apache/2.2.16 (Debian)
+# Set-cookie: _osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly
+# Vary: Authorization,Accept-Encoding
+# Keep-Alive: timeout=15, max=100
+# Connection: Keep-Alive
+# Transfer-Encoding: chunked
+# Content-Type: text/plain
+# a
+# 1000001383
+
+
+};
+
+=head2 upload: POST /api/0.6/changeset/#id/upload
+
+Diff upload: POST /api/0.6/changeset/#id/upload
+With this API call files in the OsmChange format can be uploaded to the server. This is guaranteed to be running in a transaction. So either all the changes are applied or none.
+To upload an OSC file it has to conform to the OsmChange specification with the following additions:
+each element must carry a changeset and a version attribute, except when you are creating an element where the version is not required as the server sets that for you. The changeset must be the same as the changeset ID being uploaded to.
+a <delete> block in the OsmChange document may have an if-unused attribute (the value of which is ignored). If this attribute is present, then the delete operation(s) in this block are conditional and will only be executed if the object to be deleted is not used by another object. Without the if-unused, such a situation would lead to an error, and the whole diff upload would fail.
+Parameters
+id
+The ID of the changeset this diff belongs to.
+POST data
+The OsmChange file data
+Response
+If a diff is successfully applied a XML (content type text/xml) is returned in the following format
+<diffResult generator="OpenStreetMap Server" version="0.6">
+  <node|way|relation old_id="#" new_id="#" new_version="#"/>
+  ...
+</diffResult>
+with one element for every element in the upload. Note that this can be counter-intuitive when the same element has appeared multiple times in the input then it will appear multiple times in the output.
+Attribute	 create	 modify	 delete
+old_id	 same as uploaded element.
+new_id	 new ID	 same as uploaded	 not present
+new_version	 new version	 not present
+Error codes
+HTTP status code 400 (Bad Request) - text/plain
+When there are errors parsing the XML. A text message explaining the error is returned.
+When an placeholder ID is missing or not unique
+HTTP status code 405 (Method Not Allowed)
+If the request is not a HTTP POST request
+HTTP status code 409 (Conflict) - text/plain
+If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "The changeset #id was closed at #closed_at." is returned
+If, while uploading, the max. size of the changeset is exceeded. A message with the format "The changeset #id was closed at #closed_at." is returned
+Or if the user trying to update the changeset is not the same as the one that created it
+Or if the diff contains elements with changeset IDs which don't match the changeset ID that the diff was uploaded to
+Any of the error codes that could occur an a create, update or delete operation for one of the elements
+See the according sections in this page
+Notes
+Processing stops at the first error, so if there are multiple conflicts in one diff upload, only the first problem is reported.
+There is currently no limit in the diff size but this will probably be changed later.
+Changeset summary
+The procedure for successful creation of a changeset is summarized in the following picture:
+
+Elements
+
+There are create, read, update and delete calls for all of the three basic elements in OpenStreetMap (Nodes, Ways and Relations). These calls are very similar except for the payload and a few special error messages so they are documented only once.
+
+=cut
+
+#POST http://localhost:3000/api/0.6/changeset/1000001384/upload
+post '/api/0.6/changeset/*/upload' => sub {
+      my ($id) = splat;
+#      warn "got changeset $id";
+      # now lets process it 
+      
+ print " <?xml version='1.0' encoding='UTF-8'?>
+<diffResult version='0.6' generator='FOSM API 0.6'>
+</diffResult>
+";
+
+#<node old_id='-4368' new_id='1000000073409' new_version='1'/>
+};
+
+
+# Update: PUT /api/0.6/changeset/#id
+# For updating tags on the changeset, e.g. changeset comment=foo.
+# Payload should be an OSM document containing the new version of a single changeset. Bounding box, update time and other attributes are ignored and cannot be updated by this method. For updating the bounding box see the expand_bbox method.
+# <osm>
+#   <changeset>
+#     <tag k="comment" v="Just adding some streetnames and a restaurant"/>
+#   </changeset>
+# </osm>
+# Parameters
+# id
+# The id of the changeset to update. The user issuing this API call has to be the same that created the changeset
+# Response
+# An OSM document containing the new version of the changeset with a content type of text/xml
+# Error codes
+# HTTP status code 400 (Bad Request)
+# When there are errors parsing the XML
+# HTTP status code 404 (Not Found)
+# When no changeset with the given id could be found
+# HTTP status code 405 (Method Not Allowed)
+# If the request is not a HTTP PUT request
+# HTTP status code 409 (Conflict) - text/plain
+# If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "The changeset #id was closed at #closed_at." is returned
+# Or if the user trying to update the changeset is not the same as the one that created it
+# Notes
+# Unchanged tags have to be repeated in order to not be deleted.
+# What's really cool is that you can use regex to match and capture URL elements...
+
+
+#  get qr{} => sub {
+#    # named capture requires at least 5.10
+#    my $decode = decode_base36(uc captures->{'code'});
+#  };
+#  get '/:code/stats' => sub {
+#    my $decode = decode_base36(uc params->{'code'});
+#  };
+#/api/0.6/changeset/1000001384/close
+put '/api/0.6/changeset/*/close' => sub {
+      my ($id) = splat;
+#      warn "close changeset $id";
+      # now lets process it 
+      
+      print "";
+
+};
+
+# from merkaator
+post '/api/0.6/changeset/*' => sub {
+      my ($id) = splat();
+#      warn "got changeset $id";
+      # now lets process it 
+
+    template 'changeset.tt', { 
+	changeset => 
+	    [ 
+	      {
+		  id => 1,
+		  user=>"mike",
+		  uid=>"1",
+		  created_at=>"now",
+		  open=>1,
+		  bbox => {
+		      min => { lon => 0,lat =>0},
+		      max => { lon => 100,lat =>100}
+		  },
+		  tags => [
+		      {
+			  name => "funky",
+			  value => "for sure",
+		      }
+		      ]
+			  
+	      }
+	      
+	    ]
+    }, { layout => undef };
+
+};
+
+put '/api/0.6/changeset/*' => sub {
+      my ($id) = splat();
+#      warn "got changeset $id";
+      # now lets process it 
+
+    template 'changeset.tt', { 
+	changeset => 
+	    [ 
+	      {
+		  id => 1,
+		  user=>"mike",
+		  uid=>"1",
+		  created_at=>"now",
+		  open=>1,
+		  bbox => {
+		      min => { lon => 0,lat =>0},
+		      max => { lon => 100,lat =>100}
+		  },
+		  tags => [
+		      {
+			  name => "funky",
+			  value => "for sure",
+		      }
+		      ]
+			  
+	      }
+	      
+	    ]
+    }, { layout => undef };
+      
+
+#<node old_id='-4368' new_id='1000000073409' new_version='1'/>
+};
+
 
 
 1;

@@ -1,12 +1,13 @@
 package OSM::API::RemoteServerAgent;
 use OSM::API::User;
-
 use Moose;
 use Moose::Util::TypeConstraints;
 use LWP::UserAgent;
 use LWP::Debug qw(+);
 BEGIN { $LWP::DebugFile::outpath = '/tmp/crunk/' }
 use LWP::DebugFile;
+use Carp qw[confess croak];
+
 has 'ua' => (
     is=>'rw',
     isa=>"LWP::UserAgent"
@@ -49,15 +50,23 @@ sub create
     my $self=shift;
 
 #    my $host=shift;
-    $self->apiurl =~ m!https?://([^/]+)/!;
-    my $host = $1;
-    $host .= ":80" unless ($host =~ /:/);
-    
-    $self->ua(LWP::UserAgent->new);
-    $self->ua->credentials($host, "Web Password", $self->{user}->name(), $self->{user}->password);
-    $self->ua->agent("fosm.org/api/0.6");
-
-    $self->ua->timeout(600);
+    if ($self->apiurl)
+    {
+	$self->apiurl =~ m!https?://([^/]+)/!;
+	my $host = $1;
+	if ($host)
+	{
+	    $host .= ":80" unless ($host =~ /:/);
+	}	
+	$self->ua(LWP::UserAgent->new);
+	$self->ua->credentials($host, "Web Password", $self->{user}->name(), $self->{user}->password);
+	$self->ua->agent("fosm.org/api/0.6");	
+	$self->ua->timeout(600);
+    }
+    else
+    {
+	confess "Need apiurl";
+    }
 }
 
 sub get

@@ -19,7 +19,8 @@ use_ok 'OSM::API::RemoteServerAgent';
 
 my $a=OSM::API::RemoteServerAgent->new();
 $a->user($p); # set the user
-$a->create("api.fosm.org"); # create an agent
+$a->readdefaults();
+$a->create("http://api.fosm.org:80"); # create an agent
 #$a->connect();
 ok($a->ua,"user agent");
 #$a->post

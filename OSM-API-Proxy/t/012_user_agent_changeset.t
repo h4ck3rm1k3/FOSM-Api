@@ -31,5 +31,12 @@ ok($a->ua,"user agent");
 my $c=OSM::API::ChangeSet->new();
 $c->userObj($user);
 my $chid= $c->create($a,"first test fosm::api perl");
-warn "GOT" . $chid;
+if ($chid)
+{  
+   warn "GOT" . $chid;
+}
+else
+{
+	warn "Problem"; # cannot create changeset: 401 Authorization Required
+}
 ok($chid,$chid);
