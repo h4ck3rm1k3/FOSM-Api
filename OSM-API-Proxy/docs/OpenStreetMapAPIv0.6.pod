@@ -678,9 +678,9 @@ do:
 
 =head1 API calls
 
-=head2 Miscellaneous
+Here we will list the api calls :
 
-=head2 Capabilities: C<GET /api/capabilities>
+=head2 Miscellaneous Capabilities: C<GET /api/capabilities>
 
 This API call is meant to provide information about the capabilities
 and limitations of the current API.
@@ -898,8 +898,6 @@ way's nodes to the bbox.
 
 =over
 
-=over
-
 =item * adding or removing nodes or ways from a relation causes them to
 be added to the changeset bounding box.
 
@@ -910,7 +908,6 @@ and way members to be added to the bounding box.
 reasonable on the assumption that adding or removing members doesn't
 materially change the rest of the relation.
 
-=back
 
 =back
 
@@ -2172,10 +2169,6 @@ API (http://wiki.openstreetmap.org/wiki/Category:OSM_API)
 
 =head2 Variants (http://wiki.openstreetmap.org/wiki/API_v0.6#)
 
-=over
-
-=back
-
 =head2 Views
 
 =over
@@ -2191,10 +2184,6 @@ API (http://wiki.openstreetmap.org/wiki/Category:OSM_API)
 =back
 
 =head2 Actions (http://wiki.openstreetmap.org/wiki/API_v0.6#)
-
-=over
-
-=back
 
 =head2 Search
 
