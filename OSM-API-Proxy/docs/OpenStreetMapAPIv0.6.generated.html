@@ -1,0 +1,2416 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>API v0.6</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#api_v0_6">API v0.6</a></li>
+	<ul>
+
+		<li><a href="#from_openstreetmap_wiki">From OpenStreetMap Wiki</a></li>
+		<li><a href="#contents">Contents</a></li>
+	</ul>
+
+	<li><a href="#general_information">General information</a></li>
+	<ul>
+
+		<li><a href="#url___authentication">URL + Authentication</a></li>
+		<li><a href="#elements">Elements</a></li>
+		<li><a href="#changesets">Changesets</a></li>
+		<li><a href="#tags">Tags</a></li>
+		<li><a href="#reliably_identifying_users">Reliably identifying users</a></li>
+		<li><a href="#version_numbers_optimistic_locking">Version numbers/Optimistic locking</a></li>
+		<li><a href="#xml_format">XML Format</a></li>
+		<li><a href="#faking_the_correct_http_methods">Faking the correct HTTP methods</a></li>
+	</ul>
+
+	<li><a href="#api_calls">API calls</a></li>
+	<ul>
+
+		<li><a href="#miscellaneous_capabilities__get__api_capabilities">Miscellaneous Capabilities: <code>GET /api/capabilities</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#retrieving_map_data_by_bounding_box__get__api_0_6_map">Retrieving map data by bounding box: <code>GET /api/0.6/map</code></a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#changesets">Changesets</a></li>
+		<li><a href="#bounding_box_computation">Bounding box computation</a></li>
+		<li><a href="#create__put__api_0_6_changeset_create">Create: <code>PUT /api/0.6/changeset/create</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#read__get__api_0_6_changeset__id">Read: <code>GET /api/0.6/changeset/#id</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#update__put__api_0_6_changeset__id">Update: <code>PUT /api/0.6/changeset/#id</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#close__put__api_0_6_changeset__id_close">Close: <code>PUT /api/0.6/changeset/#id/close</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#download__get__api_0_6_changeset__id_download">Download: <code>GET /api/0.6/changeset/#id/download</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#expand_bounding_box__post__api_0_6_changeset__id_expand_bbox">Expand Bounding Box: <code>POST /api/0.6/changeset/#id/expand_bbox</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#query__get__api_0_6_changesets">Query: <code>GET /api/0.6/changesets</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#diff_upload__post__api_0_6_changeset__id_upload">Diff upload: <code>POST /api/0.6/changeset/#id/upload</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#changeset_summary">Changeset summary</a></li>
+		<li><a href="#elements">Elements</a></li>
+		<li><a href="#create__put__api_0_6__node_way_relation__create">Create: <code>PUT /api/0.6/[node|way|relation]/create</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#read__get__api_0_6__node_way_relation___id">Read: <code>GET /api/0.6/[node|way|relation]/#id</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#update__put__api_0_6__node_way_relation___id">Update: <code>PUT /api/0.6/[node|way|relation]/#id</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#delete__delete__api_0_6__node_way_relation___id">Delete: <code>DELETE /api/0.6/[node|way|relation]/#id</code></a></li>
+		<li><a href="#response">Response</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#history__get__api_0_6__node_way_relation___id_history">History: <code>GET /api/0.6/[node|way|relation]/#id/history</code></a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#version__get__api_0_6__node_way_relation___id__version">Version: <code>GET /api/0.6/[node|way|relation]/#id/#version</code></a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#multi_fetch__get__api_0_6__nodes_ways_relations_">Multi fetch: <code>GET /api/0.6/[nodes|ways|relations]</code></a></li>
+		<li><a href="#parameters">Parameters</a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#relations_for_element__get__api_0_6__node_way_relation___id_relations">Relations for Element: <code>GET /api/0.6/[node|way|relation]/#id/relations</code></a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#ways_for_node__get__api_0_6_node__id_ways">Ways for Node: <code>GET /api/0.6/node/#id/ways</code></a></li>
+		<li><a href="#notes">Notes</a></li>
+		<li><a href="#full__get__api_0_6__way_relation___id_full">Full: <code>GET /api/0.6/[way|relation]/#id/full</code></a></li>
+		<li><a href="#error_codes">Error codes</a></li>
+		<li><a href="#gps_traces">GPS Traces</a></li>
+		<li><a href="#retrieving_gps_points">Retrieving GPS points</a></li>
+		<li><a href="#examples">Examples</a></li>
+		<li><a href="#uploading_traces">Uploading Traces</a></li>
+		<li><a href="#downloading_trace_metadata">Downloading Trace Metadata</a></li>
+		<li><a href="#methods_for_user_data">Methods for User Data</a></li>
+		<li><a href="#details">Details</a></li>
+		<li><a href="#preferences">Preferences</a></li>
+	</ul>
+
+	<li><a href="#when_not_to_use_the_api">When NOT to use the API</a></li>
+	<li><a href="#further_reading">Further Reading</a></li>
+	<ul>
+
+		<li><a href="#personal_tools">Personal tools</a></li>
+		<li><a href="#namespaces">Namespaces</a></li>
+		<li><a href="#variants__http___wiki_openstreetmap_org_wiki_api_v0_6__">Variants (http://wiki.openstreetmap.org/wiki/API_v0.6#)</a></li>
+		<li><a href="#views">Views</a></li>
+		<li><a href="#actions__http___wiki_openstreetmap_org_wiki_api_v0_6__">Actions (http://wiki.openstreetmap.org/wiki/API_v0.6#)</a></li>
+		<li><a href="#search">Search</a></li>
+		<li><a href="#recent_changes">Recent changes</a></li>
+		<li><a href="#navigation">Navigation</a></li>
+		<li><a href="#toolbox">Toolbox</a></li>
+	</ul>
+
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>Find out more about OpenStreetMap's upcoming license change
+(http://www.osmfoundation.org/wiki/License/We_Are_Changing_The_License)
+(translations
+(http://wiki.openstreetmap.org/wiki/ODbL/We_Are_Changing_The_License))
+(discussion (http://wiki.openstreetmap.org/wiki/Talk:ODbL/Upcoming))</p>
+<p>
+</p>
+<hr />
+<h1><a name="api_v0_6">API v0.6</a></h1>
+<p>
+</p>
+<h2><a name="from_openstreetmap_wiki">From OpenStreetMap Wiki</a></h2>
+<p>Jump to: navigation
+(http://wiki.openstreetmap.org/wiki/API_v0.6#mw-head), search
+(http://wiki.openstreetmap.org/wiki/API_v0.6#p-search)</p>
+<p>Help (http://wiki.openstreetmap.org/wiki/Wiki_Translation)</p>
+<p><strong>Available languages</strong></p>
+<p>&acirc;&#128;&cent; <strong>English</strong> &acirc;&#128;&cent;
+Portugu&Atilde;&ordf;s do Brasil
+(http://wiki.openstreetmap.org/wiki/Pt-br:API_v0.6)
+&acirc;&#128;&cent; &ETH;
+&Ntilde;&#131;&Ntilde;&#129;&Ntilde;&#129;&ETH;&ordm;&ETH;&cedil;&ETH;&sup1;
+(http://wiki.openstreetmap.org/wiki/RU:API_v0.6)</p>
+<p>show (http://wiki.openstreetmap.org/wiki/API_v0.6#)</p>
+<p><strong>Missing languages</strong></p>
+<p>&acirc;&#128;&cent; &aacute;&#138;
+&aacute;&#136;&#155;&aacute;&#136;&shy;&aacute;&#138;&#155;
+(http://wiki.openstreetmap.org/w/index.php?title=Am:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&Oslash;&sect;&Ugrave;&#132;&Oslash;&sup1;&Oslash;&plusmn;&Oslash;&uml;&Ugrave;&#138;&Oslash;&copy;
+(http://wiki.openstreetmap.org/w/index.php?title=Ar:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&ETH;&#145;&Ntilde;&#138;&ETH;&rchevron;&ETH;&sup3;&ETH;&deg;&Ntilde;&#128;&Ntilde;&#129;&ETH;&ordm;&ETH;&cedil;
+(http://wiki.openstreetmap.org/w/index.php?title=Bg:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Brezhoneg
+(http://wiki.openstreetmap.org/w/index.php?title=Br:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Bosanski
+(http://wiki.openstreetmap.org/w/index.php?title=Bs:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Catal&Atilde;
+(http://wiki.openstreetmap.org/w/index.php?title=Ca:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; &Auml;&#140;esky
+(http://wiki.openstreetmap.org/w/index.php?title=Cz:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Dansk
+(http://wiki.openstreetmap.org/w/index.php?title=Da:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Deutsch
+(http://wiki.openstreetmap.org/w/index.php?title=DE:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&Icirc;&#149;&Icirc;&rchevron;&Icirc;&rchevron;&Icirc;&middot;&Icirc;&frac12;&Icirc;&sup1;&Icirc;&ordm;&Icirc;&not;
+(http://wiki.openstreetmap.org/w/index.php?title=El:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Esperanto
+(http://wiki.openstreetmap.org/w/index.php?title=Eo:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Espa&Atilde;&plusmn;ol
+(http://wiki.openstreetmap.org/w/index.php?title=ES:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Eesti
+(http://wiki.openstreetmap.org/w/index.php?title=Et:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Euskara
+(http://wiki.openstreetmap.org/w/index.php?title=Eu:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Suomi
+(http://wiki.openstreetmap.org/w/index.php?title=Fi:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Fran&Atilde;&sect;ais
+(http://wiki.openstreetmap.org/w/index.php?title=FR:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Frysk
+(http://wiki.openstreetmap.org/w/index.php?title=Fy:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Cr&Atilde;&copy;ole guadeloup&Atilde;&copy;en
+(http://wiki.openstreetmap.org/w/index.php?title=Gcf:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&times;&cent;&times;&#145;&times;&uml;&times;&#153;&times;&ordf;
+(http://wiki.openstreetmap.org/w/index.php?title=He:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Hrvatski
+(http://wiki.openstreetmap.org/w/index.php?title=Hr:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Magyar
+(http://wiki.openstreetmap.org/w/index.php?title=HU:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&Otilde;&#128;&Otilde;&iexcl;&Otilde;&micro;&Otilde;&yen;&Ouml;&#128;&Otilde;&yen;&Otilde;&para;
+(http://wiki.openstreetmap.org/w/index.php?title=Hy:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Interlingua
+(http://wiki.openstreetmap.org/w/index.php?title=Ia:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; &Atilde;&#141;slenska
+(http://wiki.openstreetmap.org/w/index.php?title=Is:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Italiano
+(http://wiki.openstreetmap.org/w/index.php?title=IT:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&aelig;&#151;&yen;&aelig;&#156;&not;&egrave;&ordf;&#158;
+(http://wiki.openstreetmap.org/w/index.php?title=JA:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&iacute;&#149;&#156;&ecirc;&micro;&shy;&igrave;&#150;&acute;
+(http://wiki.openstreetmap.org/w/index.php?title=Ko:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; L&Atilde;&lchevron;tzebuergesch
+(http://wiki.openstreetmap.org/w/index.php?title=Lb:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Lietuvi&Aring;&sup3;
+(http://wiki.openstreetmap.org/w/index.php?title=Lt:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Latvie&Aring;&iexcl;u
+(http://wiki.openstreetmap.org/w/index.php?title=Lv:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&ETH;&#156;&ETH;&deg;&ETH;&ordm;&ETH;&micro;&ETH;&acute;&ETH;&frac34;&ETH;&frac12;&Ntilde;&#129;&ETH;&ordm;&ETH;&cedil;
+(http://wiki.openstreetmap.org/w/index.php?title=Mk:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Nederlands
+(http://wiki.openstreetmap.org/w/index.php?title=NL:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; &acirc;&#128;&ordf;Norsk
+(nynorsk)&acirc;&#128;&not;
+(http://wiki.openstreetmap.org/w/index.php?title=Nn:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; &acirc;&#128;&ordf;Norsk
+(bokm&Atilde;&yen;l)&acirc;&#128;&not;
+(http://wiki.openstreetmap.org/w/index.php?title=No:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Polski
+(http://wiki.openstreetmap.org/w/index.php?title=Pl:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Portugu&Atilde;&ordf;s
+(http://wiki.openstreetmap.org/w/index.php?title=Pt:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Rom&Atilde;&cent;n&Auml;&#131;
+(http://wiki.openstreetmap.org/w/index.php?title=Ro:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Rom&Atilde;&cent;n&Auml;&#131; (Moldova)
+(http://wiki.openstreetmap.org/w/index.php?title=Ro-md:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Sloven&Auml;&#141;ina
+(http://wiki.openstreetmap.org/w/index.php?title=Sk:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Sloven&Aring;&iexcl;&Auml;&#141;ina
+(http://wiki.openstreetmap.org/w/index.php?title=Sl:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Shqip
+(http://wiki.openstreetmap.org/w/index.php?title=Sq:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Svenska
+(http://wiki.openstreetmap.org/w/index.php?title=Sv:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; T&Atilde;&frac14;rk&Atilde;&sect;e
+(http://wiki.openstreetmap.org/w/index.php?title=Tr:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&ETH;&pound;&ETH;&ordm;&Ntilde;&#128;&ETH;&deg;&Ntilde;&#151;&ETH;&frac12;&Ntilde;&#129;&Ntilde;&#140;&ETH;&ordm;&ETH;&deg;
+(http://wiki.openstreetmap.org/w/index.php?title=Uk:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent; Ti&aacute;&ordm;&iquest;ng
+Vi&aacute;&rchevron;&#135;t
+(http://wiki.openstreetmap.org/w/index.php?title=Vi:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&acirc;&#128;&ordf;&auml;&cedil;&shy;&aelig;&#150;&#135;(&ccedil;&reg;&#128;&auml;&frac12;&#147;)&acirc;&#128;&not;
+(http://wiki.openstreetmap.org/w/index.php?title=Zh-hans:API_v0.6&amp;action=edit&amp;redlink=1)
+&acirc;&#128;&cent;
+&acirc;&#128;&ordf;&auml;&cedil;&shy;&aelig;&#150;&#135;(&ccedil;&sup1;&#129;&eacute;&lchevron;&#148;)&acirc;&#128;&not;
+(http://wiki.openstreetmap.org/w/index.php?title=Zh-hant:API_v0.6&amp;action=edit&amp;redlink=1)</p>
+<p>show (http://wiki.openstreetmap.org/wiki/API_v0.6#)</p>
+<p><strong>API v0.6</strong> is the <em>current</em> version of the OSM API
+(http://wiki.openstreetmap.org/wiki/API) deployed 17-21 April 2009.</p>
+<p>
+</p>
+<h2><a name="contents">Contents</a></h2>
+<p>[hide (javascript:toggleToc())]</p>
+<ul>
+<li><strong><a name="information" class="item">1 General information
+(http://wiki.openstreetmap.org/wiki/API_v0.6#General_information)</a></strong>
+
+<ul>
+<li><strong><a name="authentication" class="item">1.1 URL + Authentication
+(http://wiki.openstreetmap.org/wiki/API_v0.6#URL_.2B_Authentication)</a></strong>
+
+</li>
+<li><strong><a name="elements" class="item">1.2 Elements
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Elements)</a></strong>
+
+</li>
+<li><strong><a name="changesets" class="item">1.3 Changesets
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets)</a></strong>
+
+</li>
+<li><strong><a name="tags" class="item">1.4 Tags (http://wiki.openstreetmap.org/wiki/API_v0.6#Tags)</a></strong>
+
+</li>
+<li><strong><a name="users" class="item">1.5 Reliably identifying users
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Reliably_identifying_users)</a></strong>
+
+</li>
+<li><strong><a name="locking" class="item">1.6 Version numbers/Optimistic locking
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Version_numbers.2FOptimistic_locking)</a></strong>
+
+</li>
+<li><strong><a name="format" class="item">1.7 XML Format
+(http://wiki.openstreetmap.org/wiki/API_v0.6#XML_Format)</a></strong>
+
+</li>
+<li><strong><a name="methods" class="item">1.8 Faking the correct HTTP methods
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Faking_the_correct_HTTP_methods)</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="calls" class="item">2 API calls
+(http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls)</a></strong>
+
+<ul>
+<li><strong><a name="miscellaneous" class="item">2.1 Miscellaneous
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Miscellaneous)</a></strong>
+
+<ul>
+<li><strong><a name="capabilities" class="item">2.1.1 Capabilities: GET /api/capabilities
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities)</a></strong>
+
+<ul>
+<li><strong><a name="response" class="item">2.1.1.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response)</a></strong>
+
+</li>
+<li><strong><a name="notes" class="item">2.1.1.2 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes)</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="map" class="item">2.1.2 Retrieving map data by bounding box: GET /api/0.6/map
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Retrieving_map_data_by_bounding_box:_GET_.2Fapi.2F0.6.2Fmap)</a></strong>
+
+<ul>
+<li><strong><a name="codes" class="item">2.1.2.1 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes)</a></strong>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2.2 Changesets
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2)</strong>
+
+<ul>
+<li><strong><a name="computation" class="item">2.2.1 Bounding box computation
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Bounding_box_computation)</a></strong>
+
+</li>
+<li><strong><a name="create" class="item">2.2.2 Create: PUT /api/0.6/changeset/create
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Create:_PUT_.2Fapi.2F0.6.2Fchangeset.2Fcreate)</a></strong>
+
+<ul>
+<li><strong>2.2.2.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_2)</strong>
+
+</li>
+<li><strong>2.2.2.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_2)</strong>
+
+</li>
+<li><strong>2.2.2.3 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_2)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="id" class="item">2.2.3 Read: GET /api/0.6/changeset/#id
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id)</a></strong>
+
+<ul>
+<li><strong><a name="parameters" class="item">2.2.3.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters)</a></strong>
+
+</li>
+<li><strong>2.2.3.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_3)</strong>
+
+</li>
+<li><strong>2.2.3.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_3)</strong>
+
+</li>
+<li><strong>2.2.3.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_3)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.2.4 Update: PUT /api/0.6/changeset/#id
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Update:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id)</strong>
+
+<ul>
+<li><strong>2.2.4.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_2)</strong>
+
+</li>
+<li><strong>2.2.4.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_4)</strong>
+
+</li>
+<li><strong>2.2.4.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_4)</strong>
+
+</li>
+<li><strong>2.2.4.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_4)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="close" class="item">2.2.5 Close: PUT /api/0.6/changeset/#id/close
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Close:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fclose)</a></strong>
+
+<ul>
+<li><strong>2.2.5.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_3)</strong>
+
+</li>
+<li><strong>2.2.5.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_5)</strong>
+
+</li>
+<li><strong>2.2.5.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_5)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="download" class="item">2.2.6 Download: GET /api/0.6/changeset/#id/download
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload)</a></strong>
+
+<ul>
+<li><strong>2.2.6.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_4)</strong>
+
+</li>
+<li><strong>2.2.6.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_6)</strong>
+
+</li>
+<li><strong>2.2.6.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_6)</strong>
+
+</li>
+<li><strong>2.2.6.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_5)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="expand_bbox" class="item">2.2.7 Expand Bounding Box: POST
+/api/0.6/changeset/#id/expand_bbox
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Expand_Bounding_Box:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fexpand_bbox)</a></strong>
+
+<ul>
+<li><strong>2.2.7.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_5)</strong>
+
+</li>
+<li><strong>2.2.7.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_7)</strong>
+
+</li>
+<li><strong>2.2.7.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_7)</strong>
+
+</li>
+<li><strong>2.2.7.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_6)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="changesets" class="item">2.2.8 Query: GET /api/0.6/changesets
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets)</a></strong>
+
+<ul>
+<li><strong>2.2.8.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_6)</strong>
+
+</li>
+<li><strong>2.2.8.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_8)</strong>
+
+</li>
+<li><strong>2.2.8.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_8)</strong>
+
+</li>
+<li><strong>2.2.8.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_7)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="2_2_9_diff_upload_post_api_0_6_changeset_id_upload" class="item">2.2.9 Diff upload: POST /api/0.6/changeset/#id/upload</a></strong>
+
+<ul>
+<li><strong>2.2.9.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_7)</strong>
+
+</li>
+<li><strong>2.2.9.2 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_9)</strong>
+
+</li>
+<li><strong>2.2.9.3 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_9)</strong>
+
+</li>
+<li><strong>2.2.9.4 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_8)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="summary" class="item">2.2.10 Changeset summary
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Changeset_summary)</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.3 Elements
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Elements_2)</strong>
+
+<ul>
+<li><strong>2.3.1 Create: PUT /api/0.6/[node|way|relation]/create
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Create:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2Fcreate)</strong>
+
+<ul>
+<li><strong>2.3.1.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_10)</strong>
+
+</li>
+<li><strong>2.3.1.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_10)</strong>
+
+</li>
+<li><strong>2.3.1.3 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_9)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.3.2 Read: GET /api/0.6/[node|way|relation]/#id
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id)</strong>
+
+<ul>
+<li><strong>2.3.2.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_11)</strong>
+
+</li>
+<li><strong>2.3.2.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_11)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.3.3 Update: PUT /api/0.6/[node|way|relation]/#id
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Update:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id)</strong>
+
+<ul>
+<li><strong>2.3.3.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_12)</strong>
+
+</li>
+<li><strong>2.3.3.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_12)</strong>
+
+</li>
+<li><strong>2.3.3.3 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_10)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.3.4 Delete: DELETE /api/0.6/[node|way|relation]/#id
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Delete:_DELETE_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id)</strong>
+
+<ul>
+<li><strong>2.3.4.1 Response
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Response_13)</strong>
+
+</li>
+<li><strong>2.3.4.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_13)</strong>
+
+</li>
+<li><strong>2.3.4.3 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_11)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="history" class="item">2.3.5 History: GET /api/0.6/[node|way|relation]/#id/history
+(http://wiki.openstreetmap.org/wiki/API_v0.6#History:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Fhistory)</a></strong>
+
+<ul>
+<li><strong>2.3.5.1 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_14)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="version" class="item">2.3.6 Version: GET /api/0.6/[node|way|relation]/#id/#version
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Version:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2F.23version)</a></strong>
+
+<ul>
+<li><strong>2.3.6.1 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_15)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="2_3_7_multi_fetch_get_api_0_6_nodes_ways_relations_http_wiki_openstreetmap_org_wiki_api_v0_6_multi_fetch_get_2fapi_2f0_6_2f_5bnodes_7cways_7crelations_5d" class="item">2.3.7 Multi fetch: GET /api/0.6/[nodes|ways|relations]
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Multi_fetch:_GET_.2Fapi.2F0.6.2F.5Bnodes.7Cways.7Crelations.5D)</a></strong>
+
+<ul>
+<li><strong>2.3.7.1 Parameters
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_8)</strong>
+
+</li>
+<li><strong>2.3.7.2 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_16)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="relations" class="item">2.3.8 Relations for Element: GET
+/api/0.6/[node|way|relation]/#id/relations
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Relations_for_Element:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Frelations)</a></strong>
+
+<ul>
+<li><strong>2.3.8.1 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_12)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="ways" class="item">2.3.9 Ways for Node: GET /api/0.6/node/#id/ways
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Ways_for_Node:_GET_.2Fapi.2F0.6.2Fnode.2F.23id.2Fways)</a></strong>
+
+<ul>
+<li><strong>2.3.9.1 Notes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_13)</strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="full" class="item">2.3.10 Full: GET /api/0.6/[way|relation]/#id/full
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Full:_GET_.2Fapi.2F0.6.2F.5Bway.7Crelation.5D.2F.23id.2Ffull)</a></strong>
+
+<ul>
+<li><strong>2.3.10.1 Error codes
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_17)</strong>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><a name="traces" class="item">2.4 GPS Traces
+(http://wiki.openstreetmap.org/wiki/API_v0.6#GPS_Traces)</a></strong>
+
+<ul>
+<li><strong><a name="points" class="item">2.4.1 Retrieving GPS points
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Retrieving_GPS_points)</a></strong>
+
+<ul>
+<li><strong><a name="examples" class="item">2.4.1.1 Examples
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Examples)</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong>2.4.2 Uploading Traces
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Uploading_Traces)</strong>
+
+</li>
+<li><strong><a name="metadata" class="item">2.4.3 Downloading Trace Metadata
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Downloading_Trace_Metadata)</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="data" class="item">2.5 Methods for User Data
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Methods_for_User_Data)</a></strong>
+
+<ul>
+<li><strong><a name="details" class="item">2.5.1 Details
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Details)</a></strong>
+
+</li>
+<li><strong><a name="preferences" class="item">2.5.2 Preferences
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Preferences)</a></strong>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><a name="api" class="item">3 When NOT to use the API
+(http://wiki.openstreetmap.org/wiki/API_v0.6#When_NOT_to_use_the_API)</a></strong>
+
+</li>
+<li><strong><a name="reading" class="item">4 Further Reading
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Further_Reading)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="general_information">General information</a></h1>
+<p>This API is based on the ideas of the RESTful API. For more information
+on RESTful APIs see wikipedia's Representational State Transfer page
+(http://en.wikipedia.org/wiki/Representational_State_Transfer).</p>
+<p>The API is the server component to which REST requests are addressed.
+The REST requests take the form of HTTP GET, PUT, POST, and DELETE
+messages. Any payload is in XML form, using the MIME type &quot;text/xml&quot;
+and UTF-8 character encoding, and may be compressed on the HTTP layer
+if the client indicates through the HTTP &quot;Accept&quot; header that it can
+handle compressed messages.</p>
+<p>Requests to modify the database are authorized using <em>HTTP Basic
+Authorization</em> or <em>OAuth (http://wiki.openstreetmap.org/wiki/OAuth)</em>.
+Read requests do not require authorization (except user details).</p>
+<p>Preliminary Full DTD
+(http://wiki.openstreetmap.org/wiki/OSM_Protocol_Version_0.6/DTD)
+(under construction and discussion).</p>
+<p>Changes between API v0.5 and API v0.6
+(http://wiki.openstreetmap.org/wiki/OSM_Protocol_Changes_V0.5_to_V0.6)</p>
+<p>
+</p>
+<h2><a name="url___authentication">URL + Authentication</a></h2>
+<p>The API is currently accessible using the following URL:
+<strong><a href="http://api.openstreetmap.org/">http://api.openstreetmap.org/</a> (http://api.openstreetmap.org/)</strong></p>
+<p>If you want to test your software against the API you should consider
+using <strong><a href="http://api06.dev.openstreetmap.org/">http://api06.dev.openstreetmap.org/</a>
+(http://api06.dev.openstreetmap.org/)</strong> instead of the live-api.</p>
+<p>All of the calls to the API which update, create or delete data have to
+be made by an authenticated and authorized user. Authentication works
+by using HTTP Basic authentication using an user name and password or
+by using OAuth (http://wiki.openstreetmap.org/wiki/OAuth).</p>
+<p>
+</p>
+<h2><a name="elements">Elements</a></h2>
+<p>There are API calls to create, read, update and delete the three basic
+elements (http://wiki.openstreetmap.org/wiki/Elements) that make up the
+map data for OpenStreetMap. They each return or expect the data for the
+elements in a XML format.</p>
+<p>
+</p>
+<h2><a name="changesets">Changesets</a></h2>
+<p>Every modification of one or more of the elements has to reference an
+open changeset
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2).</p>
+<p>
+</p>
+<h2><a name="tags">Tags</a></h2>
+<p>Every element and changeset may have any number of tags. A tag is a
+Key-Value pair of Unicode strings of up to 255 characters (full Unicode
+characters, not bytes).</p>
+<p>
+</p>
+<h2><a name="reliably_identifying_users">Reliably identifying users</a></h2>
+<p>The previous API v0.5 returned only the user display name. The user can
+update this at any time and there is no history stored for display name
+changes. This means there was no way to reliably identify which user
+made a specific change. API v0.6 includes the numeric user ID of the
+account in addition to the display name. e.g.</p>
+<pre>
+ &lt;node id=&quot;68&quot; ... user=&quot;fred&quot; uid=&quot;123&quot;/&gt;</pre>
+<p>This still requires the user to have made his edits public. User ID for
+users who have previously made anonymous changes will not be visible.
+In accordance with a recommendation from the OpenStreetMap Foundation
+Board, anonymous edits
+(http://wiki.openstreetmap.org/wiki/Anonymous_edits) are no longer be
+allowed.</p>
+<p>
+</p>
+<h2><a name="version_numbers_optimistic_locking">Version numbers/Optimistic locking</a></h2>
+<p>The planet dump, diffs and the API calls for elements will return a
+<em>version</em> attribute for each <em>Node</em>, <em>Way</em> and <em>Relation</em>.</p>
+<pre>
+ &lt;node id=&quot;68&quot; ... version=&quot;12&quot;/&gt;</pre>
+<p>These version numbers are used for <em>optimistic locking</em>. To upload a
+new version of an object, the client will need to provide the version
+of the object it is modifying. If the version supplied is not the same
+as the server's current version, an error will be returned (HTTP status
+code 409: Conflict). This means that any client that is updating data
+will need to save the version numbers of the original data. One element
+can be updated multiple times during one changeset and its version
+number is increased each time so there can be multiple <em>history
+versions</em> of a single element for one changeset.</p>
+<p>In addition, clients can now ask for specific versions of an element.</p>
+<p>Version numbers will always begin at <em>1</em> and increase by 1 every time
+an element is changed. Clients should not, however, rely on the
+increase by 1 when updating an element, but instead retrieve the new
+version number from the server response.</p>
+<p>
+</p>
+<h2><a name="xml_format">XML Format</a></h2>
+<p>Every XML response from the server is wrapped in an <code>&lt;osm&gt;</code>
+element unless specified otherwise (e.g. for diff uploads, or changeset
+downloads). In most of the later examples this wrapper is left out.</p>
+<pre>
+ &lt;osm version=&quot;0.6&quot; generator=&quot;OpenStreetMap server&quot;&gt;
+   ...
+   ...
+ &lt;/osm&gt;</pre>
+<p>Every call to the API has to be wrapped in an <code>&lt;osm&gt;</code> element
+as well but the <em>version</em> and <em>generator</em> attributes can be left out.</p>
+<p>
+</p>
+<h2><a name="faking_the_correct_http_methods">Faking the correct HTTP methods</a></h2>
+<p>Many of the API calls use PUT and DELETE methods, which may not be
+available in the client HTTP stack you are using. You should complain
+to the authors of that stack that it is not a full HTTP implementation.
+If that doesn't work, then there is a work-around by putting the
+X_HTTP_METHOD_OVERRIDE header with the value of the method you want to
+simulate. For example, to make curl do a POST, but use the PUT handler,
+do:</p>
+<pre>
+ curl -v -v -d @changeset.osm -H &quot;X_HTTP_METHOD_OVERRIDE: PUT&quot; &quot;<a href="http://server/api/0.6/changeset/create&quot">http://server/api/0.6/changeset/create&quot</a>;</pre>
+<p>
+</p>
+<hr />
+<h1><a name="api_calls">API calls</a></h1>
+<p>Here we will list the api calls :</p>
+<p>
+</p>
+<h2><a name="miscellaneous_capabilities__get__api_capabilities">Miscellaneous Capabilities: <code>GET /api/capabilities</code></a></h2>
+<p>This API call is meant to provide information about the capabilities
+and limitations of the current API.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns a XML document (content type <code>text/xml</code>)</p>
+<pre>
+ &lt;osm version=&quot;0.6&quot; generator=&quot;OpenStreetMap server&quot;&gt;
+   &lt;api&gt;
+     &lt;version minimum=&quot;0.6&quot; maximum=&quot;0.6&quot;/&gt;
+     &lt;area maximum=&quot;0.25&quot;/&gt;
+     &lt;tracepoints per_page=&quot;5000&quot;/&gt;
+     &lt;waynodes maximum=&quot;2000&quot;/&gt;
+     &lt;changesets maximum_elements=&quot;50000&quot;/&gt;
+     &lt;timeout seconds=&quot;300&quot;/&gt;
+   &lt;/api&gt;
+ &lt;/osm&gt;</pre>
+<p>Please note that actual returned values may change at any time and this
+XML document only serves as an example.</p>
+<ul>
+<li><strong><a name="version_minimum_and_maximum_are_the_api_call_versions_that_the_server_will_accept" class="item">Version minimum and maximum are the API call versions that the
+server will accept.</a></strong>
+
+</li>
+<li><strong><a name="area_maximum_is_the_maximum_area_in_square_degrees_that_can_be_queried_by_api_calls" class="item">Area maximum is the maximum area in square degrees that can be
+queried by API calls.</a></strong>
+
+</li>
+<li><strong><a name="tracepoints_per_page_is_the_maximum_number_of_points_in_a_single_gps_trace_possibly_incorrect" class="item">Tracepoints per_page is the maximum number of points in a
+single GPS trace. (Possibly incorrect)</a></strong>
+
+</li>
+<li><strong><a name="waypoints_maximum_is_the_maximum_number_of_nodes_that_a_way_may_contain" class="item">Waypoints maximum is the maximum number of nodes that a way may
+contain.</a></strong>
+
+</li>
+<li><strong><a name="changesets_maximum_is_the_maximum_number_of_combined_nodes_ways_and_relations_that_can_be_contained_in_a_changeset" class="item">Changesets maximum is the maximum number of combined nodes,
+ways and relations that can be contained in a changeset.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="note_that_the_url_is_versionless_for_convenience_the_server_supports_the_request_api_0_6_capabilities_too_such_that_clients_can_use_the_same_url_prefix_http_api_0_6_for_all_requests" class="item">Note that the URL is versionless. For convenience, the server
+supports the request <code>/api/0.6/capabilities</code> too, such that clients
+can use the same URL prefix <code>http:/.../api/0.6</code> for all requests.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="retrieving_map_data_by_bounding_box__get__api_0_6_map">Retrieving map data by bounding box: <code>GET /api/0.6/map</code></a></h2>
+<p>The following command returns:</p>
+<ul>
+<li><strong><a name="all_nodes_that_are_inside_a_given_bounding_box_and_any_relations_that_reference_them" class="item">All nodes that are inside a given bounding box and any
+relations that reference them.</a></strong>
+
+</li>
+<li><strong><a name="all_ways_that_reference_at_least_one_node_that_is_inside_a_given_bounding_box_any_relations_that_reference_them_the_ways_and_any_nodes_outside_the_bounding_box_that_the_ways_may_reference" class="item">All ways that reference at least one node that is inside a
+given bounding box, any relations that reference them [the ways], and
+any nodes outside the bounding box that the ways may reference.</a></strong>
+
+</li>
+<li><strong><a name="all_relations_that_reference_one_of_the_nodes_or_ways_included_due_to_the_above_rules_does_not_apply_recursively" class="item">All relations that reference one of the nodes or ways included
+due to the above rules. (Does <strong>not</strong> apply recursively.)</a></strong>
+
+</li>
+</ul>
+<pre>
+ GET /api/0.6/map?bbox=left,bottom,right,top</pre>
+<p>where:</p>
+<ul>
+<li><strong><a name="left" class="item"><code>left</code> is the longitude of the left (westernmost) side of
+the bounding box.</a></strong>
+
+</li>
+<li><strong><a name="bottom" class="item"><code>bottom</code> is the latitude of the bottom (southernmost) side
+of the bounding box.</a></strong>
+
+</li>
+<li><strong><a name="right" class="item"><code>right</code> is the longitude of the right (easternmost) side of
+the bounding box.</a></strong>
+
+</li>
+<li><strong><a name="top" class="item"><code>top</code> is the latitude of the top (northernmost) side of the
+bounding box.</a></strong>
+
+</li>
+</ul>
+<p>Note that, while this command returns those relations that reference
+the aforementioned nodes and ways, the reverse is not true: it does not
+(necessarily) return all of the nodes and ways that are referenced by
+these relations. This prevents unreasonably-large result sets. For
+example, imagine the case where:</p>
+<ul>
+<li><strong><a name="there_is_a_relationship_named_england_that_references_every_node_in_england" class="item">There is a relationship named &quot;England&quot; that references every
+node in England.</a></strong>
+
+</li>
+<li><strong><a name="the_nodes_ways_and_relations_are_retrieved_for_a_bounding_box_that_covers_a_small_portion_of_england" class="item">The nodes, ways, and relations are retrieved for a bounding box
+that covers a small portion of England.</a></strong>
+
+</li>
+</ul>
+<p>While the result would include the nodes, ways, and relations as
+specified by the rules for the command, including the &quot;England&quot;
+relation, it would (fortuitously) <em>not</em> include <em>every</em> node and way
+in England. If desired, the nodes and ways referenced by the &quot;England&quot;
+relation could be retrieved by their respective IDs.</p>
+<p>Also note that ways which intersect the bounding box but have no nodes
+within the bounding box will not be returned.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong><a name="400" class="item">HTTP status code 400 (Bad Request)</a></strong></dt>
+
+<dd>
+<p>When any of the node/way/relation limits are crossed</p>
+</dd>
+</dl>
+<dl>
+<dt><strong><a name="509" class="item">HTTP status code 509 (Bandwidth Limit Exceeded)</a></strong></dt>
+
+<dd>
+<p>&quot;Error: You have downloaded too much data. Please try again later.&quot; See
+Developer FAQ
+(http://wiki.openstreetmap.org/wiki/Developer_FAQ#I.27ve_been_blocked_from_the_API_for_downloading_too_much._Now_what.3F).</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="changesets">Changesets</a></h2>
+<p>To make it easier to identify related changes the concept of changesets
+is introduced. Every modification of the standard OSM elements has to
+reference an open changeset. A changeset may contain tags just like the
+other elements. A recommended tag for changesets is the key <code>comment
+(http://wiki.openstreetmap.org/wiki/Key:comment)=*</code> with a short human
+readable description of the changes being made in that changeset,
+similar to a commit message in a revision control system. A new
+changeset can be opened at any time and a changeset may referenced from
+multiple API calls. Because of this it can be closed manually as the
+server can't know when one changeset ends and another should begin. To
+avoid stale open changesets a mechanism is implemented to automatically
+close changesets upon one of the following three conditions:</p>
+<ul>
+<li><strong><a name="limits" class="item">More than 50.000 edits on a single changeset See more specific
+limits (http://wiki.openstreetmap.org/wiki/API_v0.6#New_Limits)</a></strong>
+
+</li>
+<li><strong><a name="the_changeset_has_been_open_for_more_than_24_hours" class="item">The changeset has been open for more than 24 hours</a></strong>
+
+</li>
+<li><strong><a name="hour" class="item">There have been no changes/API calls related to a changeset in
+1 hour (i.e. idle timeout)</a></strong>
+
+</li>
+</ul>
+<p>Changesets are specifically <em>not</em> atomic - elements added within a
+changeset will be visible to other users before the changeset is
+closed. Given how many changes might be uploaded in one step it's not
+feasible. Instead optimistic locking is used as described above.
+Anything submitted to the server in a single request will be considered
+atomically. To achieve transactionality for multiple changes there is
+the new <em>diff upload</em> API call.</p>
+<p>Changesets facilitate the implementation of rollbacks. By providing
+insight into the changes committed by a single person it becomes easier
+to identify the changes made, rather than just rolling back a whole
+region. Direct support for rollback will not be in the API, instead
+they will be a form of reverse merging, where client can download the
+changeset, examine the changes and then manipulate the API to obtain
+the desired results. Rolling back a changeset can be be an extremely
+complex process especially if the rollback conflicts with other changes
+made in the mean time; we expect (hope) that in time, expert
+applications will be created that make rollback on various levels
+available to the average user.</p>
+<p>To support easier usage, the server stores a bounding box for each
+changeset and allows users to query changesets in an area. This will be
+calculated by the server, since it needs to look up the relevant nodes
+anyway. As an optimisation the server will create a buffer slightly
+larger than the objects to avoid having to update the bounding box too
+often. Client should note that if people make many small changes in a
+large area they will be easily matched. In this case clients should
+examine the changeset directly to see if it truly overlaps. A client
+can expand the bounding box manually using an API call, which can be
+useful when the client already knows the full extent of the data it is
+about to upload.</p>
+<p>It is not possible to delete changesets at the moment, even if they
+don't contain any changes. The server may at a later time delete
+changesets which are closed and which do not contain any changes. This
+is not yet implemented.</p>
+<p>
+</p>
+<h2><a name="bounding_box_computation">Bounding box computation</a></h2>
+<p>This is how the API computes the bounding box associated with a
+changeset:</p>
+<ul>
+<li><strong><a name="nodes_any_change_to_a_node_including_deletion_adds_the_node_s_old_and_new_location_to_the_bbox" class="item">Nodes: Any change to a node, including deletion, adds the
+node's old and new location to the bbox.</a></strong>
+
+</li>
+<li><strong><a name="ways_any_change_to_a_way_including_deletion_adds_all_of_the_way_s_nodes_to_the_bbox" class="item">Ways: Any change to a way, including deletion, adds all of the
+way's nodes to the bbox.</a></strong>
+
+</li>
+<li><strong><a name="relations" class="item">Relations:</a></strong>
+
+</li>
+</ul>
+<ul>
+<li><strong><a name="adding_or_removing_nodes_or_ways_from_a_relation_causes_them_to_be_added_to_the_changeset_bounding_box" class="item">adding or removing nodes or ways from a relation causes them to
+be added to the changeset bounding box.</a></strong>
+
+</li>
+<li><strong><a name="adding_a_relation_member_or_changing_tag_values_causes_all_node_and_way_members_to_be_added_to_the_bounding_box" class="item">adding a relation member or changing tag values causes all node
+and way members to be added to the bounding box.</a></strong>
+
+</li>
+<li><strong><a name="this_is_similar_to_how_the_map_call_does_things_and_is_reasonable_on_the_assumption_that_adding_or_removing_members_doesn_t_materially_change_the_rest_of_the_relation" class="item">this is similar to how the map call does things and is
+reasonable on the assumption that adding or removing members doesn't
+materially change the rest of the relation.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="create__put__api_0_6_changeset_create">Create: <code>PUT /api/0.6/changeset/create</code></a></h2>
+<p>The payload of a changeset creation request has to be one or more
+<code>changeset</code> elements optionally including an arbitrary number of tags.</p>
+<pre>
+ &lt;osm&gt;
+   &lt;changeset&gt;
+     &lt;tag k=&quot;created_by&quot; v=&quot;JOSM 1.61&quot;/&gt;
+     &lt;tag k=&quot;comment&quot; v=&quot;Just adding some streetnames&quot;/&gt;
+     ...
+   &lt;/changeset&gt;
+   ...
+ &lt;/osm&gt;</pre>
+<p>If there are multiple <code>changeset</code> elements in the XML the tags from
+all of them are used, later ones overriding the earlier ones in case of
+duplicate keys.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>The ID of the newly created changeset with a content type of
+<code>text/plain</code></p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request)</strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML</p>
+</dd>
+<dt><strong><a name="405" class="item">HTTP status code 405 (Method Not Allowed)</a></strong></dt>
+
+<dd>
+<p>If the request is not a HTTP PUT request</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<p>Any number of possibly editor-specific, tags are allowed. An editor
+might, for example, automatically include information about which
+background image was used, or even a bit of internal state information
+that will make it easier to revisit the changeset with the same editor
+later, etc.</p>
+<p>Clients <em>should</em> include a <code>created_by
+(http://wiki.openstreetmap.org/wiki/Key:created_by)=*</code> tag. Clients are
+advised to make sure that a <code>comment
+(http://wiki.openstreetmap.org/wiki/Key:comment)=*</code> is present, which
+the user has entered. It is optional at the moment but this <em>might</em>
+change in later API versions. Clients <em>should not</em> automatically
+generate the comment tag, as this tag is for the end-user to describe
+their changes. Clients <em>may</em> add any other tags as they see fit.</p>
+<p>
+</p>
+<h2><a name="read__get__api_0_6_changeset__id">Read: <code>GET /api/0.6/changeset/#id</code></a></h2>
+<p>Returns the changeset with the given <a href="#id"><code>id</code></a> in OSM-XML format.</p>
+<pre>
+ &lt;osm&gt;
+   &lt;changeset id=&quot;10&quot; user=&quot;fred&quot; uid=&quot;123&quot; created_at=&quot;2008-11-08T19:07:39+01:00&quot; open=&quot;true&quot; min_lon=&quot;7.0191821&quot; min_lat=&quot;49.2785426&quot; max_lon=&quot;7.0197485&quot; max_lat=&quot;49.2793101&quot;&gt;
+     &lt;tag k=&quot;created_by&quot; v=&quot;JOSM 1.61&quot;/&gt;
+     &lt;tag k=&quot;comment&quot; v=&quot;Just adding some streetnames&quot;/&gt;
+     ...
+  &lt;/changeset&gt;
+ &lt;/osm&gt;</pre>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The id of the changeset to retrieve</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns the single changeset element containing the changeset tags with
+a content type of <code>text/xml</code></p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong><a name="404" class="item">HTTP status code 404 (Not Found)</a></strong></dt>
+
+<dd>
+<p>When no changeset with the given id could be found</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="the_uid_might_not_be_available_for_changesets_auto_generated_by_the_api_v0_5_to_api_v0_6_transition" class="item">The <code>uid</code> might not be available for changesets auto generated
+by the API v0.5 to API v0.6 transition?</a></strong>
+
+</li>
+<li><strong><a name="the_bounding_box_attributes_will_be_missing_for_an_empty_changeset" class="item">The bounding box attributes will be missing for an empty
+changeset.</a></strong>
+
+</li>
+<li><strong><a name="the_changeset_bounding_box_is_a_rectangle_that_contains_the_bounding_boxes_of_all_objects_changed_in_this_changeset_it_is_not_necessarily_the_smallest_possible_rectangle_that_does_so" class="item">The changeset bounding box is a rectangle that contains the
+bounding boxes of all objects changed in this changeset. It is not
+necessarily the smallest possible rectangle that does so.</a></strong>
+
+</li>
+<li><strong><a name="this_api_call_only_returns_information_about_the_changeset_itself_but_not_the_actual_changes_made_to_elements_in_this_changeset_to_access_this_information_use_the_download_api_call" class="item">This API call only returns information about the changeset
+itself but not the actual changes made to elements in this changeset.
+To access this information use the <em>download</em> API call.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="update__put__api_0_6_changeset__id">Update: <code>PUT /api/0.6/changeset/#id</code></a></h2>
+<p>For updating tags on the changeset, e.g. changeset <code>comment
+(http://wiki.openstreetmap.org/wiki/Key:comment)=foo
+(http://wiki.openstreetmap.org/w/index.php?title=Tag:comment%3Dfoo&amp;action=edit&amp;redlink=1)</code>.</p>
+<p>Payload should be an OSM document containing the new version of a
+single changeset. Bounding box, update time and other attributes are
+ignored and cannot be updated by this method. For updating the bounding
+box see the <em>expand_bbox</em> method.</p>
+<pre>
+ &lt;osm&gt;
+   &lt;changeset&gt;
+     &lt;tag k=&quot;comment&quot; v=&quot;Just adding some streetnames and a restaurant&quot;/&gt;
+   &lt;/changeset&gt;
+ &lt;/osm&gt;</pre>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The id of the changeset to update. The user issuing this API call has
+to be the same that created the changeset</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>An OSM document containing the new version of the changeset with a
+content type of <code>text/xml</code></p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request)</strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML</p>
+</dd>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no changeset with the given id could be found</p>
+</dd>
+<dt><strong>HTTP status code 405 (Method Not Allowed)</strong></dt>
+
+<dd>
+<p>If the request is not a HTTP PUT request</p>
+</dd>
+<dt><strong><a name="409" class="item">HTTP status code 409 (Conflict) - <code>text/plain</code></a></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<p>Unchanged tags have to be repeated in order to not be deleted.</p>
+<p>
+</p>
+<h2><a name="close__put__api_0_6_changeset__id_close">Close: <code>PUT /api/0.6/changeset/#id/close</code></a></h2>
+<p>Closes a changeset. A changeset may already have been closed without
+the owner issuing this API call. In this case an error code is
+returned.</p>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The id of the changeset to close. The user issuing this API call has to
+be the same that created the changeset.</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Nothing is returned upon successful closing of a changeset (HTTP status
+code 200)</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no changeset with the given id could be found</p>
+</dd>
+<dt><strong>HTTP status code 405 (Method Not Allowed)</strong></dt>
+
+<dd>
+<p>If the request is not a HTTP PUT request</p>
+</dd>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="download__get__api_0_6_changeset__id_download">Download: <code>GET /api/0.6/changeset/#id/download</code></a></h2>
+<p>Returns the OsmChange (http://wiki.openstreetmap.org/wiki/OsmChange)
+document describing all changes associated with the changeset.</p>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The id of the changeset for which the OsmChange is requested.</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>The OsmChange XML with a content type of <code>text/xml</code>.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no changeset with the given id could be found</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="the_result_of_calling_this_may_change_as_long_as_the_changeset_is_open" class="item">The result of calling this may change as long as the changeset
+is open.</a></strong>
+
+</li>
+<li><strong><a name="the_elements_in_the_osmchange_are_sorted_by_timestamp_and_version_number" class="item">The elements in the OsmChange are sorted by timestamp and
+version number.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="expand_bounding_box__post__api_0_6_changeset__id_expand_bbox">Expand Bounding Box: <code>POST /api/0.6/changeset/#id/expand_bbox</code></a></h2>
+<p>POSTing a XML document containing <em>node</em> elements (these <code>node</code>
+elements have nothing to do with the <em>Nodes</em> mentioned elsewhere in
+this page, they are merely a container for <em>lat</em> and <em>lon</em>
+attributes) that are to this location will cause the bounding box of
+the changeset to expand to <em>exactly</em> the smallest containing rectangle
+of the points given and the bounding box automatically calculated by
+the API. So this call can only <em>increase</em> the size of the bounding box
+and later additions to the changeset may override the expanded bounding
+box.</p>
+<p>The input document should look like this:</p>
+<pre>
+ &lt;osm&gt;
+   &lt;node lat=&quot;..&quot; lon=&quot;..&quot;/&gt;
+   &lt;node lat=&quot;..&quot; lon=&quot;..&quot;/&gt;
+   ...
+ &lt;/osm&gt;</pre>
+<p>The <em>osm</em> element may contain other elements than <em>node</em>, but these
+are ignored. The <em>node</em> element may contain other attributes
+(including <em>id</em>) than lat and lon, but these are ignored as well.</p>
+<p>This call is supported to give editors the chance to expand the
+bounding box that the API automatically computes for the changeset.
+There are cases where the editor will have extra knowledge that make it
+advisable to flag a larger area as <em>changed</em> than the API would guess
+from the changes alone. This call may also be used before uploading a
+large number of changes as a hint for the server which area will be
+affected.</p>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The id of the changeset for which the OsmChange is requested.</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns the updated changeset containing with a content type of
+<code>text/xml</code>.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no changeset with the given id could be found</p>
+</dd>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="i_don_t_know_if_there_are_really_any_advantages_in_issuing_a_expand_bbox_call_before_a_large_chunk_of_changes_is_uploaded" class="item">I don't know if there are really any advantages in issuing a
+<a href="#expand_bbox"><code>expand_bbox</code></a> call before a large chunk of changes is uploaded.</a></strong>
+
+</li>
+<li><strong><a name="as_the_reuse_of_node_as_a_xml_element_name_is_confusing_and_the_format_of_this_call_might_change_in_a_later_api_version" class="item">As the reuse of <code>node</code> as a XML element name is confusing and
+the format of this call might change in a later API version.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="query__get__api_0_6_changesets">Query: <code>GET /api/0.6/changesets</code></a></h2>
+<p>This is an API method for querying changesets. It supports querying by
+different criteria.</p>
+<p>Where multiple queries are given the result will be those which match
+all of the requirements. The contents of the returned document are the
+changesets and their tags. To get the full set of changes associated
+with a changeset, use the <em>download</em> method on each changeset ID
+individually.</p>
+<p>Modification and extension of the basic queries above may be required
+to support rollback and other uses we find for changesets.</p>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong><a name="max_lat" class="item">bbox=min_lon,min_lat,max_lon,max_lat (W,S,E,N)</a></strong></dt>
+
+<dd>
+<p>Find changesets within the given bounding box</p>
+</dd>
+<dt><strong><a name="user_uid_or_display_name_name" class="item">user=#uid <strong>or</strong> display_name=#name</a></strong></dt>
+
+<dd>
+<p>Find changesets by the user with the given user id or display name.
+Providing both is an error.</p>
+</dd>
+<dt><strong><a name="time_t1" class="item">time=T1</a></strong></dt>
+
+<dd>
+<p>Find changesets <em>closed</em> after T1</p>
+</dd>
+<dt><strong><a name="time_t1_t2" class="item">time=T1,T2</a></strong></dt>
+
+<dd>
+<p>Find changesets that were <em>closed</em> after T1 and <em>created</em> before T2</p>
+</dd>
+<dt><strong><a name="open" class="item">open</a></strong></dt>
+
+<dd>
+<p>Only finds changesets that are still <em>open</em> but excludes changesets
+that are closed or have reached the element limit for a changeset
+(50.000 at the moment)</p>
+</dd>
+<dt><strong><a name="closed" class="item">closed</a></strong></dt>
+
+<dd>
+<p>Only finds changesets that are <em>closed</em> or have reached the element
+limit</p>
+</dd>
+</dl>
+<p>Time format: Anything that this Ruby function
+(http://www.ruby-doc.org/core/classes/DateTime.html#M002825) will
+parse. The default str is
+&acirc;&#128;&#153;-4712-01-01T00:00:00+00:00&acirc;&#128;&#153;;
+this is Julian Day Number day 0.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns a list of all changeset ordered by creation date. The
+<code>&lt;osm&gt;</code> element may be empty if there were no results for the
+query. The response is send with a content type of <code>text/xml</code>.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>On misformed parameters. A text message explaining the error is
+returned. In particular, trying to provide both the UID and display
+name as user query parameters will result in this error.</p>
+</dd>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no user with the given <code>uid</code> or <code>display_name</code> could be found.</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="only_changesets_by_public_users_are_returned" class="item">Only changesets by public users are returned.</a></strong>
+
+</li>
+<li><strong><a name="i_m_not_sure_if_the_time_query_makes_sense_as_it_is_implemented_now_the_original_documentation_for_this_feature_states" class="item">I'm not sure if the time query makes sense as it is implemented
+now. The original documentation for this feature states:</a></strong>
+
+<ul>
+<li><strong><a name="one_sided_to_query_changesets_where_the_start_time_is_after_the_given_time" class="item">One-sided to query changesets where the start time is after the
+given time.</a></strong>
+
+</li>
+<li><strong><a name="bounded" class="item">Bounded (?time=T1,T2) to query where the start time is between
+the given times.</a></strong>
+
+</li>
+</ul>
+</li>
+<li><strong><a name="returns_at_most_100_changesets" class="item">Returns at most 100 changesets</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="diff_upload__post__api_0_6_changeset__id_upload">Diff upload: <code>POST /api/0.6/changeset/#id/upload</code></a></h2>
+<p>With this API call files in the OsmChange
+(http://wiki.openstreetmap.org/wiki/OsmChange) format can be uploaded
+to the server. This is guaranteed to be running in a transaction. So
+either all the changes are applied or none.</p>
+<p>To upload an OSC file it has to conform to the OsmChange
+(http://wiki.openstreetmap.org/wiki/OsmChange) specification with the
+following additions:</p>
+<ul>
+<li><strong><a name="each_element_must_carry_a_changeset_and_a_version_attribute_except_when_you_are_creating_an_element_where_the_version_is_not_required_as_the_server_sets_that_for_you_the_changeset_must_be_the_same_as_the_changeset_id_being_uploaded_to" class="item">each element must carry a <em>changeset</em> and a <em>version</em>
+attribute, except when you are creating an element where the version is
+not required as the server sets that for you. The <em>changeset</em> must be
+the same as the changeset ID being uploaded to.</a></strong>
+
+</li>
+</ul>
+<ul>
+<li><strong><a name="attribute" class="item">a &lt;delete&gt; block in the OsmChange document may have an
+<em>if-unused</em> attribute (the value of which is ignored). If this
+attribute is present, then the delete operation(s) in this block are
+conditional and will only be executed if the object to be deleted is
+not used by another object. Without the <em>if-unused</em>, such a situation
+would lead to an error, and the whole diff upload would fail.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong>id</strong></dt>
+
+<dd>
+<p>The ID of the changeset this diff belongs to.</p>
+</dd>
+<dt><strong><a name="post_data" class="item">POST data</a></strong></dt>
+
+<dd>
+<p>The OsmChange file data</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>If a diff is successfully applied a XML (content type <code>text/xml</code>) is
+returned in the following format</p>
+<pre>
+ &lt;diffResult generator=&quot;OpenStreetMap Server&quot; version=&quot;0.6&quot;&gt;
+   &lt;node|way|relation old_id=&quot;#&quot; new_id=&quot;#&quot; new_version=&quot;#&quot;/&gt;
+   ...
+ &lt;/diffResult&gt;</pre>
+<p>with one element for every element in the upload. Note that this can be
+counter-intuitive when the same element has appeared multiple times in
+the input then it will appear multiple times in the output.</p>
+<p>Attribute</p>
+<p>create</p>
+<p>modify</p>
+<p>delete</p>
+<p>old_id</p>
+<p>same as uploaded element.</p>
+<p>new_id</p>
+<p>new ID</p>
+<p>same as uploaded</p>
+<p>not present</p>
+<p>new_version</p>
+<p>new version</p>
+<p>not present</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML. A text message explaining the
+error is returned.</p>
+<p>When an placeholder ID is missing or not unique</p>
+</dd>
+<dt><strong>HTTP status code 405 (Method Not Allowed)</strong></dt>
+
+<dd>
+<p>If the request is not a HTTP POST request</p>
+</dd>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>If, while uploading, the max. size of the changeset is exceeded. A
+message with the format &quot;<code>The changeset #id was closed at
+#closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+<p>Or if the diff contains elements with changeset IDs which don't match
+the changeset ID that the diff was uploaded to</p>
+<p>Any of the error codes that could occur an a create, update or delete
+operation for one of the elements</p>
+<p>See the according sections in this page</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="processing_stops_at_the_first_error_so_if_there_are_multiple_conflicts_in_one_diff_upload_only_the_first_problem_is_reported" class="item">Processing stops at the first error, so if there are multiple
+conflicts in one diff upload, only the first problem is reported.</a></strong>
+
+</li>
+<li><strong><a name="there_is_currently_no_limit_in_the_diff_size_but_this_will_probably_be_changed_later" class="item">There is currently no limit in the diff size but this will
+probably be changed later.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="changeset_summary">Changeset summary</a></h2>
+<p>The procedure for successful creation of a changeset is summarized in
+the following picture:</p>
+<p>OSM API0.6 Changeset successful creation V0.1.png
+(http://wiki.openstreetmap.org/wiki/File:OSM_API0.6_Changeset_successful_creation_V0.1.png)</p>
+<p>
+</p>
+<h2><a name="elements">Elements</a></h2>
+<p>There are create, read, update and delete calls for all of the three
+basic elements in OpenStreetMap (<em>Nodes</em>, <em>Ways</em> and <em>Relations</em>).
+These calls are very similar except for the payload and a few special
+error messages so they are documented only once.</p>
+<p>
+</p>
+<h2><a name="create__put__api_0_6__node_way_relation__create">Create: <code>PUT /api/0.6/[node|way|relation]/create</code></a></h2>
+<p>Creates a new element of the specified type. Note that the entire
+request should be wrapped in a</p>
+<pre>
+ &lt;osm&gt;...&lt;/osm&gt;</pre>
+<p>element.</p>
+<p>A Node:</p>
+<pre>
+ &lt;osm&gt;
+  &lt;node changeset=&quot;12&quot; lat=&quot;...&quot; lon=&quot;...&quot;&gt;
+    &lt;tag k=&quot;note&quot; v=&quot;Just a node&quot;/&gt;
+    ...
+  &lt;/node&gt;
+ &lt;/osm&gt;</pre>
+<p>A Way:</p>
+<pre>
+ &lt;osm&gt;
+  &lt;way changeset=&quot;12&quot;&gt;
+    &lt;tag k=&quot;note&quot; v=&quot;Just a way&quot;/&gt;
+    ...
+    &lt;nd ref=&quot;123&quot;/&gt;
+    &lt;nd ref=&quot;4345&quot;/&gt;
+    ...
+  &lt;/way&gt;
+ &lt;/osm&gt;</pre>
+<p>A Relation:</p>
+<pre>
+ &lt;osm&gt;
+  &lt;relation changeset=&quot;12&quot;&gt;
+    &lt;tag k=&quot;note&quot; v=&quot;Just a relation&quot;/&gt;
+    ...
+    &lt;member type=&quot;node&quot; role=&quot;stop&quot; ref=&quot;123&quot;/&gt;
+    &lt;member type=&quot;way&quot; ref=&quot;234&quot;/&gt;
+  &lt;/relation&gt;
+ &lt;/osm&gt;</pre>
+<p>If multiple elements are provided only the first is created. The rest
+is discarded (this behaviour differs from changeset creation).</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>The ID of the newly created element (content type is <code>text/plain</code>)</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML. A text message explaining the
+error is returned.</p>
+<p>When a changeset ID is missing (unfortunately the error messages are
+not consistent)</p>
+<p>When a node is outside the world</p>
+<p>When there are too many nodes for a way</p>
+</dd>
+<dt><strong>HTTP status code 405 (Method Not Allowed)</strong></dt>
+
+<dd>
+<p>If the request is not a HTTP PUT request</p>
+</dd>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+<dt><strong><a name="412" class="item">HTTP status code 412 (Precondition Failed)</a></strong></dt>
+
+<dd>
+<p>When a way has nodes that do not exist or are not visible (i.e.
+deleted): &quot;<code>Way #{id} requires the nodes with id in (#{missing_ids}),
+which either do not exist, or are not visible.</code>&quot;</p>
+<p>When a relation has elements that do not exist or are not visible:
+&quot;<code>Relation with id #{id} cannot be saved due to #{element} with id
+#{element.id}</code>&quot;</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="this_updates_the_bounding_box_of_the_changeset" class="item">This updates the bounding box of the changeset.</a></strong>
+
+</li>
+<li><strong><a name="the_role_attribute_for_relations_is_optional_an_empty_string_is_the_default" class="item">The <em>role</em> attribute for relations is optional. An empty
+string is the default.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="read__get__api_0_6__node_way_relation___id">Read: <code>GET /api/0.6/[node|way|relation]/#id</code></a></h2>
+<p>Returns the XML representation of the element.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>XML representing the element, wrapped in an <code>&lt;osm&gt;</code> element:</p>
+<pre>
+ &lt;osm&gt;
+  &lt;node id=&quot;123&quot; lat=&quot;...&quot; lon=&quot;...&quot; version=&quot;142&quot; changeset=&quot;12&quot; user=&quot;fred&quot; uid=&quot;123&quot; visible=&quot;true&quot; timestamp=&quot;2005-07-30T14:27:12+01:00&quot;&gt;
+    &lt;tag k=&quot;note&quot; v=&quot;Just a node&quot;/&gt;
+    ...
+  &lt;/node&gt;
+ &lt;/osm&gt;</pre>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+<dt><strong><a name="410" class="item">HTTP status code 410 (Gone)</a></strong></dt>
+
+<dd>
+<p>If the element has been deleted</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="update__put__api_0_6__node_way_relation___id">Update: <code>PUT /api/0.6/[node|way|relation]/#id</code></a></h2>
+<p>Updates data from a preexisting element. A full representation of the
+element as it should be after the update has to be provided. So any
+tags that remain unchanged have to be in the update as well. A version
+number has to be provided as well.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns the new version number with a content type of <code>text/plain</code>.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML. A text message explaining the
+error is returned. This can also happen if you forget to pass the
+Content-Length header.</p>
+<p>When a changeset ID is missing (unfortunately the error messages are
+not consistent)</p>
+<p>When a node is outside the world</p>
+<p>When there are too many nodes for a way</p>
+<p>When the version of the provided element does not match the current
+database version of the element</p>
+</dd>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+<dt><strong>HTTP status code 412 (Precondition Failed)</strong></dt>
+
+<dd>
+<p>When a way has nodes that do not exist or are not visible (i.e.
+deleted): &quot;<code>Way #{id} requires the nodes with id in (#{missing_ids}),
+which either do not exist, or are not visible.</code>&quot;</p>
+<p>When a relation has elements that do not exist or are not visible:
+&quot;<code>Relation with id #{id} cannot be saved due to #{element} with id
+#{element.id}</code>&quot;</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="this_updates_the_bounding_box_of_the_changeset2" class="item">This updates the bounding box of the changeset.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="delete__delete__api_0_6__node_way_relation___id">Delete: <code>DELETE /api/0.6/[node|way|relation]/#id</code></a></h2>
+<p>Expects a valid XML representation of the element to be deleted.</p>
+<p>For example:</p>
+<pre>
+ &lt;osm&gt;
+  &lt;node id=&quot;...&quot; version=&quot;...&quot; changeset=&quot;...&quot;/&gt;
+ &lt;/osm&gt;</pre>
+<p>Where the node ID in the XML must match the ID in the URL, the version
+must match the version of the element you downloaded and the changeset
+must match the ID of an open changeset owned by the current
+authenticated user. It is allowed, but not necessary, to have tags on
+the element except for lat/long tags which are required, see
+<a href="http://web.archiveorange.com/archive/v/wQWIbRy3o8HjRNYaSim9">http://web.archiveorange.com/archive/v/wQWIbRy3o8HjRNYaSim9</a>
+(http://web.archiveorange.com/archive/v/wQWIbRy3o8HjRNYaSim9) and also
+tested to still hold on 2011-05-30, without lat+lon the server gives
+400 Bad request.</p>
+<p>
+</p>
+<h2><a name="response">Response</a></h2>
+<p>Returns the new version number with a content type of <code>text/plain</code>.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>When there are errors parsing the XML. A text message explaining the
+error is returned.</p>
+<p>When a changeset ID is missing (unfortunately the error messages are
+not consistent)</p>
+<p>When a node is outside the world</p>
+<p>When there are too many nodes for a way</p>
+<p>When the version of the provided element does not match the current
+database version of the element</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>HTTP status code 409 (Conflict) - <code>text/plain</code></strong></dt>
+
+<dd>
+<p>If the changeset in question has already been closed (either by the
+user itself or as a result of the auto-closing feature). A message with
+the format &quot;<code>The changeset #id was closed at #closed_at.</code>&quot; is returned</p>
+<p>Or if the user trying to update the changeset is not the same as the
+one that created it</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>HTTP status code 410 (Gone)</strong></dt>
+
+<dd>
+<p>If the element has been already been deleted</p>
+</dd>
+</dl>
+<dl>
+<dt><strong>HTTP status code 412 (Precondition Failed)</strong></dt>
+
+<dd>
+<p>When a node is still used by a way: <code>Node #{id} is still used by way
+#{way.id}.</code></p>
+<p>When a node is still member of a relation: <code>Node #{id} is still used
+by relation #{relation.id}.</code></p>
+<p>When a way is still member of a relation: <code>Way #{id} still used by
+relation #{relation.id}.</code></p>
+<p>When a relation is still member of another relation: <code>The relation
+#{id} is used in relation #{relation.id}.</code></p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="in_earlier_api_versions_no_payload_was_required_it_is_needed_now_because_of_the_need_for_changeset_ids_and_version_numbers" class="item">In earlier API versions no payload was required. It is needed
+now because of the need for changeset IDs and version numbers.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="history__get__api_0_6__node_way_relation___id_history">History: <code>GET /api/0.6/[node|way|relation]/#id/history</code></a></h2>
+<p>Retrieves all old versions of an element. The old versions are not
+guaranteed to be ordered in any way.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="version__get__api_0_6__node_way_relation___id__version">Version: <code>GET /api/0.6/[node|way|relation]/#id/#version</code></a></h2>
+<p>Retrieves a specific version of the element.</p>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="multi_fetch__get__api_0_6__nodes_ways_relations_">Multi fetch: <code>GET /api/0.6/[nodes|ways|relations]</code></a></h2>
+<p>Allows a user to fetch multiple elements at once.</p>
+<p>
+</p>
+<h2><a name="parameters">Parameters</a></h2>
+<dl>
+<dt><strong><a name="nodes_ways_relations_comma_separated_list" class="item">[nodes|ways|relations]=comma separated list</a></strong></dt>
+
+<dd>
+<p>The parameter has to be the same in the URL (e.g.
+/api/0.6/nodes?nodes=123,456,789)</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 400 (Bad Request)</strong></dt>
+
+<dd>
+<p>On a malformed request (parameters missing or wrong)</p>
+</dd>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>If one of the elements could not be found</p>
+</dd>
+<dt><strong><a name="414" class="item">HTTP status code 414 (Request-URI Too Large)</a></strong></dt>
+
+<dd>
+<p>If the URI was too long (How long is too long?)</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="relations_for_element__get__api_0_6__node_way_relation___id_relations">Relations for Element: <code>GET /api/0.6/[node|way|relation]/#id/relations</code></a></h2>
+<p>Returns a XML document containing all (not deleted) relations in which
+the given element is used.</p>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="there_is_no_error_if_the_element_does_not_exist" class="item">There is no error if the element does not exist.</a></strong>
+
+</li>
+<li><strong><a name="returned" class="item">If the element does not exist or it isn't used in any relations
+an empty XML document is returned (apart from the <code>&lt;osm&gt;</code>
+elements)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="ways_for_node__get__api_0_6_node__id_ways">Ways for Node: <code>GET /api/0.6/node/#id/ways</code></a></h2>
+<p>Returns a XML document containing all the (not deleted) ways in which
+the given node is used.</p>
+<p>
+</p>
+<h2><a name="notes">Notes</a></h2>
+<ul>
+<li><strong><a name="there_is_no_error_if_the_node_does_not_exist" class="item">There is no error if the node does not exist.</a></strong>
+
+</li>
+<li><strong>If the node does not exist or it isn't used in any ways an
+empty XML document is returned (apart from the <code>&lt;osm&gt;</code>
+elements)</strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="full__get__api_0_6__way_relation___id_full">Full: <code>GET /api/0.6/[way|relation]/#id/full</code></a></h2>
+<p>This API call retrieves a way or relation and all other elements
+referenced by it</p>
+<ul>
+<li><strong><a name="for_a_way_it_will_return_the_way_specified_plus_the_full_xml_of_all_nodes_referenced_by_the_way" class="item">For a way, it will return the way specified plus the full XML
+of all nodes referenced by the way.</a></strong>
+
+</li>
+<li><strong><a name="for_a_relation_it_will_return_the_following" class="item">For a relation, it will return the following:</a></strong>
+
+<ul>
+<li><strong><a name="the_relation_itself" class="item">The relation itself</a></strong>
+
+</li>
+<li><strong><a name="all_nodes_ways_and_relations_that_are_members_of_the_relation" class="item">All nodes, ways, and relations that are members of the relation</a></strong>
+
+</li>
+<li><strong><a name="plus_all_nodes_used_by_ways_from_the_previous_step" class="item">Plus all nodes used by ways from the previous step</a></strong>
+
+</li>
+<li><strong><a name="the_same_recursive_logic_is_not_applied_to_relations_this_means_if_relation_r1_contains_way_w1_and_relation_r2_and_w1_contains_nodes_n1_and_n2_and_r2_contains_node_n3_then_a_full_request_for_r1_will_give_you_r1_r2_w1_n1_and_n2_not_n3" class="item">The same recursive logic is not applied to relations. This
+means: If relation r1 contains way w1 and relation r2, and w1 contains
+nodes n1 and n2, and r2 contains node n3, then a &quot;full&quot; request for r1
+will give you r1, r2, w1, n1, and n2. Not n3.</a></strong>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="error_codes">Error codes</a></h2>
+<dl>
+<dt><strong>HTTP status code 404 (Not Found)</strong></dt>
+
+<dd>
+<p>When no element with the given id could be found</p>
+</dd>
+<dt><strong>HTTP status code 410 (Gone)</strong></dt>
+
+<dd>
+<p>If the element has been deleted</p>
+</dd>
+</dl>
+<p>
+</p>
+<h2><a name="gps_traces">GPS Traces</a></h2>
+<p>
+</p>
+<h2><a name="retrieving_gps_points">Retrieving GPS points</a></h2>
+<p>The following command returns, in GPX format, the GPS track points that
+are inside a given bounding box.</p>
+<pre>
+ GET /api/0.6/trackpoints?bbox=left,bottom,right,top&amp;page=pageNumber</pre>
+<p>where:</p>
+<ul>
+<li><strong><a name="left_bottom_right_and_top_are_used_the_same_way_as_they_are_in_the_command_to_retrieve_nodes_ways_and_relations" class="item"><a href="#left"><code>left</code></a>, <a href="#bottom"><code>bottom</code></a>, <a href="#right"><code>right</code></a>, and <a href="#top"><code>top</code></a> are used
+the same way as they are in the command to retrieve nodes, ways, and
+relations.</a></strong>
+
+</li>
+<li><strong><a name="again" class="item"><code>pageNumber</code> specifies which group of 5,000 points, or
+<em>page</em>, to return. Since the command does not return more than 5,000
+points at a time, this parameter must be
+incremented&acirc;&#128;&#148;and the command sent again (using the
+same bounding box)&acirc;&#128;&#148;in order to retrieve all of the
+points for a bounding box that contains more than 5,000 points. When
+this parameter is 0 (zero), the command returns the first 5,000 points;
+when it is 1, the command returns points
+5,001&acirc;&#128;&#147;10,000, etc.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="examples">Examples</a></h2>
+<p>Retrieve the first 5,000 points for a bounding box:</p>
+<pre>
+ <a href="http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0">http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0</a>,51.5,0.25,51.75&amp;page=0</pre>
+<p>Retrieve the next 5,000 points (points 5,001&acirc;&#128;&#147;10,000)
+for the same bounding box:</p>
+<pre>
+ <a href="http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0">http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0</a>,51.5,0.25,51.75&amp;page=1</pre>
+<p>
+</p>
+<h2><a name="uploading_traces">Uploading Traces</a></h2>
+<p>You can upload a GPX file or archive of GPX files through the API:</p>
+<pre>
+ POST /api/0.6/gpx/create</pre>
+<p>This is the only API call using the POST method. It expects the
+following POST parameters in a multipart/form-data HTTP message:</p>
+<p>parameter</p>
+<p>description</p>
+<p>file</p>
+<p>The GPX file containing the track points. Note that for successful
+processing, the file must contain trackpoints (&lt;trkpt&gt;), not
+only waypoints, and the trackpoints must have a valid timestamp. Since
+the file is processed asynchronously, the call will complete
+successfully even if the file cannot be processed. The file may also be
+a .tar, .tar.gz or .zip containing multiple gpx files, although it will
+appear as a single entry in the upload log.</p>
+<p>description</p>
+<p>The trace description.</p>
+<p>tags</p>
+<p>A string containing tags for the trace.</p>
+<p>public</p>
+<p>1 if the trace is public, 0 if not. This exists for backwards
+compatibility only - the visibility parameter should now be used
+instead. This value will be ignored if visibility is also provided.</p>
+<p>visibility</p>
+<p>One of the following: private, public, trackable, identifiable (for
+explanations see OSM trace upload page
+(http://www.openstreetmap.org/traces/mine) or Visibility of GPS traces
+(http://wiki.openstreetmap.org/wiki/Visibility_of_GPS_traces))</p>
+<p>HTTP basic authentication is required.</p>
+<p>
+</p>
+<h2><a name="downloading_trace_metadata">Downloading Trace Metadata</a></h2>
+<p>You access a GPX file's details and download the full file:</p>
+<pre>
+ GET /api/0.6/gpx/&lt;id&gt;/details
+ GET /api/0.6/gpx/&lt;id&gt;/data</pre>
+<p>HTTP basic authentication is required, although theoretically these
+calls should be allowed without authentication if the trace is marked
+public. If the trace is not public, only the owner may access the data.</p>
+<p>Example &quot;details&quot; response:</p>
+<pre>
+ &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;osm version=&quot;0.6&quot; generator=&quot;OpenStreetMap server&quot;&gt;
+   &lt;gpx_file id=&quot;836619&quot; name=&quot;track.gpx&quot; lat=&quot;52.0194&quot; lon=&quot;8.51807&quot; 
+             user=&quot;Hartmut Holzgraefe&quot; visibility=&quot;public&quot; pending=&quot;false&quot;  
+             timestamp=&quot;2010-10-09T09:24:19Z&quot;&gt;
+     &lt;description&gt;PHP upload test&lt;/description&gt;
+     &lt;tag&gt;test&lt;/tag&gt;
+     &lt;tag&gt;php&lt;/tag&gt;
+   &lt;/gpx_file&gt;
+ &lt;/osm&gt;</pre>
+<p>The &quot;data&quot; response will be the exact file uploaded.</p>
+<p>You can also get a list of all the GPX traces for the authenticated
+user using:</p>
+<pre>
+ GET /api/0.6/user/gpx_files</pre>
+<p>
+</p>
+<h2><a name="methods_for_user_data">Methods for User Data</a></h2>
+<p>Unless noted otherwise, all user-specific API calls require
+authentication and operate on the currently authenticated user account.
+That's why they don't normally have an explicit &quot;username&quot; parameter.</p>
+<p>
+</p>
+<h2><a name="details">Details</a></h2>
+<p>You can get the home location and the displayname of the user, by using</p>
+<pre>
+ GET /api/0.6/user/details</pre>
+<p>this returns an XML document of the from</p>
+<pre>
+ &lt;osm version=&quot;0.6&quot; generator=&quot;OpenStreetMap server&quot;&gt;
+  &lt;user display_name=&quot;Max Muster&quot; account_created=&quot;2006-07-21T19:28:26Z&quot; id=&quot;1234&quot;&gt;
+    &lt;home lat=&quot;49.4733718952806&quot; lon=&quot;8.89285988577866&quot; zoom=&quot;3&quot;/&gt;
+    &lt;description&gt;The description of your profile&lt;/description&gt;
+    &lt;languages&gt;
+      &lt;lang&gt;de-DE&lt;/lang&gt;
+      &lt;lang&gt;de&lt;/lang&gt;
+      &lt;lang&gt;en-US&lt;/lang&gt;
+      &lt;lang&gt;en&lt;/lang&gt;
+    &lt;/languages&gt;
+  &lt;/user&gt;
+ &lt;/osm&gt;</pre>
+<p>
+</p>
+<h2><a name="preferences">Preferences</a></h2>
+<p>The OSM server supports storing arbitrary user preferences. This can be
+used by editors, for example, to offer the same configuration wherever
+the user logs in, instead of a locally-stored configuration.</p>
+<p>You can retrieve the list of current preferences using</p>
+<pre>
+ GET /api/0.6/user/preferences</pre>
+<p>this returns an XML document of the form</p>
+<pre>
+  &lt;osm version=&quot;0.6&quot; generator=&quot;OpenStreetMap server&quot;&gt;
+    &lt;preferences&gt;
+       &lt;preference k=&quot;somekey&quot; v=&quot;somevalue&quot; /&gt;
+       ...
+    &lt;/preferences&gt;
+  &lt;/osm&gt;</pre>
+<p>The same structure can be used to upload preferences (using the PUT
+method instead of GET). All existing preferences are replaced by the
+newly uploaded set.</p>
+<p>Also possible is to PUT a single preference using</p>
+<pre>
+ PUT /api/0.6/user/preferences/[your_key] (without the brackets)</pre>
+<p>in this instance, the payload of the request should only contain the
+value of the preference, i.e. not XML formatted.</p>
+<p>The PUT call returns HTTP response code 406 (not acceptable) if the
+same key occurs more than once, and code 413 (request entity too large)
+if you try to upload more than 150 preferences at once. The sizes of
+the key and value are limited to 255 characters.</p>
+<p>
+</p>
+<hr />
+<h1><a name="when_not_to_use_the_api">When NOT to use the API</a></h1>
+<p>For bulk upload scripts or data modification, the API may not be the
+proper mechanism. The modern version of creating a bulk upload or
+modification script is to build a change set, load it into an editor
+like JOSM, and verify the work prior to commit. You can also use the
+API to upload a change set in an atomic manner. See also:
+<a href="http://wiki.openstreetmap.org/wiki/Change_File_Formats">http://wiki.openstreetmap.org/wiki/Change_File_Formats</a>
+(http://wiki.openstreetmap.org/wiki/Change_File_Formats)</p>
+<p>
+</p>
+<hr />
+<h1><a name="further_reading">Further Reading</a></h1>
+<ul>
+<li><strong><a name="6" class="item">People making clients, see API v0.6
+(Archive)#Changes_in_related_software
+(http://wiki.openstreetmap.org/wiki/API_v0.6_(Archive)#Changes_in_related_software)</a></strong>
+
+</li>
+<li><strong>People interested in the DB see API v0.6
+(Archive)#Database_improvements
+(http://wiki.openstreetmap.org/wiki/API_v0.6_(Archive)#Database_improvements)</strong>
+
+</li>
+<li><strong><a name="overview" class="item">Status of routing file API v0.6/Command Overview
+(http://wiki.openstreetmap.org/wiki/API_v0.6/Command_Overview)</a></strong>
+
+</li>
+<li><strong><a name="errors" class="item">possible API errors
+(http://wiki.openstreetmap.org/wiki/API_v0.6/APIError)</a></strong>
+
+</li>
+</ul>
+<p>Retrieved from &quot;http://wiki.openstreetmap.org/wiki/API_v0.6
+(http://wiki.openstreetmap.org/wiki/API_v0.6)&quot;</p>
+<p>Category (http://wiki.openstreetmap.org/wiki/Special:Categories): OSM
+API (http://wiki.openstreetmap.org/wiki/Category:OSM_API)</p>
+<p>
+</p>
+<h2><a name="personal_tools">Personal tools</a></h2>
+<ul>
+<li><strong><a name="account" class="item">Log in / create account
+(http://wiki.openstreetmap.org/w/index.php?title=Special:UserLogin&amp;returnto=API_v0.6)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="namespaces">Namespaces</a></h2>
+<ul>
+<li><strong><a name="page" class="item">Page (http://wiki.openstreetmap.org/wiki/API_v0.6)</a></strong>
+
+</li>
+<li><strong><a name="discussion" class="item">Discussion (http://wiki.openstreetmap.org/wiki/Talk:API_v0.6)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="variants__http___wiki_openstreetmap_org_wiki_api_v0_6__">Variants (http://wiki.openstreetmap.org/wiki/API_v0.6#)</a></h2>
+<p>
+</p>
+<h2><a name="views">Views</a></h2>
+<ul>
+<li><strong><a name="read" class="item">Read (http://wiki.openstreetmap.org/wiki/API_v0.6)</a></strong>
+
+</li>
+<li><strong><a name="source" class="item">View source
+(http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&amp;action=edit)</a></strong>
+
+</li>
+<li><strong>View history
+(http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&amp;action=history)</strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="actions__http___wiki_openstreetmap_org_wiki_api_v0_6__">Actions (http://wiki.openstreetmap.org/wiki/API_v0.6#)</a></h2>
+<p>
+</p>
+<h2><a name="search">Search</a></h2>
+<p>Search</p>
+<p>(http://wiki.openstreetmap.org/wiki/Main_Page)</p>
+<p>
+</p>
+<h2><a name="recent_changes">Recent changes</a></h2>
+<ul>
+<li><strong><a name="changes" class="item">Recent changes
+(http://wiki.openstreetmap.org/wiki/Special:RecentChanges)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="navigation">Navigation</a></h2>
+<ul>
+<li><strong>Main Page (http://wiki.openstreetmap.org/wiki/Main_Page)</strong>
+
+</li>
+<li><strong>The map (http://www.openstreetmap.org/)</strong>
+
+</li>
+<li><strong><a name="projects" class="item">Mapping projects
+(http://wiki.openstreetmap.org/wiki/Mapping_projects)</a></strong>
+
+</li>
+<li><strong><a name="features" class="item">Map Features (http://wiki.openstreetmap.org/wiki/Map_Features)</a></strong>
+
+</li>
+<li><strong><a name="help" class="item">Help (http://wiki.openstreetmap.org/wiki/Help:Contents)</a></strong>
+
+</li>
+<li><strong><a name="blog" class="item">Blog (http://wiki.openstreetmap.org/wiki/OSM_Blogs)</a></strong>
+
+</li>
+<li><strong><a name="shop" class="item">Shop (http://wiki.openstreetmap.org/wiki/Merchandise)</a></strong>
+
+</li>
+<li><strong><a name="donations" class="item">Donations (http://wiki.openstreetmap.org/wiki/Donations)</a></strong>
+
+</li>
+<li><strong><a name="impressum" class="item">Impressum
+(http://wiki.openstreetmap.org/wiki/OpenStreetMap:Impressum)</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<h2><a name="toolbox">Toolbox</a></h2>
+<ul>
+<li><strong><a name="here" class="item">What links here
+(http://wiki.openstreetmap.org/wiki/Special:WhatLinksHere/API_v0.6)</a></strong>
+
+</li>
+<li><strong>Related changes
+(http://wiki.openstreetmap.org/wiki/Special:RecentChangesLinked/API_v0.6)</strong>
+
+</li>
+<li><strong><a name="pages" class="item">Special pages
+(http://wiki.openstreetmap.org/wiki/Special:SpecialPages)</a></strong>
+
+</li>
+<li><strong>Printable version
+(http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&amp;printable=yes)</strong>
+
+</li>
+<li><strong><a name="link" class="item">Permanent link
+(http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&amp;oldid=648881)</a></strong>
+
+</li>
+</ul>
+<ul>
+<li><strong><a name="this_page_was_last_modified_on_21_june_2011_at_12_13" class="item">This page was last modified on 21 June 2011, at 12:13.</a></strong>
+
+</li>
+<li><strong><a name="license" class="item">Content is available under Creative Commons
+Attribution-ShareAlike 2.0 license
+(http://wiki.openstreetmap.org/wiki/OpenStreetMap_License).</a></strong>
+
+</li>
+</ul>
+<ul>
+<li><strong><a name="policy" class="item">Privacy policy
+(http://wiki.openstreetmap.org/wiki/Privacy_Policy)</a></strong>
+
+</li>
+<li><strong><a name="wiki" class="item">About OpenStreetMap Wiki
+(http://wiki.openstreetmap.org/wiki/About)</a></strong>
+
+</li>
+<li><strong><a name="disclaimers" class="item">Disclaimers
+(http://wiki.openstreetmap.org/wiki/OpenStreetMap:General_disclaimer)</a></strong>
+
+</li>
+</ul>
+<ul>
+<li><strong><a name="mediawiki" class="item">Powered by MediaWiki (http://www.mediawiki.org/)</a></strong>
+
+</li>
+<li><strong>Creative Commons Attribution-ShareAlike 2.0 license
+(http://creativecommons.org/licenses/by-sa/2.0/)</strong>
+
+</li>
+</ul>
+
+</body>
+
+</html>

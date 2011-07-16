@@ -1855,8 +1855,7 @@ If the URI was too long (How long is too long?)
 
 =back
 
-=head2 Relations for Element: C<GET
-/api/0.6/[node|way|relation]/#id/relations>
+=head2 Relations for Element: C<GET /api/0.6/[node|way|relation]/#id/relations>
 
 Returns a XML document containing all (not deleted) relations in which
 the given element is used.
