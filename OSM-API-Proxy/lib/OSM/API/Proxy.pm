@@ -274,6 +274,39 @@ put '/api/0.6/changeset/*/close' => sub {
 
 };
 
+# from merkaator
+post '/api/0.6/changeset/*' => sub {
+      my ($id) = splat();
+#      warn "got changeset $id";
+      # now lets process it 
+
+    template 'changeset.tt', { 
+	changeset => 
+	    [ 
+	      {
+		  id => 1,
+		  user=>"mike",
+		  uid=>"1",
+		  created_at=>"now",
+		  open=>1,
+		  bbox => {
+		      min => { lon => 0,lat =>0},
+		      max => { lon => 100,lat =>100}
+		  },
+		  tags => [
+		      {
+			  name => "funky",
+			  value => "for sure",
+		      }
+		      ]
+			  
+	      }
+	      
+	    ]
+    }, { layout => undef };
+
+};
+
 put '/api/0.6/changeset/*' => sub {
       my ($id) = splat();
 #      warn "got changeset $id";
