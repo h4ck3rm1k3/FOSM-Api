@@ -1,0 +1,106 @@
+=pod
+
+I am working on implementing the API in perl, in dancer. this will
+create a mini perl api server for you to connect your josm to. It will
+then store the data and act like proxy to multiple osm api servers and
+also rendering servers and blogs. This is the placeholder for a new
+perl module to fake the osm api. I am developing it with josm and perl
+dancer (http://search.cpan.org/~sukria/Dancer-1.3060/lib/Dancer.pm )
+(http://search.cpan.org/%7Esukria/Dancer-1.3060/lib/Dancer.pm) I have
+started a simple blogpost on this to be updated as I go along.
+http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html
+(http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html) you
+run the code like this :
+
+=over
+
+/OSM-API-Proxy$ ./bin/app.pl
+
+=back
+
+The api server is located here :
+
+=over
+
+http://0.0.0.0:3000/api
+
+=back
+
+Code is checked into github : https://github.com/h4ck3rm1k3/FOSM-Api
+(https://github.com/h4ck3rm1k3/FOSM-Api) It can serve a simple static
+map that is embedded in the program for now, and it is soooo fast. Api
+Calls and Status :
+
+=over
+
+=item * /api/0.6/map get map data from bbox, has static file
+
+=item * /api/capabilities hardcoded
+
+=item * /api/0.6/changesets this is using a template... the data is
+static
+
+=back
+
+Interface : Moose http://www.iinteractive.com/moose/
+(http://www.iinteractive.com/moose/) Point (lat,lon
+(http://en.wikipedia.org/wiki/Geographic_coordinate_system)) Box (Min,
+Max : Point) ChangeSet (bbox :Box ) .... See Also : Dancer :
+http://perldancer.org/documentation
+(http://perldancer.org/documentation) Writing REST web services with
+Dancer | PerlDancer Advent Calendar
+(http://advent.perldancer.org/2010/8) PerlDancer - The easiest way to
+write web applications with Perl (http://perldancer.org/) Dancer -
+search.cpan.org
+(http://search.cpan.org/%7Esukria/Dancer-1.3060/lib/Dancer.pm#to_xml_%28$structure,_%options%29)
+Dancer::Template::Simple - search.cpan.org
+(http://search.cpan.org/%7Esukria/Dancer-1.3060/lib/Dancer/Template/Simple.pm)
+http://search.cpan.org/dist/Dancer/lib/Dancer/Tutorial.pod
+(http://search.cpan.org/dist/Dancer/lib/Dancer/Tutorial.pod)
+http://search.cpan.org/dist/Dancer/lib/Dancer/Cookbook.pod#Using_templates_-_views_and_layouts
+(http://search.cpan.org/dist/Dancer/lib/Dancer/Cookbook.pod#Using_templates_-_views_and_layouts)
+http://search.cpan.org/~sukria/Dancer-1.3060/lib/Dancer/Request.pm#request_uri%28%29
+(http://search.cpan.org/%7Esukria/Dancer-1.3060/lib/Dancer/Request.pm#request_uri%28%29)
+http://advent.perldancer.org/2010/8
+(http://advent.perldancer.org/2010/8) Writing REST web services with
+Dancer Dancer for Python Users:
+http://www.slideshare.net/xSawyer/perl-dancer-for-python-programmers
+(http://www.slideshare.net/xSawyer/perl-dancer-for-python-programmers)
+OSM Api: API v0.6 - OpenStreetMap Wiki
+(http://wiki.openstreetmap.org/wiki/API_v0.6) API v0.6 - OpenStreetMap
+Wiki
+(http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets)
+API v0.6/Command Overview - OpenStreetMap Wiki
+(http://wiki.openstreetmap.org/wiki/API_v0.6/Command_Overview) Xapi -
+OpenStreetMap Wiki (http://wiki.openstreetmap.org/wiki/Xapi) Moose
+Syntax Wikibook:
+http://en.wikibooks.org/wiki/Programming_with_Moose/Syntax/has
+(http://en.wikibooks.org/wiki/Programming_with_Moose/Syntax/has)
+Presentation :
+http://www.iinteractive.com/moose/hosted-presentations/2008/nothingmuch-NPW/practical_moose.html
+(http://www.iinteractive.com/moose/hosted-presentations/2008/nothingmuch-NPW/practical_moose.html)
+More Moose Perldocs : http://perldoc.net/MooseX/Types/Moose.pm
+(http://perldoc.net/MooseX/Types/Moose.pm)
+http://perldoc.net/Moose/Manual.pod
+(http://perldoc.net/Moose/Manual.pod) Big List of Moose things
+http://search.cpan.org/~doy/Task-Moose-0.03/lib/Task/Moose.pm
+(http://search.cpan.org/%7Edoy/Task-Moose-0.03/lib/Task/Moose.pm)
+http://search.cpan.org/~doy/Moose-2.0010/lib/Moose.pm
+(http://search.cpan.org/%7Edoy/Moose-2.0010/lib/Moose.pm) Perl Best
+Practices
+http://blog.urth.org/2011/03/reviewing-perl-best-practices-chapter-15-objects.html
+(http://blog.urth.org/2011/03/reviewing-perl-best-practices-chapter-15-objects.html)
+http://search.cpan.org/~ecarroll/MooseX-Types-DateTimeX-0.10/lib/MooseX/Types/DateTimeX.pm
+(http://search.cpan.org/%7Eecarroll/MooseX-Types-DateTimeX-0.10/lib/MooseX/Types/DateTimeX.pm)
+Template Toolkit
+http://search.cpan.org/dist/Dancer/lib/Dancer/Template/TemplateToolkit.pm
+(http://search.cpan.org/dist/Dancer/lib/Dancer/Template/TemplateToolkit.pm)
+http://search.cpan.org/~abw/Template-Toolkit-2.22/lib/Template.pm#START_TAG,_END_TAG
+(http://search.cpan.org/%7Eabw/Template-Toolkit-2.22/lib/Template.pm#START_TAG,_END_TAG)
+
+=over
+
+=back
+
+=cut
+

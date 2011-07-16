@@ -22,6 +22,11 @@ has 'apiurl' => (
     isa=>"Str"
     );
 
+has 'realm' => (
+    is=>'rw',
+    isa=>"Str"
+    ); # FOSM for the fosm.org
+
 sub readdefaults
 {
     my $self=shift;
@@ -42,13 +47,13 @@ sub readdefaults
     }
     $self->user->name($prefs->{username});
     $self->user->password($prefs->{password});
+    $self->realm($prefs->{realm});
     $self->apiurl($prefs->{apiurl});
 }
 
 sub create
 {
     my $self=shift;
-
 #    my $host=shift;
     if ($self->apiurl)
     {
@@ -59,7 +64,7 @@ sub create
 	    $host .= ":80" unless ($host =~ /:/);
 	}	
 	$self->ua(LWP::UserAgent->new);
-	$self->ua->credentials($host, "Web Password", $self->{user}->name(), $self->{user}->password);
+	$self->ua->credentials($host,$self->realm(), $self->{user}->name(), $self->{user}->password);
 	$self->ua->agent("fosm.org/api/0.6");	
 	$self->ua->timeout(600);
     }
