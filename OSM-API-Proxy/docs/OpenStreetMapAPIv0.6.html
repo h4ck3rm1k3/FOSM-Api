@@ -1,0 +1,1252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0103)http://wiki.openstreetmap.org/wiki/API_v0.6#Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload -->
+<html lang="en" dir="ltr" class="linux chrome chrome1 webkit webkit5"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>API v0.6 - OpenStreetMap Wiki</title>
+
+<meta name="generator" content="MediaWiki 1.16.5">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/extensions/UsabilityInitiative/css/combined.min.css?69">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/extensions/UsabilityInitiative/css/vector/jquery-ui-1.7.2.css?1.7.2y">
+<link rel="shortcut icon" href="http://wiki.openstreetmap.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wiki.openstreetmap.org/w/opensearch_desc.php" title="OpenStreetMap Wiki (en)">
+<link title="Creative Commons" type="application/rdf+xml" href="http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&action=creativecommons" rel="meta">
+<link rel="copyright" href="http://wiki.openstreetmap.org/wiki/OpenStreetMap_License">
+<link rel="alternate" type="application/atom+xml" title="OpenStreetMap Wiki Atom feed" href="http://wiki.openstreetmap.org/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/skins/vector/main-ltr.css?270" media="screen">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/skins/common/shared.css?270" media="screen">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/skins/common/commonPrint.css?270" media="print">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/index.php?title=MediaWiki:Common.css&usemsgcache=yes&ctype=text%2Fcss&smaxage=18000&action=raw&maxage=18000">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/index.php?title=MediaWiki:Print.css&usemsgcache=yes&ctype=text%2Fcss&smaxage=18000&action=raw&maxage=18000" media="print">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/index.php?title=MediaWiki:Vector.css&usemsgcache=yes&ctype=text%2Fcss&smaxage=18000&action=raw&maxage=18000">
+<link rel="stylesheet" href="http://wiki.openstreetmap.org/w/index.php?title=-&action=raw&maxage=18000&gen=css">
+<script>
+var skin="vector",
+stylepath="/w/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/$1",
+wgScriptPath="/w",
+wgScriptExtension=".php",
+wgScript="/w/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://wiki.openstreetmap.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="API_v0.6",
+wgTitle="API v0.6",
+wgAction="view",
+wgArticleId=14902,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=648881,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "OpenStreetMap", "5": "OpenStreetMap talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "200": "DE", "201": "DE talk", "202": "FR", "203": "FR talk", "204": "ES", "205": "ES talk", "206": "IT", "207": "IT talk", "208": "NL", "209": "NL talk", "210": "RU", "211": "RU talk", "212": "JA", "213": "JA talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "openstreetmap": 4, "openstreetmap_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "de": 200, "de_talk": 201, "fr": 202, "fr_talk": 203, "es": 204, "es_talk": 205, "it": 206, "it_talk": 207, "nl": 208, "nl_talk": 209, "ru": 210, "ru_talk": 211, "ja": 212, "ja_talk": 213, "image": 6, "image_talk": 7},
+wgSiteName="OpenStreetMap Wiki",
+wgCategories=["OSM API"],
+wgMWSuggestTemplate="http://wiki.openstreetmap.org/w/api.php?action=opensearch\x26search={searchTerms}\x26namespace={namespaces}\x26suggest",
+wgDBname="wiki",
+wgSearchNamespaces=[0, 200, 202, 204, 206, 208, 210, 212],
+wgMWSuggestMessages=["with suggestions", "no suggestions"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="./OpenStreetMapAPIv0.6_files/wikibits.js"></script>
+<script src="./OpenStreetMapAPIv0.6_files/jquery.min.js"></script>
+<script src="./OpenStreetMapAPIv0.6_files/ajax.js"></script>
+<script src="./OpenStreetMapAPIv0.6_files/mwsuggest.js"></script>
+<script type="text/javascript">var wgVectorPreferences = {
+	"editwarning": {
+		"enable": null
+	}
+};
+var wgVectorEnabledModules = {
+	"collapsiblenav": false,
+	"collapsibletabs": true,
+	"editwarning": true,
+	"simplesearch": true,
+	"expandablesearch": true
+};</script>
+<script src="./OpenStreetMapAPIv0.6_files/plugins.combined.min.js"></script>
+<script src="./OpenStreetMapAPIv0.6_files/Vector.combined.min.js"></script>
+<script type="text/javascript">mw.usability.addMessages({'vector-editwarning-warning':'Leaving this page may cause you to lose any changes you have made.\nIf you are logged in, you can disable this warning in the \"Editing\" section of your preferences.','vector-simplesearch-search':'Search','vector-simplesearch-containing':'containing...'});</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins/vector/csshover.htc")}</style><![endif]-->
+<script src="./OpenStreetMapAPIv0.6_files/index.php"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-API_v0_6 skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><script type="text/javascript" language="JavaScript">
+/* <![CDATA[ */
+document.writeln("\x3cdiv style=\"margin-top: 2px; background-color:#E0EEE0; border-color:#666666; border-width:1px; border-style:solid;padding:1px;font-weight:bold\"\x3e\x3ca href=\"http://www.osmfoundation.org/wiki/License/We_Are_Changing_The_License\" class=\"extiw\" title=\"osmf:License/We Are Changing The License\"\x3eFind out more about OpenStreetMap\'s upcoming license change\x3c/a\x3e (\x3ca href=\"/wiki/ODbL/We_Are_Changing_The_License\" title=\"ODbL/We Are Changing The License\"\x3etranslations\x3c/a\x3e) (\x3ca href=\"/wiki/Talk:ODbL/Upcoming\" title=\"Talk:ODbL/Upcoming\"\x3ediscussion\x3c/a\x3e)\x3c/div\x3e\n");
+/* ]]> */
+</script><div style="margin-top: 2px; background-color:#E0EEE0; border-color:#666666; border-width:1px; border-style:solid;padding:1px;font-weight:bold"><a href="http://www.osmfoundation.org/wiki/License/We_Are_Changing_The_License" class="extiw" title="osmf:License/We Are Changing The License">Find out more about OpenStreetMap's upcoming license change</a> (<a href="http://wiki.openstreetmap.org/wiki/ODbL/We_Are_Changing_The_License" title="ODbL/We Are Changing The License">translations</a>) (<a href="http://wiki.openstreetmap.org/wiki/Talk:ODbL/Upcoming" title="Talk:ODbL/Upcoming">discussion</a>)</div>
+
+</div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">API v0.6</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<h3 id="siteSub">From OpenStreetMap Wiki</h3>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="http://wiki.openstreetmap.org/wiki/API_v0.6#mw-head">navigation</a>,
+					<a href="http://wiki.openstreetmap.org/wiki/API_v0.6#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+				<div style="margin: 0px; padding: 2px 2px 0px 2px; border: none; border-collapse:collapse; clear:both;">
+<span style="float:right; font-weight:normal; font-size: x-small;"><a href="http://wiki.openstreetmap.org/wiki/Wiki_Translation" title="Wiki Translation">Help</a></span><div style="background-color:#e9e9e9; border-style:solid; border-width:1px; border-color:#aaa; padding: 0pt 4pt 8pt 4pt; font-size: 95%; text-align:center;"><b>Available languages</b></div>
+<div style="border: 1px solid #aaa; background-color: #f9f9f9; border-collapse:collapse; font-size: 95%; padding: 2pt 4pt 2pt 4pt; margin: 0px;">          • <span lang="en"><strong class="selflink">English</strong></span>                             • <span lang="pt-br"><a href="http://wiki.openstreetmap.org/wiki/Pt-br:API_v0.6" title="Pt-br:API v0.6">Português do Brasil</a></span>   • <span lang="ru"><a href="http://wiki.openstreetmap.org/wiki/RU:API_v0.6" title="RU:API v0.6">Русский</a></span>          
+</div>
+</div>
+<div class="NavFrame" style="border:none; clear:none; margin: 0px; padding-top: 0px;" id="NavFrame1"><a class="NavToggle" id="NavToggle1" href="http://wiki.openstreetmap.org/wiki/API_v0.6#">show</a>
+<div class="NavHead" style="background-color:#e9e9e9; border-style:solid; border-width:1px; border-color:#aaa; margin: 0px; padding: 0pt 4pt 8pt 4pt; font-size: 95%;"><b>Missing languages</b></div>
+<div class="NavContent" style="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(170, 170, 170); border-right-color: rgb(170, 170, 170); border-bottom-color: rgb(170, 170, 170); border-left-color: rgb(170, 170, 170); background-color: rgb(249, 249, 249); border-collapse: collapse; font-size: 95%; padding-top: 2pt; padding-right: 4pt; padding-bottom: 2pt; padding-left: 4pt; display: none; ">• <span lang="am"><a href="http://wiki.openstreetmap.org/w/index.php?title=Am:API_v0.6&action=edit&redlink=1" class="new" title="Am:API v0.6 (page does not exist)">አማርኛ</a></span> • <span lang="ar"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ar:API_v0.6&action=edit&redlink=1" class="new" title="Ar:API v0.6 (page does not exist)">العربية</a></span> • <span lang="bg"><a href="http://wiki.openstreetmap.org/w/index.php?title=Bg:API_v0.6&action=edit&redlink=1" class="new" title="Bg:API v0.6 (page does not exist)">Български</a></span> • <span lang="br"><a href="http://wiki.openstreetmap.org/w/index.php?title=Br:API_v0.6&action=edit&redlink=1" class="new" title="Br:API v0.6 (page does not exist)">Brezhoneg</a></span> • <span lang="bs"><a href="http://wiki.openstreetmap.org/w/index.php?title=Bs:API_v0.6&action=edit&redlink=1" class="new" title="Bs:API v0.6 (page does not exist)">Bosanski</a></span> • <span lang="ca"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ca:API_v0.6&action=edit&redlink=1" class="new" title="Ca:API v0.6 (page does not exist)">Català</a></span> • <span lang="cz"><a href="http://wiki.openstreetmap.org/w/index.php?title=Cz:API_v0.6&action=edit&redlink=1" class="new" title="Cz:API v0.6 (page does not exist)">Česky</a></span> • <span lang="da"><a href="http://wiki.openstreetmap.org/w/index.php?title=Da:API_v0.6&action=edit&redlink=1" class="new" title="Da:API v0.6 (page does not exist)">Dansk</a></span> • <span lang="de"><a href="http://wiki.openstreetmap.org/w/index.php?title=DE:API_v0.6&action=edit&redlink=1" class="new" title="DE:API v0.6 (page does not exist)">Deutsch</a></span> • <span lang="el"><a href="http://wiki.openstreetmap.org/w/index.php?title=El:API_v0.6&action=edit&redlink=1" class="new" title="El:API v0.6 (page does not exist)">Ελληνικά</a></span>  • <span lang="eo"><a href="http://wiki.openstreetmap.org/w/index.php?title=Eo:API_v0.6&action=edit&redlink=1" class="new" title="Eo:API v0.6 (page does not exist)">Esperanto</a></span> • <span lang="es"><a href="http://wiki.openstreetmap.org/w/index.php?title=ES:API_v0.6&action=edit&redlink=1" class="new" title="ES:API v0.6 (page does not exist)">Español</a></span> • <span lang="et"><a href="http://wiki.openstreetmap.org/w/index.php?title=Et:API_v0.6&action=edit&redlink=1" class="new" title="Et:API v0.6 (page does not exist)">Eesti</a></span> • <span lang="eu"><a href="http://wiki.openstreetmap.org/w/index.php?title=Eu:API_v0.6&action=edit&redlink=1" class="new" title="Eu:API v0.6 (page does not exist)">Euskara</a></span> • <span lang="fi"><a href="http://wiki.openstreetmap.org/w/index.php?title=Fi:API_v0.6&action=edit&redlink=1" class="new" title="Fi:API v0.6 (page does not exist)">Suomi</a></span> • <span lang="fr"><a href="http://wiki.openstreetmap.org/w/index.php?title=FR:API_v0.6&action=edit&redlink=1" class="new" title="FR:API v0.6 (page does not exist)">Français</a></span> • <span lang="fy"><a href="http://wiki.openstreetmap.org/w/index.php?title=Fy:API_v0.6&action=edit&redlink=1" class="new" title="Fy:API v0.6 (page does not exist)">Frysk</a></span> • <span lang="gcf"><a href="http://wiki.openstreetmap.org/w/index.php?title=Gcf:API_v0.6&action=edit&redlink=1" class="new" title="Gcf:API v0.6 (page does not exist)">Créole guadeloupéen</a></span> • <span lang="he"><a href="http://wiki.openstreetmap.org/w/index.php?title=He:API_v0.6&action=edit&redlink=1" class="new" title="He:API v0.6 (page does not exist)">עברית</a></span> • <span lang="hr"><a href="http://wiki.openstreetmap.org/w/index.php?title=Hr:API_v0.6&action=edit&redlink=1" class="new" title="Hr:API v0.6 (page does not exist)">Hrvatski</a></span>  • <span lang="HU"><a href="http://wiki.openstreetmap.org/w/index.php?title=HU:API_v0.6&action=edit&redlink=1" class="new" title="HU:API v0.6 (page does not exist)">Magyar</a></span> • <span lang="hy"><a href="http://wiki.openstreetmap.org/w/index.php?title=Hy:API_v0.6&action=edit&redlink=1" class="new" title="Hy:API v0.6 (page does not exist)">Հայերեն</a></span> • <span lang="ia"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ia:API_v0.6&action=edit&redlink=1" class="new" title="Ia:API v0.6 (page does not exist)">Interlingua</a></span> • <span lang="is"><a href="http://wiki.openstreetmap.org/w/index.php?title=Is:API_v0.6&action=edit&redlink=1" class="new" title="Is:API v0.6 (page does not exist)">Íslenska</a></span> • <span lang="it"><a href="http://wiki.openstreetmap.org/w/index.php?title=IT:API_v0.6&action=edit&redlink=1" class="new" title="IT:API v0.6 (page does not exist)">Italiano</a></span> • <span lang="ja"><a href="http://wiki.openstreetmap.org/w/index.php?title=JA:API_v0.6&action=edit&redlink=1" class="new" title="JA:API v0.6 (page does not exist)">日本語</a></span> • <span lang="ko"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ko:API_v0.6&action=edit&redlink=1" class="new" title="Ko:API v0.6 (page does not exist)">한국어</a></span> • <span lang="lb"><a href="http://wiki.openstreetmap.org/w/index.php?title=Lb:API_v0.6&action=edit&redlink=1" class="new" title="Lb:API v0.6 (page does not exist)">Lëtzebuergesch</a></span> • <span lang="lt"><a href="http://wiki.openstreetmap.org/w/index.php?title=Lt:API_v0.6&action=edit&redlink=1" class="new" title="Lt:API v0.6 (page does not exist)">Lietuvių</a></span> • <span lang="lv"><a href="http://wiki.openstreetmap.org/w/index.php?title=Lv:API_v0.6&action=edit&redlink=1" class="new" title="Lv:API v0.6 (page does not exist)">Latviešu</a></span> • <span lang="mk"><a href="http://wiki.openstreetmap.org/w/index.php?title=Mk:API_v0.6&action=edit&redlink=1" class="new" title="Mk:API v0.6 (page does not exist)">Македонски</a></span> • <span lang="nl"><a href="http://wiki.openstreetmap.org/w/index.php?title=NL:API_v0.6&action=edit&redlink=1" class="new" title="NL:API v0.6 (page does not exist)">Nederlands</a></span> • <span lang="nn"><a href="http://wiki.openstreetmap.org/w/index.php?title=Nn:API_v0.6&action=edit&redlink=1" class="new" title="Nn:API v0.6 (page does not exist)">‪Norsk (nynorsk)‬</a></span> • <span lang="no"><a href="http://wiki.openstreetmap.org/w/index.php?title=No:API_v0.6&action=edit&redlink=1" class="new" title="No:API v0.6 (page does not exist)">‪Norsk (bokmål)‬</a></span> • <span lang="pl"><a href="http://wiki.openstreetmap.org/w/index.php?title=Pl:API_v0.6&action=edit&redlink=1" class="new" title="Pl:API v0.6 (page does not exist)">Polski</a></span> • <span lang="pt"><a href="http://wiki.openstreetmap.org/w/index.php?title=Pt:API_v0.6&action=edit&redlink=1" class="new" title="Pt:API v0.6 (page does not exist)">Português</a></span>  • <span lang="ro"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ro:API_v0.6&action=edit&redlink=1" class="new" title="Ro:API v0.6 (page does not exist)">Română</a></span> • <span lang="ro-md"><a href="http://wiki.openstreetmap.org/w/index.php?title=Ro-md:API_v0.6&action=edit&redlink=1" class="new" title="Ro-md:API v0.6 (page does not exist)">Română (Moldova)</a></span>  • <span lang="sk"><a href="http://wiki.openstreetmap.org/w/index.php?title=Sk:API_v0.6&action=edit&redlink=1" class="new" title="Sk:API v0.6 (page does not exist)">Slovenčina</a></span> • <span lang="sl"><a href="http://wiki.openstreetmap.org/w/index.php?title=Sl:API_v0.6&action=edit&redlink=1" class="new" title="Sl:API v0.6 (page does not exist)">Slovenščina</a></span> • <span lang="sq"><a href="http://wiki.openstreetmap.org/w/index.php?title=Sq:API_v0.6&action=edit&redlink=1" class="new" title="Sq:API v0.6 (page does not exist)">Shqip</a></span> • <span lang="sv"><a href="http://wiki.openstreetmap.org/w/index.php?title=Sv:API_v0.6&action=edit&redlink=1" class="new" title="Sv:API v0.6 (page does not exist)">Svenska</a></span> • <span lang="tr"><a href="http://wiki.openstreetmap.org/w/index.php?title=Tr:API_v0.6&action=edit&redlink=1" class="new" title="Tr:API v0.6 (page does not exist)">Türkçe</a></span> • <span lang="uk"><a href="http://wiki.openstreetmap.org/w/index.php?title=Uk:API_v0.6&action=edit&redlink=1" class="new" title="Uk:API v0.6 (page does not exist)">Українська</a></span> • <span lang="vi"><a href="http://wiki.openstreetmap.org/w/index.php?title=Vi:API_v0.6&action=edit&redlink=1" class="new" title="Vi:API v0.6 (page does not exist)">Tiếng Việt</a></span> • <span lang="zh-hans"><a href="http://wiki.openstreetmap.org/w/index.php?title=Zh-hans:API_v0.6&action=edit&redlink=1" class="new" title="Zh-hans:API v0.6 (page does not exist)">‪中文(简体)‬</a></span> • <span lang="zh-hant"><a href="http://wiki.openstreetmap.org/w/index.php?title=Zh-hant:API_v0.6&action=edit&redlink=1" class="new" title="Zh-hant:API v0.6 (page does not exist)">‪中文(繁體)‬</a></span> 
+</div>
+</div><div class="NavFrame" style="border:none;display:none;" id="NavFrame2"><a class="NavToggle" id="NavToggle2" href="http://wiki.openstreetmap.org/wiki/API_v0.6#">show</a></div>
+<p><b>API v0.6</b> is the <i>current</i> version of the OSM <a href="http://wiki.openstreetmap.org/wiki/API" title="API">API</a> deployed 17-21 April 2009.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#General_information"><span class="tocnumber">1</span> <span class="toctext">General information</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#URL_.2B_Authentication"><span class="tocnumber">1.1</span> <span class="toctext">URL + Authentication</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Elements"><span class="tocnumber">1.2</span> <span class="toctext">Elements</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets"><span class="tocnumber">1.3</span> <span class="toctext">Changesets</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Tags"><span class="tocnumber">1.4</span> <span class="toctext">Tags</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Reliably_identifying_users"><span class="tocnumber">1.5</span> <span class="toctext">Reliably identifying users</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Version_numbers.2FOptimistic_locking"><span class="tocnumber">1.6</span> <span class="toctext">Version numbers/Optimistic locking</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#XML_Format"><span class="tocnumber">1.7</span> <span class="toctext">XML Format</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Faking_the_correct_HTTP_methods"><span class="tocnumber">1.8</span> <span class="toctext">Faking the correct HTTP methods</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls"><span class="tocnumber">2</span> <span class="toctext">API calls</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Miscellaneous"><span class="tocnumber">2.1</span> <span class="toctext">Miscellaneous</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Capabilities:_GET_.2Fapi.2Fcapabilities"><span class="tocnumber">2.1.1</span> <span class="toctext">Capabilities: GET /api/capabilities</span></a>
+<ul>
+<li class="toclevel-4 tocsection-13"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response"><span class="tocnumber">2.1.1.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-14"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes"><span class="tocnumber">2.1.1.2</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-15"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Retrieving_map_data_by_bounding_box:_GET_.2Fapi.2F0.6.2Fmap"><span class="tocnumber">2.1.2</span> <span class="toctext">Retrieving map data by bounding box: GET /api/0.6/map</span></a>
+<ul>
+<li class="toclevel-4 tocsection-16"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes"><span class="tocnumber">2.1.2.1</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-17"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2"><span class="tocnumber">2.2</span> <span class="toctext">Changesets</span></a>
+<ul>
+<li class="toclevel-3 tocsection-18"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Bounding_box_computation"><span class="tocnumber">2.2.1</span> <span class="toctext">Bounding box computation</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Create:_PUT_.2Fapi.2F0.6.2Fchangeset.2Fcreate"><span class="tocnumber">2.2.2</span> <span class="toctext">Create: PUT /api/0.6/changeset/create</span></a>
+<ul>
+<li class="toclevel-4 tocsection-20"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_2"><span class="tocnumber">2.2.2.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-21"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_2"><span class="tocnumber">2.2.2.2</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-22"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_2"><span class="tocnumber">2.2.2.3</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-23"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id"><span class="tocnumber">2.2.3</span> <span class="toctext">Read: GET /api/0.6/changeset/#id</span></a>
+<ul>
+<li class="toclevel-4 tocsection-24"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters"><span class="tocnumber">2.2.3.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-25"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_3"><span class="tocnumber">2.2.3.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-26"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_3"><span class="tocnumber">2.2.3.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-27"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_3"><span class="tocnumber">2.2.3.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-28"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Update:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id"><span class="tocnumber">2.2.4</span> <span class="toctext">Update: PUT /api/0.6/changeset/#id</span></a>
+<ul>
+<li class="toclevel-4 tocsection-29"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_2"><span class="tocnumber">2.2.4.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-30"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_4"><span class="tocnumber">2.2.4.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-31"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_4"><span class="tocnumber">2.2.4.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-32"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_4"><span class="tocnumber">2.2.4.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-33"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Close:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fclose"><span class="tocnumber">2.2.5</span> <span class="toctext">Close: PUT /api/0.6/changeset/#id/close</span></a>
+<ul>
+<li class="toclevel-4 tocsection-34"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_3"><span class="tocnumber">2.2.5.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-35"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_5"><span class="tocnumber">2.2.5.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-36"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_5"><span class="tocnumber">2.2.5.3</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-37"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload"><span class="tocnumber">2.2.6</span> <span class="toctext">Download: GET /api/0.6/changeset/#id/download</span></a>
+<ul>
+<li class="toclevel-4 tocsection-38"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_4"><span class="tocnumber">2.2.6.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-39"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_6"><span class="tocnumber">2.2.6.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-40"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_6"><span class="tocnumber">2.2.6.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-41"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_5"><span class="tocnumber">2.2.6.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-42"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Expand_Bounding_Box:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fexpand_bbox"><span class="tocnumber">2.2.7</span> <span class="toctext">Expand Bounding Box: POST /api/0.6/changeset/#id/expand_bbox</span></a>
+<ul>
+<li class="toclevel-4 tocsection-43"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_5"><span class="tocnumber">2.2.7.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-44"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_7"><span class="tocnumber">2.2.7.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-45"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_7"><span class="tocnumber">2.2.7.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-46"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_6"><span class="tocnumber">2.2.7.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-47"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets"><span class="tocnumber">2.2.8</span> <span class="toctext">Query: GET /api/0.6/changesets</span></a>
+<ul>
+<li class="toclevel-4 tocsection-48"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_6"><span class="tocnumber">2.2.8.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-49"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_8"><span class="tocnumber">2.2.8.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-50"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_8"><span class="tocnumber">2.2.8.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-51"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_7"><span class="tocnumber">2.2.8.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-52"><a href="./OpenStreetMapAPIv0.6_files/OpenStreetMapAPIv0.6.html"><span class="tocnumber">2.2.9</span> <span class="toctext">Diff upload: POST /api/0.6/changeset/#id/upload</span></a>
+<ul>
+<li class="toclevel-4 tocsection-53"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_7"><span class="tocnumber">2.2.9.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-54"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_9"><span class="tocnumber">2.2.9.2</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-55"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_9"><span class="tocnumber">2.2.9.3</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-56"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_8"><span class="tocnumber">2.2.9.4</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-57"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changeset_summary"><span class="tocnumber">2.2.10</span> <span class="toctext">Changeset summary</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-58"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Elements_2"><span class="tocnumber">2.3</span> <span class="toctext">Elements</span></a>
+<ul>
+<li class="toclevel-3 tocsection-59"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Create:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2Fcreate"><span class="tocnumber">2.3.1</span> <span class="toctext">Create: PUT /api/0.6/[node|way|relation]/create</span></a>
+<ul>
+<li class="toclevel-4 tocsection-60"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_10"><span class="tocnumber">2.3.1.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-61"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_10"><span class="tocnumber">2.3.1.2</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-62"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_9"><span class="tocnumber">2.3.1.3</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-63"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id"><span class="tocnumber">2.3.2</span> <span class="toctext">Read: GET /api/0.6/[node|way|relation]/#id</span></a>
+<ul>
+<li class="toclevel-4 tocsection-64"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_11"><span class="tocnumber">2.3.2.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-65"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_11"><span class="tocnumber">2.3.2.2</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-66"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Update:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id"><span class="tocnumber">2.3.3</span> <span class="toctext">Update: PUT /api/0.6/[node|way|relation]/#id</span></a>
+<ul>
+<li class="toclevel-4 tocsection-67"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_12"><span class="tocnumber">2.3.3.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-68"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_12"><span class="tocnumber">2.3.3.2</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-69"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_10"><span class="tocnumber">2.3.3.3</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-70"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Delete:_DELETE_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id"><span class="tocnumber">2.3.4</span> <span class="toctext">Delete: DELETE /api/0.6/[node|way|relation]/#id</span></a>
+<ul>
+<li class="toclevel-4 tocsection-71"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Response_13"><span class="tocnumber">2.3.4.1</span> <span class="toctext">Response</span></a></li>
+<li class="toclevel-4 tocsection-72"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_13"><span class="tocnumber">2.3.4.2</span> <span class="toctext">Error codes</span></a></li>
+<li class="toclevel-4 tocsection-73"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_11"><span class="tocnumber">2.3.4.3</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-74"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#History:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Fhistory"><span class="tocnumber">2.3.5</span> <span class="toctext">History: GET /api/0.6/[node|way|relation]/#id/history</span></a>
+<ul>
+<li class="toclevel-4 tocsection-75"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_14"><span class="tocnumber">2.3.5.1</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-76"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Version:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2F.23version"><span class="tocnumber">2.3.6</span> <span class="toctext">Version: GET /api/0.6/[node|way|relation]/#id/#version</span></a>
+<ul>
+<li class="toclevel-4 tocsection-77"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_15"><span class="tocnumber">2.3.6.1</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-78"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Multi_fetch:_GET_.2Fapi.2F0.6.2F.5Bnodes.7Cways.7Crelations.5D"><span class="tocnumber">2.3.7</span> <span class="toctext">Multi fetch: GET /api/0.6/[nodes|ways|relations]</span></a>
+<ul>
+<li class="toclevel-4 tocsection-79"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Parameters_8"><span class="tocnumber">2.3.7.1</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-4 tocsection-80"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_16"><span class="tocnumber">2.3.7.2</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-81"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Relations_for_Element:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Frelations"><span class="tocnumber">2.3.8</span> <span class="toctext">Relations for Element: GET /api/0.6/[node|way|relation]/#id/relations</span></a>
+<ul>
+<li class="toclevel-4 tocsection-82"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_12"><span class="tocnumber">2.3.8.1</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-83"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Ways_for_Node:_GET_.2Fapi.2F0.6.2Fnode.2F.23id.2Fways"><span class="tocnumber">2.3.9</span> <span class="toctext">Ways for Node: GET /api/0.6/node/#id/ways</span></a>
+<ul>
+<li class="toclevel-4 tocsection-84"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Notes_13"><span class="tocnumber">2.3.9.1</span> <span class="toctext">Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-85"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Full:_GET_.2Fapi.2F0.6.2F.5Bway.7Crelation.5D.2F.23id.2Ffull"><span class="tocnumber">2.3.10</span> <span class="toctext">Full: GET /api/0.6/[way|relation]/#id/full</span></a>
+<ul>
+<li class="toclevel-4 tocsection-86"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Error_codes_17"><span class="tocnumber">2.3.10.1</span> <span class="toctext">Error codes</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-87"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#GPS_Traces"><span class="tocnumber">2.4</span> <span class="toctext">GPS Traces</span></a>
+<ul>
+<li class="toclevel-3 tocsection-88"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Retrieving_GPS_points"><span class="tocnumber">2.4.1</span> <span class="toctext">Retrieving GPS points</span></a>
+<ul>
+<li class="toclevel-4 tocsection-89"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Examples"><span class="tocnumber">2.4.1.1</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-90"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Uploading_Traces"><span class="tocnumber">2.4.2</span> <span class="toctext">Uploading Traces</span></a></li>
+<li class="toclevel-3 tocsection-91"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Downloading_Trace_Metadata"><span class="tocnumber">2.4.3</span> <span class="toctext">Downloading Trace Metadata</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-92"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Methods_for_User_Data"><span class="tocnumber">2.5</span> <span class="toctext">Methods for User Data</span></a>
+<ul>
+<li class="toclevel-3 tocsection-93"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Details"><span class="tocnumber">2.5.1</span> <span class="toctext">Details</span></a></li>
+<li class="toclevel-3 tocsection-94"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Preferences"><span class="tocnumber">2.5.2</span> <span class="toctext">Preferences</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-95"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#When_NOT_to_use_the_API"><span class="tocnumber">3</span> <span class="toctext">When NOT to use the API</span></a></li>
+<li class="toclevel-1 tocsection-96"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Further_Reading"><span class="tocnumber">4</span> <span class="toctext">Further Reading</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="General_information">General information</span></h1>
+<p>This API is based on the ideas of the RESTful API. For more information on RESTful APIs see <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer" class="extiw" title="wikipedia:Representational State Transfer">wikipedia's Representational State Transfer page</a>.
+</p><p>The API is the server component to which REST requests are addressed. The REST requests take the form of HTTP GET, PUT, POST, and DELETE messages. Any payload is in XML form, using the MIME type "text/xml" and UTF-8 character encoding, and may be compressed on the HTTP layer if the client indicates through the HTTP "Accept" header that it can handle compressed messages.
+</p><p>Requests to modify the database are authorized using <i>HTTP Basic Authorization</i> or <i><a href="http://wiki.openstreetmap.org/wiki/OAuth" title="OAuth">OAuth</a></i>. Read requests do not require authorization (except user details).
+</p><p>Preliminary <a href="http://wiki.openstreetmap.org/wiki/OSM_Protocol_Version_0.6/DTD" title="OSM Protocol Version 0.6/DTD" class="mw-redirect">Full DTD</a> (under construction and discussion).
+</p><p><a href="http://wiki.openstreetmap.org/wiki/OSM_Protocol_Changes_V0.5_to_V0.6" title="OSM Protocol Changes V0.5 to V0.6" class="mw-redirect">Changes between API v0.5 and API v0.6</a>
+</p>
+<h2> <span class="mw-headline" id="URL_.2B_Authentication">URL + Authentication</span></h2>
+<p>The API is currently accessible using the following URL: <b><a href="http://api.openstreetmap.org/" class="external free" rel="nofollow">http://api.openstreetmap.org/</a></b>
+</p><p>If you want to test your software against the API you should consider using <b><a href="http://api06.dev.openstreetmap.org/" class="external free" rel="nofollow">http://api06.dev.openstreetmap.org/</a></b> instead of the live-api.
+</p><p>All of the calls to the API which update, create or delete data have to be made by an authenticated and authorized user. Authentication works by using HTTP Basic authentication using an user name and password or by using <a href="http://wiki.openstreetmap.org/wiki/OAuth" title="OAuth">OAuth</a>.
+</p>
+<h2> <span class="mw-headline" id="Elements">Elements</span></h2>
+<p>There are API calls to create, read, update and delete the three basic <a href="http://wiki.openstreetmap.org/wiki/Elements" title="Elements">elements</a> that make up the map data for OpenStreetMap. They each return or expect the data for the elements in a XML format.
+</p>
+<h2> <span class="mw-headline" id="Changesets">Changesets</span></h2>
+<p>Every modification of one or more of the elements has to reference an open <a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2" title="API v0.6">changeset</a>.
+</p>
+<h2> <span class="mw-headline" id="Tags">Tags</span></h2>
+<p>Every element and changeset may have any number of tags. A tag is a Key-Value pair of Unicode strings of up to 255 characters (full Unicode characters, not bytes).
+</p>
+<h2> <span class="mw-headline" id="Reliably_identifying_users">Reliably identifying users</span></h2>
+<p>The previous API v0.5 returned only the user display name. The user can update this at any time and there is no history stored for display name changes. This means there was no way to reliably identify which user made a specific change. API v0.6 includes the numeric user ID of the account in addition to the display name. e.g.
+</p>
+<pre>&lt;node id="68" ... user="fred" uid="123"/&gt;
+</pre>
+<p>This still requires the user to have made his edits public. User ID for users who have previously made anonymous changes will not be visible. In accordance with a recommendation from the OpenStreetMap Foundation Board, <a href="http://wiki.openstreetmap.org/wiki/Anonymous_edits" title="Anonymous edits">anonymous edits</a> are no longer be allowed.
+</p>
+<h2> <span class="mw-headline" id="Version_numbers.2FOptimistic_locking">Version numbers/Optimistic locking</span></h2>
+<p>The planet dump, diffs and the API calls for elements will return a <i>version</i> attribute for each <i>Node</i>, <i>Way</i> and <i>Relation</i>.
+</p>
+<pre>&lt;node id="68" ... version="12"/&gt;
+</pre>
+<p>These version numbers are used for <i>optimistic locking</i>. To upload a new version of an object, the client will need to provide the version of the object it is modifying. If the version supplied is not the same as the server's current version, an error will be returned (HTTP status code 409: Conflict). This means that any client that is updating data will need to save the version numbers of the original data. One element can be updated multiple times during one changeset and its version number is increased each time so there can be multiple <i>history versions</i> of a single element for one changeset.
+</p><p>In addition, clients can now ask for specific versions of an element.
+</p><p>Version numbers will always begin at <i>1</i> and increase by 1 every time an element is changed. Clients should not, however, rely on the increase by 1 when updating an element, but instead retrieve the new version number from the server response.
+</p>
+<h2> <span class="mw-headline" id="XML_Format">XML Format</span></h2>
+<p>Every XML response from the server is wrapped in an <tt>&lt;osm&gt;</tt> element unless specified otherwise (e.g. for diff uploads, or changeset downloads). In most of the later examples this wrapper is left out.
+</p>
+<pre>&lt;osm version="0.6" generator="OpenStreetMap server"&gt;
+  ...
+  ...
+&lt;/osm&gt;
+</pre>
+<p>Every call to the API has to be wrapped in an <tt>&lt;osm&gt;</tt> element as well but the <i>version</i> and <i>generator</i> attributes can be left out.
+</p>
+<h2> <span class="mw-headline" id="Faking_the_correct_HTTP_methods">Faking the correct HTTP methods</span></h2>
+<p>Many of the API calls use PUT and DELETE methods, which may not be available in the client HTTP stack you are using. You should complain to the authors of that stack that it is not a full HTTP implementation. If that doesn't work, then there is a work-around by putting the X_HTTP_METHOD_OVERRIDE header with the value of the method you want to simulate. For example, to make curl do a POST, but use the PUT handler, do:
+</p>
+<pre>curl -v -v -d @changeset.osm -H "X_HTTP_METHOD_OVERRIDE: PUT" "<a href="http://server/api/0.6/changeset/create" class="external free" rel="nofollow">http://server/api/0.6/changeset/create</a>"
+</pre>
+<h1> <span class="mw-headline" id="API_calls">API calls</span></h1>
+<h2> <span class="mw-headline" id="Miscellaneous">Miscellaneous</span></h2>
+<h3> <span class="mw-headline" id="Capabilities:_GET_.2Fapi.2Fcapabilities">Capabilities: <tt>GET /api/capabilities</tt></span></h3>
+<p>This API call is meant to provide information about the capabilities and limitations of the current API.
+</p>
+<h4> <span class="mw-headline" id="Response">Response</span></h4>
+<p>Returns a XML document (content type <tt>text/xml</tt>)
+</p>
+<pre> &lt;osm version="0.6" generator="OpenStreetMap server"&gt;
+   &lt;api&gt;
+     &lt;version minimum="0.6" maximum="0.6"/&gt;
+     &lt;area maximum="0.25"/&gt;
+     &lt;tracepoints per_page="5000"/&gt;
+     &lt;waynodes maximum="2000"/&gt;
+     &lt;changesets maximum_elements="50000"/&gt;
+     &lt;timeout seconds="300"/&gt;
+   &lt;/api&gt;
+ &lt;/osm&gt;
+</pre>
+<p>Please note that actual returned values may change at any time and this XML document only serves as an example.
+</p>
+<ul><li> Version minimum and maximum are the API call versions that the server will accept.
+</li><li> Area maximum is the maximum area in square degrees that can be queried by API calls.
+</li><li> Tracepoints per_page is the maximum number of points in a single GPS trace. (Possibly incorrect)
+</li><li> Waypoints maximum is the maximum number of nodes that a way may contain.
+</li><li> Changesets maximum is the maximum number of combined nodes, ways and relations that can be contained in a changeset.
+</li></ul>
+<h4> <span class="mw-headline" id="Notes">Notes</span></h4>
+<ul><li> Note that the URL is versionless. For convenience, the server supports the request <tt>/api/0.6/capabilities</tt> too, such that clients can use the same URL prefix <tt>http:/.../api/0.6</tt> for all requests.
+</li></ul>
+<h3> <span class="mw-headline" id="Retrieving_map_data_by_bounding_box:_GET_.2Fapi.2F0.6.2Fmap">Retrieving map data by bounding box: <tt>GET /api/0.6/map</tt></span></h3>
+<p>The following command returns:
+</p>
+<ul><li> All nodes that are inside a given bounding box and any relations that reference them.
+</li><li> All ways that reference at least one node that is inside a given bounding box, any relations that reference them [the ways], and any nodes outside the bounding box that the ways may reference.
+</li><li> All relations that reference one of the nodes or ways included due to the above rules. (Does <b>not</b> apply recursively.)
+</li></ul>
+<pre>GET /api/0.6/map?bbox=<span style="border:thin solid black"><i>left</i></span>,<span style="border:thin solid black"><i>bottom</i></span>,<span style="border:thin solid black"><i>right</i></span>,<span style="border:thin solid black"><i>top</i></span>
+</pre>
+<p>where:
+</p>
+<ul><li> <code><span style="border:thin solid black"><i>left</i></span></code> is the longitude of the left (westernmost) side of the bounding box.
+</li><li> <code><span style="border:thin solid black"><i>bottom</i></span></code> is the latitude of the bottom (southernmost) side of the bounding box.
+</li><li> <code><span style="border:thin solid black"><i>right</i></span></code> is the longitude of the right (easternmost) side of the bounding box.
+</li><li> <code><span style="border:thin solid black"><i>top</i></span></code> is the latitude of the top (northernmost) side of the bounding box.
+</li></ul>
+<p>Note that, while this command returns those relations that reference the aforementioned nodes and ways, the reverse is not true: it does not (necessarily) return all of the nodes and ways that are referenced by these relations. This prevents unreasonably-large result sets. For example, imagine the case where:
+</p>
+<ul><li> There is a relationship named "England" that references every node in England.
+</li><li> The nodes, ways, and relations are retrieved for a bounding box that covers a small portion of England.
+</li></ul>
+<p>While the result would include the nodes, ways, and relations as specified by the rules for the command, including the "England" relation, it would (fortuitously) <i>not</i> include <i>every</i> node and way in England. If desired, the nodes and ways referenced by the "England" relation could be retrieved by their respective IDs.
+</p><p>Also note that ways which intersect the bounding box but have no nodes within the bounding box will not be returned.
+</p>
+<h4> <span class="mw-headline" id="Error_codes">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request)
+</dt><dd> When any of the node/way/relation limits are crossed
+</dd></dl>
+<dl><dt> HTTP status code 509 (Bandwidth Limit Exceeded)
+</dt><dd> "Error:  You have downloaded too much data. Please try again later." See <a href="http://wiki.openstreetmap.org/wiki/Developer_FAQ#I.27ve_been_blocked_from_the_API_for_downloading_too_much._Now_what.3F" title="Developer FAQ">Developer FAQ</a>.
+</dd></dl>
+<h2> <span class="mw-headline" id="Changesets_2">Changesets</span></h2>
+<p>To make it easier to identify related changes the concept of changesets is introduced. Every modification of the standard OSM elements has to reference an open changeset. A changeset may contain tags just like the other elements. A recommended tag for changesets is the key <tt style="background-color:#e0e0f0; white-space:pre;" dir="ltr"><a href="http://wiki.openstreetmap.org/wiki/Key:comment" title="Key:comment">comment</a>=*</tt> with a short human readable description of the changes being made in that changeset, similar to a commit message in a revision control system. A new changeset can be opened at any time and a changeset may referenced from multiple API calls. Because of this it can be closed manually as the server can't know when one changeset ends and another should begin. To avoid stale open changesets a mechanism is implemented to automatically close changesets upon one of the following three conditions:
+</p>
+<ul><li> More than 50.000 edits on a single changeset <a href="http://wiki.openstreetmap.org/wiki/API_v0.6#New_Limits">See more specific limits</a>
+</li><li> The changeset has been open for more than 24 hours
+</li><li> There have been no changes/API calls related to a changeset in 1 hour (i.e. idle timeout)
+</li></ul>
+<p>Changesets are specifically <i>not</i> atomic - elements added within a changeset will be visible to other users before the changeset is closed. Given how many changes might be uploaded in one step it's not feasible. Instead optimistic locking is used as described above. Anything submitted to the server in a single request will be considered atomically. To achieve transactionality for multiple changes there is the new <i>diff upload</i> API call.
+</p><p>Changesets facilitate the implementation of rollbacks. By providing insight into the changes committed by a single person it becomes easier to identify the changes made, rather than just rolling back a whole region. Direct support for rollback will not be in the API, instead they will be a form of reverse merging, where client can download the changeset, examine the changes and then manipulate the API to obtain the desired results. Rolling back a changeset can be be an extremely complex process especially if the rollback conflicts with other changes made in the mean time; we expect (hope) that in time, expert applications will be created that make rollback on various levels available to the average user.
+</p><p>To support easier usage, the server stores a bounding box for each changeset and allows users to query changesets in an area. This will be calculated by the server, since it needs to look up the relevant nodes anyway. As an optimisation the server will create a buffer slightly larger than the objects to avoid having to update the bounding box too often. Client should note that if people make many small changes in a large area they will be easily matched. In this case clients should examine the changeset directly to see if it truly overlaps. A client can expand the bounding box manually using an API call, which can be useful when the client already knows the full extent of the data it is about to upload.
+</p><p>It is not possible to delete changesets at the moment, even if they don't contain any changes. The server may at a later time delete changesets which are closed and which do not contain any changes. This is not yet implemented.
+</p>
+<h3> <span class="mw-headline" id="Bounding_box_computation">Bounding box computation</span></h3>
+<p>This is how the API computes the bounding box associated with a changeset:
+</p>
+<ul><li> Nodes: Any change to a node, including deletion, adds the node's old and new location to the bbox.
+</li><li> Ways: Any change to a way, including deletion, adds all of the way's nodes to the bbox.
+</li><li> Relations:
+</li></ul>
+<dl><dd><ul><li> adding or removing nodes or ways from a relation causes them to be added to the changeset bounding box. 
+</li><li> adding a relation member or changing tag values causes all node and way members to be added to the bounding box.
+</li><li> this is similar to how the map call does things and is reasonable on the assumption that adding or removing members doesn't materially change the rest of the relation.
+</li></ul>
+</dd></dl>
+<h3> <span class="mw-headline" id="Create:_PUT_.2Fapi.2F0.6.2Fchangeset.2Fcreate">Create: <tt>PUT /api/0.6/changeset/create</tt></span></h3>
+<p>The payload of a changeset creation request has to be one or more <tt>changeset</tt> elements optionally including an arbitrary number of tags.
+</p>
+<pre>&lt;osm&gt;
+  &lt;changeset&gt;
+    &lt;tag k="created_by" v="JOSM 1.61"/&gt;
+    &lt;tag k="comment" v="Just adding some streetnames"/&gt;
+    ...
+  &lt;/changeset&gt;
+  ...
+&lt;/osm&gt;
+</pre>
+<p>If there are multiple <tt>changeset</tt> elements in the XML the tags from all of them are used, later ones overriding the earlier ones in case of duplicate keys.
+</p>
+<h4> <span class="mw-headline" id="Response_2">Response</span></h4>
+<p>The ID of the newly created changeset with a content type of <tt>text/plain</tt>
+</p>
+<h4> <span class="mw-headline" id="Error_codes_2">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request)
+</dt><dd> When there are errors parsing the XML
+</dd><dt> HTTP status code 405 (Method Not Allowed)
+</dt><dd> If the request is not a HTTP PUT request
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_2">Notes</span></h4>
+<p>Any number of possibly editor-specific, tags are allowed. An editor might, for example, automatically include information about which background image was used, or even a bit of internal state information that will make it easier to revisit the changeset with the same editor later, etc.
+</p><p>Clients <i>should</i> include a <tt style="background-color:#e0e0f0; white-space:pre;" dir="ltr"><a href="http://wiki.openstreetmap.org/wiki/Key:created_by" title="Key:created by">created_by</a>=*</tt> tag. Clients are advised to make sure that a <tt style="background-color:#e0e0f0; white-space:pre;" dir="ltr"><a href="http://wiki.openstreetmap.org/wiki/Key:comment" title="Key:comment">comment</a>=*</tt> is present, which the user has entered. It is optional at the moment but this <i>might</i> change in later API versions. Clients <i>should not</i> automatically generate the comment tag, as this tag is for the end-user to describe their changes. Clients <i>may</i> add any other tags as they see fit.
+</p>
+<h3> <span class="mw-headline" id="Read:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id">Read: <tt>GET /api/0.6/changeset/#id</tt></span></h3>
+<p>Returns the changeset with the given <tt>id</tt> in OSM-XML format.
+</p>
+<pre>&lt;osm&gt;
+  &lt;changeset id="10" user="fred" uid="123" created_at="2008-11-08T19:07:39+01:00" open="true" min_lon="7.0191821" min_lat="49.2785426" max_lon="7.0197485" max_lat="49.2793101"&gt;
+    &lt;tag k="created_by" v="JOSM 1.61"/&gt;
+    &lt;tag k="comment" v="Just adding some streetnames"/&gt;
+    ...
+ &lt;/changeset&gt;
+&lt;/osm&gt;
+</pre>
+<h4> <span class="mw-headline" id="Parameters">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The id of the changeset to retrieve
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_3">Response</span></h4>
+<p>Returns the single changeset element containing the changeset tags with a content type of <tt>text/xml</tt>
+</p>
+<h4> <span class="mw-headline" id="Error_codes_3">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no changeset with the given id could be found
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_3">Notes</span></h4>
+<ul><li> The <tt>uid</tt> might not be available for changesets auto generated by the API v0.5 to API v0.6 transition?
+</li><li> The bounding box attributes will be missing for an empty changeset.
+</li><li> The changeset bounding box is a rectangle that contains the bounding boxes of all objects changed in this changeset. It is not necessarily the smallest possible rectangle that does so.
+</li><li> This API call only returns information about the changeset itself but not the actual changes made to elements in this changeset. To access this information use the <i>download</i> API call.
+</li></ul>
+<h3> <span class="mw-headline" id="Update:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id">Update: <tt>PUT /api/0.6/changeset/#id</tt></span></h3>
+<p>For updating tags on the changeset, e.g. changeset <tt style="background-color:#e0e0f0; white-space:pre;" dir="ltr"><a href="http://wiki.openstreetmap.org/wiki/Key:comment" title="Key:comment">comment</a>=<a href="http://wiki.openstreetmap.org/w/index.php?title=Tag:comment%3Dfoo&action=edit&redlink=1" class="new" title="Tag:comment=foo (page does not exist)">foo</a></tt>.
+</p><p>Payload should be an OSM document containing the new version of a single changeset. Bounding box, update time and other attributes are ignored and cannot be updated by this method. For updating the bounding box see the <i>expand_bbox</i> method.
+</p>
+<pre>&lt;osm&gt;
+  &lt;changeset&gt;
+    &lt;tag k="comment" v="Just adding some streetnames and a restaurant"/&gt;
+  &lt;/changeset&gt;
+&lt;/osm&gt;
+</pre>
+<h4> <span class="mw-headline" id="Parameters_2">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The id of the changeset to update. The user issuing this API call has to be the same that created the changeset
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_4">Response</span></h4>
+<p>An OSM document containing the new version of the changeset with a content type of <tt>text/xml</tt>
+</p>
+<h4> <span class="mw-headline" id="Error_codes_4">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request)
+</dt><dd> When there are errors parsing the XML
+</dd><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no changeset with the given id could be found
+</dd><dt> HTTP status code 405 (Method Not Allowed)
+</dt><dd> If the request is not a HTTP PUT request
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_4">Notes</span></h4>
+<p>Unchanged tags have to be repeated in order to not be deleted.
+</p>
+<h3> <span class="mw-headline" id="Close:_PUT_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fclose">Close: <tt>PUT /api/0.6/changeset/#id/close</tt></span></h3>
+<p>Closes a changeset. A changeset may already have been closed without the owner issuing this API call. In this case an error code is returned.
+</p>
+<h4> <span class="mw-headline" id="Parameters_3">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The id of the changeset to close. The user issuing this API call has to be the same that created the changeset.
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_5">Response</span></h4>
+<p>Nothing is returned upon successful closing of a changeset (HTTP status code 200)
+</p>
+<h4> <span class="mw-headline" id="Error_codes_5">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no changeset with the given id could be found
+</dd><dt> HTTP status code 405 (Method Not Allowed)
+</dt><dd> If the request is not a HTTP PUT request
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd></dl>
+<h3> <span class="mw-headline" id="Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload">Download: <tt>GET /api/0.6/changeset/#id/download</tt></span></h3>
+<p>Returns the <a href="http://wiki.openstreetmap.org/wiki/OsmChange" title="OsmChange">OsmChange</a> document describing all changes associated with the changeset.
+</p>
+<h4> <span class="mw-headline" id="Parameters_4">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The id of the changeset for which the OsmChange is requested.
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_6">Response</span></h4>
+<p>The OsmChange XML with a content type of <tt>text/xml</tt>.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_6">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no changeset with the given id could be found
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_5">Notes</span></h4>
+<ul><li> The result of calling this may change as long as the changeset is open.
+</li><li> The elements in the OsmChange are sorted by timestamp and version number.
+</li></ul>
+<h3> <span class="mw-headline" id="Expand_Bounding_Box:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fexpand_bbox">Expand Bounding Box: <tt>POST /api/0.6/changeset/#id/expand_bbox</tt></span></h3>
+<p>POSTing a XML document containing <i>node</i> elements (these <tt>node</tt> elements have nothing to do with the <i>Nodes</i> mentioned elsewhere in this page, they are merely a container for <i>lat</i> and <i>lon</i> attributes) that are to this location will cause the bounding box of the changeset to expand to <i>exactly</i> the smallest containing rectangle of the points given and the bounding box automatically calculated by the API. So this call can only <i>increase</i> the size of the bounding box and later additions to the changeset may override the expanded bounding box.
+</p><p>The input document should look like this:
+</p>
+<pre>&lt;osm&gt;
+  &lt;node lat=".." lon=".."/&gt;
+  &lt;node lat=".." lon=".."/&gt;
+  ...
+&lt;/osm&gt;
+</pre>
+<p>The <i>osm</i> element may contain other elements than <i>node</i>, but these are ignored. The <i>node</i> element may contain other attributes (including <i>id</i>) than lat and lon, but these are ignored as well.
+</p><p>This call is supported to give editors the chance to expand the bounding box that the API automatically computes for the changeset. There are cases where the editor will have extra knowledge that make it advisable to flag a larger area as <i>changed</i> than the API would guess from the changes alone. This call may also be used before uploading a large number of changes as a hint for the server which area will be affected.
+</p>
+<h4> <span class="mw-headline" id="Parameters_5">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The id of the changeset for which the OsmChange is requested.
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_7">Response</span></h4>
+<p>Returns the updated changeset containing with a content type of <tt>text/xml</tt>.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_7">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no changeset with the given id could be found
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_6">Notes</span></h4>
+<ul><li> I don't know if there are really any advantages in issuing a <tt>expand_bbox</tt> call before a large chunk of changes is uploaded.
+</li><li> As the reuse of <tt>node</tt> as a XML element name is confusing and the format of this call might change in a later API version.
+</li></ul>
+<h3> <span class="mw-headline" id="Query:_GET_.2Fapi.2F0.6.2Fchangesets">Query: <tt>GET /api/0.6/changesets</tt></span></h3>
+<p>This is an API method for querying changesets. It supports querying by different criteria.
+</p><p>Where multiple queries are given the result will be those which match all of the requirements. The contents of the returned document are the changesets and their tags. To get the full set of changes associated with a changeset, use the <i>download</i> method on each changeset ID individually.
+</p><p>Modification and extension of the basic queries above may be required to support rollback and other uses we find for changesets.
+</p>
+<h4> <span class="mw-headline" id="Parameters_6">Parameters</span></h4>
+<dl><dt> bbox=min_lon,min_lat,max_lon,max_lat (W,S,E,N)
+</dt><dd> Find changesets within the given bounding box
+</dd><dt> user=#uid <b>or</b> display_name=#name
+</dt><dd> Find changesets by the user with the given user id or display name. Providing both is an error.
+</dd><dt> time=T1
+</dt><dd> Find changesets <i>closed</i> after T1
+</dd><dt> time=T1,T2
+</dt><dd> Find changesets that were <i>closed</i> after T1 and <i>created</i> before T2
+</dd><dt> open
+</dt><dd> Only finds changesets that are still <i>open</i> but excludes changesets that are closed or have reached the element limit for a changeset (50.000 at the moment)
+</dd><dt> closed
+</dt><dd> Only finds changesets that are <i>closed</i> or have reached the element limit
+</dd></dl>
+<p>Time format:
+Anything that <a href="http://www.ruby-doc.org/core/classes/DateTime.html#M002825" class="external text" rel="nofollow">this Ruby function</a> will parse. The default str is ’-4712-01-01T00:00:00+00:00’; this is Julian Day Number day 0.
+</p>
+<h4> <span class="mw-headline" id="Response_8">Response</span></h4>
+<p>Returns a list of all changeset ordered by creation date. The <tt>&lt;osm&gt;</tt> element may be empty if there were no results for the query. The response is send with a content type of <tt>text/xml</tt>.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_8">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request) - <tt>text/plain</tt>
+</dt><dd> On misformed parameters. A text message explaining the error is returned. In particular, trying to provide both the UID and display name as user query parameters will result in this error.
+</dd><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no user with the given <tt>uid</tt> or <tt>display_name</tt> could be found.
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_7">Notes</span></h4>
+<ul><li> Only changesets by public users are returned.
+</li><li> I'm not sure if the time query makes sense as it is implemented now. The original documentation for this feature states:
+<ul><li> One-sided to query changesets where the start time is after the given time.
+</li><li> Bounded (?time=T1,T2) to query where the start time is between the given times.
+</li></ul>
+</li><li> Returns at most 100 changesets
+</li></ul>
+<h3> <span class="mw-headline" id="Diff_upload:_POST_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fupload">Diff upload: <tt>POST /api/0.6/changeset/#id/upload</tt></span></h3>
+<p>With this API call files in the <a href="http://wiki.openstreetmap.org/wiki/OsmChange" title="OsmChange">OsmChange</a> format can be uploaded to the server. This is guaranteed to be running in a transaction. So either all the changes are applied or none.
+</p><p>To upload an OSC file it has to conform to the <a href="http://wiki.openstreetmap.org/wiki/OsmChange" title="OsmChange">OsmChange</a> specification with the following additions:
+</p>
+<ul><li> each element must carry a <i>changeset</i> and a <i>version</i> attribute, except when you are creating an element where the version is not required as the server sets that for you. The <i>changeset</i> must be the same as the changeset ID being uploaded to.
+</li></ul>
+<ul><li> a &lt;delete&gt; block in the OsmChange document may have an <i>if-unused</i> attribute (the value of which is ignored). If this attribute is present, then the delete operation(s) in this block are conditional and will only be executed if the object to be deleted is not used by another object. Without the <i>if-unused</i>, such a situation would lead to an error, and the whole diff upload would fail.
+</li></ul>
+<h4> <span class="mw-headline" id="Parameters_7">Parameters</span></h4>
+<dl><dt> id
+</dt><dd> The ID of the changeset this diff belongs to.
+</dd><dt> POST data
+</dt><dd> The OsmChange file data
+</dd></dl>
+<h4> <span class="mw-headline" id="Response_9">Response</span></h4>
+<p>If a diff is successfully applied a XML (content type <tt>text/xml</tt>) is returned in the following format
+</p>
+<pre>&lt;diffResult generator="OpenStreetMap Server" version="0.6"&gt;
+  &lt;node|way|relation old_id="#" new_id="#" new_version="#"/&gt;
+  ...
+&lt;/diffResult&gt;
+</pre>
+<p>with one element for every element in the upload. Note that this can be counter-intuitive when the same element has appeared multiple times in the input then it will appear multiple times in the output.
+</p>
+<table class="wikitable" style="text-align:center">
+
+<tbody><tr>
+<th> Attribute </th><th> create </th><th> modify </th><th> delete
+</th></tr>
+<tr>
+<th> old_id
+</th><td colspan="3"> same as uploaded element.
+</td></tr>
+<tr>
+<th> new_id
+</th><td> new ID </td><td> same as uploaded </td><td> not present
+</td></tr>
+<tr>
+<th> new_version
+</th><td colspan="2"> new version </td><td> not present
+</td></tr></tbody></table>
+<h4> <span class="mw-headline" id="Error_codes_9">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request) - <tt>text/plain</tt>
+</dt><dd> When there are errors parsing the XML. A text message explaining the error is returned.
+</dd><dd> When an placeholder ID is missing or not unique
+</dd><dt> HTTP status code 405 (Method Not Allowed)
+</dt><dd> If the request is not a HTTP POST request
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> If, while uploading, the max. size of the changeset is exceeded. A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd><dd> Or if the diff contains elements with changeset IDs which don't match the changeset ID that the diff was uploaded to
+</dd><dd> Any of the error codes that could occur an a create, update or delete operation for one of the elements
+</dd><dd> See the according sections in this page
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_8">Notes</span></h4>
+<ul><li> Processing stops at the first error, so if there are multiple conflicts in one diff upload, only the first problem is reported.
+</li><li> There is currently no limit in the diff size but this will probably be changed later.
+</li></ul>
+<h3> <span class="mw-headline" id="Changeset_summary"> Changeset summary  </span></h3>
+<p>The procedure for successful creation of a changeset is summarized in the following picture: 
+</p><p><a href="http://wiki.openstreetmap.org/wiki/File:OSM_API0.6_Changeset_successful_creation_V0.1.png" class="image"><img alt="OSM API0.6 Changeset successful creation V0.1.png" src="./OpenStreetMapAPIv0.6_files/600px-OSM_API0.6_Changeset_successful_creation_V0.1.png" width="600" height="682"></a>
+</p>
+<h2> <span class="mw-headline" id="Elements_2">Elements</span></h2>
+<p>There are create, read, update and delete calls for all of the three basic elements in OpenStreetMap (<i>Nodes</i>, <i>Ways</i> and <i>Relations</i>). These calls are very similar except for the payload and a few special error messages so they are documented only once.
+</p>
+<h3> <span class="mw-headline" id="Create:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2Fcreate">Create: <tt>PUT /api/0.6/[node|way|relation]/create</tt></span></h3>
+Creates a new element of the specified type. Note that the entire request should be wrapped in a <pre>&lt;osm&gt;...&lt;/osm&gt;</pre> element. 
+<p>A Node:
+</p>
+<pre>&lt;osm&gt;
+ &lt;node changeset="12" lat="..." lon="..."&gt;
+   &lt;tag k="note" v="Just a node"/&gt;
+   ...
+ &lt;/node&gt;
+&lt;/osm&gt;
+</pre>
+<p>A Way:
+</p>
+<pre>&lt;osm&gt;
+ &lt;way changeset="12"&gt;
+   &lt;tag k="note" v="Just a way"/&gt;
+   ...
+   &lt;nd ref="123"/&gt;
+   &lt;nd ref="4345"/&gt;
+   ...
+ &lt;/way&gt;
+&lt;/osm&gt;
+</pre>
+<p>A Relation:
+</p>
+<pre>&lt;osm&gt;
+ &lt;relation changeset="12"&gt;
+   &lt;tag k="note" v="Just a relation"/&gt;
+   ...
+   &lt;member type="node" role="stop" ref="123"/&gt;
+   &lt;member type="way" ref="234"/&gt;
+ &lt;/relation&gt;
+&lt;/osm&gt;
+</pre>
+<p>If multiple elements are provided only the first is created. The rest is discarded (this behaviour differs from changeset creation).
+</p>
+<h4> <span class="mw-headline" id="Response_10">Response</span></h4>
+<p>The ID of the newly created element (content type is <tt>text/plain</tt>)
+</p>
+<h4> <span class="mw-headline" id="Error_codes_10">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request) - <tt>text/plain</tt>
+</dt><dd> When there are errors parsing the XML. A text message explaining the error is returned.
+</dd><dd> When a changeset ID is missing (unfortunately the error messages are not consistent)
+</dd><dd> When a node is outside the world
+</dd><dd> When there are too many nodes for a way
+</dd><dt> HTTP status code 405 (Method Not Allowed)
+</dt><dd> If the request is not a HTTP PUT request
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd><dt> HTTP status code 412 (Precondition Failed)
+</dt><dd> When a way has nodes that do not exist or are not visible (i.e. deleted): "<tt>Way #{id} requires the nodes with id in (#{missing_ids}), which either do not exist, or are not visible.</tt>"
+</dd><dd> When a relation has elements that do not exist or are not visible: "<tt>Relation with id #{id} cannot be saved due to #{element} with id #{element.id}</tt>"
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_9">Notes</span></h4>
+<ul><li> This updates the bounding box of the changeset.
+</li><li> The <i>role</i> attribute for relations is optional. An empty string is the default.
+</li></ul>
+<h3> <span class="mw-headline" id="Read:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id">Read: <tt>GET /api/0.6/[node|way|relation]/#id</tt></span></h3>
+<p>Returns the XML representation of the element.
+</p>
+<h4> <span class="mw-headline" id="Response_11">Response</span></h4>
+<p>XML representing the element, wrapped in an <tt>&lt;osm&gt;</tt> element:
+</p>
+<pre>&lt;osm&gt;
+ &lt;node id="123" lat="..." lon="..." version="142" changeset="12" user="fred" uid="123" visible="true" timestamp="2005-07-30T14:27:12+01:00"&gt;
+   &lt;tag k="note" v="Just a node"/&gt;
+   ...
+ &lt;/node&gt;
+&lt;/osm&gt;
+</pre>
+<h4> <span class="mw-headline" id="Error_codes_11">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd><dt> HTTP status code 410 (Gone)
+</dt><dd> If the element has been deleted
+</dd></dl>
+<h3> <span class="mw-headline" id="Update:_PUT_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id">Update: <tt>PUT /api/0.6/[node|way|relation]/#id</tt></span></h3>
+<p>Updates data from a preexisting element. A full representation of the element as it should be after the update has to be provided. So any tags that remain unchanged have to be in the update as well. A version number has to be provided as well.
+</p>
+<h4> <span class="mw-headline" id="Response_12">Response</span></h4>
+<p>Returns the new version number with a content type of <tt>text/plain</tt>.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_12">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request) - <tt>text/plain</tt>
+</dt><dd> When there are errors parsing the XML. A text message explaining the error is returned. This can also happen if you forget to pass the Content-Length header.
+</dd><dd> When a changeset ID is missing (unfortunately the error messages are not consistent)
+</dd><dd> When a node is outside the world
+</dd><dd> When there are too many nodes for a way
+</dd><dd> When the version of the provided element does not match the current database version of the element
+</dd><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd><dt> HTTP status code 412 (Precondition Failed)
+</dt><dd> When a way has nodes that do not exist or are not visible (i.e. deleted): "<tt>Way #{id} requires the nodes with id in (#{missing_ids}), which either do not exist, or are not visible.</tt>"
+</dd><dd> When a relation has elements that do not exist or are not visible: "<tt>Relation with id #{id} cannot be saved due to #{element} with id #{element.id}</tt>"
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_10">Notes</span></h4>
+<ul><li> This updates the bounding box of the changeset.
+</li></ul>
+<h3> <span class="mw-headline" id="Delete:_DELETE_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id">Delete: <tt>DELETE /api/0.6/[node|way|relation]/#id</tt></span></h3>
+<p>Expects a valid XML representation of the element to be deleted.
+</p><p>For example:
+</p>
+<pre>&lt;osm&gt;
+ &lt;node id="..." version="..." changeset="..."/&gt;
+&lt;/osm&gt;
+</pre>
+<p>Where the node ID in the XML must match the ID in the URL, the version must match the version of the element you downloaded and the changeset must match the ID of an open changeset owned by the current authenticated user. It is allowed, but not necessary, to have tags on the element except for lat/long tags which are required, see <a href="http://web.archiveorange.com/archive/v/wQWIbRy3o8HjRNYaSim9" class="external free" rel="nofollow">http://web.archiveorange.com/archive/v/wQWIbRy3o8HjRNYaSim9</a> and also tested to still hold on 2011-05-30, without lat+lon the server gives 400 Bad request.
+</p>
+<h4> <span class="mw-headline" id="Response_13">Response</span></h4>
+<p>Returns the new version number with a content type of <tt>text/plain</tt>.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_13">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request) - <tt>text/plain</tt>
+</dt><dd> When there are errors parsing the XML. A text message explaining the error is returned.
+</dd><dd> When a changeset ID is missing (unfortunately the error messages are not consistent)
+</dd><dd> When a node is outside the world
+</dd><dd> When there are too many nodes for a way
+</dd><dd> When the version of the provided element does not match the current database version of the element
+</dd></dl>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd></dl>
+<dl><dt> HTTP status code 409 (Conflict) - <tt>text/plain</tt>
+</dt><dd> If the changeset in question has already been closed (either by the user itself or as a result of the auto-closing feature). A message with the format "<tt>The changeset #id was closed at #closed_at.</tt>" is returned
+</dd><dd> Or if the user trying to update the changeset is not the same as the one that created it
+</dd></dl>
+<dl><dt> HTTP status code 410 (Gone)
+</dt><dd> If the element has been already been deleted
+</dd></dl>
+<dl><dt> HTTP status code 412 (Precondition Failed)
+</dt><dd> When a node is still used by a way: <tt>Node #{id} is still used by way #{way.id}.</tt>
+</dd><dd> When a node is still member of a relation: <tt>Node #{id} is still used by relation #{relation.id}.</tt>
+</dd><dd> When a way is still member of a relation: <tt>Way #{id} still used by relation #{relation.id}.</tt>
+</dd><dd> When a relation is still member of another relation: <tt>The relation #{id} is used in relation #{relation.id}.</tt>
+</dd></dl>
+<h4> <span class="mw-headline" id="Notes_11">Notes</span></h4>
+<ul><li> In earlier API versions no payload was required. It is needed now because of the need for changeset IDs and version numbers.
+</li></ul>
+<h3> <span class="mw-headline" id="History:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Fhistory">History: <tt>GET /api/0.6/[node|way|relation]/#id/history</tt></span></h3>
+<p>Retrieves all old versions of an element. The old versions are not guaranteed to be ordered in any way.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_14">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd></dl>
+<h3> <span class="mw-headline" id="Version:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2F.23version">Version: <tt>GET /api/0.6/[node|way|relation]/#id/#version</tt></span></h3>
+<p>Retrieves a specific version of the element.
+</p>
+<h4> <span class="mw-headline" id="Error_codes_15">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd></dl>
+<h3> <span class="mw-headline" id="Multi_fetch:_GET_.2Fapi.2F0.6.2F.5Bnodes.7Cways.7Crelations.5D">Multi fetch: <tt>GET /api/0.6/[nodes|ways|relations]</tt></span></h3>
+<p>Allows a user to fetch multiple elements at once.
+</p>
+<h4> <span class="mw-headline" id="Parameters_8">Parameters</span></h4>
+<dl><dt> [nodes|ways|relations]=comma separated list
+</dt><dd> The parameter has to be the same in the URL (e.g. /api/0.6/nodes?nodes=123,456,789)
+</dd></dl>
+<h4> <span class="mw-headline" id="Error_codes_16">Error codes</span></h4>
+<dl><dt> HTTP status code 400 (Bad Request)
+</dt><dd> On a malformed request (parameters missing or wrong)
+</dd><dt> HTTP status code 404 (Not Found)
+</dt><dd> If one of the elements could not be found
+</dd><dt> HTTP status code 414 (Request-URI Too Large)
+</dt><dd> If the URI was too long (How long is too long?)
+</dd></dl>
+<h3> <span class="mw-headline" id="Relations_for_Element:_GET_.2Fapi.2F0.6.2F.5Bnode.7Cway.7Crelation.5D.2F.23id.2Frelations">Relations for Element: <tt>GET /api/0.6/[node|way|relation]/#id/relations</tt></span></h3>
+<p>Returns a XML document containing all (not deleted) relations in which the given element is used.
+</p>
+<h4> <span class="mw-headline" id="Notes_12">Notes</span></h4>
+<ul><li> There is no error if the element does not exist.
+</li><li> If the element does not exist or it isn't used in any relations an empty XML document is returned (apart from the <tt>&lt;osm&gt;</tt> elements)
+</li></ul>
+<h3> <span class="mw-headline" id="Ways_for_Node:_GET_.2Fapi.2F0.6.2Fnode.2F.23id.2Fways">Ways for Node: <tt>GET /api/0.6/node/#id/ways</tt></span></h3>
+<p>Returns a XML document containing all the (not deleted) ways in which the given node is used.
+</p>
+<h4> <span class="mw-headline" id="Notes_13">Notes</span></h4>
+<ul><li> There is no error if the node does not exist.
+</li><li> If the node does not exist or it isn't used in any ways an empty XML document is returned (apart from the <tt>&lt;osm&gt;</tt> elements)
+</li></ul>
+<h3> <span class="mw-headline" id="Full:_GET_.2Fapi.2F0.6.2F.5Bway.7Crelation.5D.2F.23id.2Ffull">Full: <tt>GET /api/0.6/[way|relation]/#id/full</tt></span></h3>
+<p>This API call retrieves a way or relation and all other elements referenced by it
+</p>
+<ul><li> For a way, it will return the way specified plus the full XML of all nodes referenced by the way.
+</li><li> For a relation, it will return the following:
+<ul><li> The relation itself
+</li><li> All nodes, ways, and relations that are members of the relation
+</li><li> Plus all nodes used by ways from the previous step
+</li><li> The same recursive logic is not applied to relations. This means: If relation r1 contains way w1 and relation r2, and w1 contains nodes n1 and n2, and r2 contains node n3, then a "full" request for r1 will give you r1, r2, w1, n1, and n2. Not n3.
+</li></ul>
+</li></ul>
+<h4> <span class="mw-headline" id="Error_codes_17">Error codes</span></h4>
+<dl><dt> HTTP status code 404 (Not Found)
+</dt><dd> When no element with the given id could be found
+</dd><dt> HTTP status code 410 (Gone)
+</dt><dd> If the element has been deleted
+</dd></dl>
+<h2> <span class="mw-headline" id="GPS_Traces">GPS Traces</span></h2>
+<h3> <span class="mw-headline" id="Retrieving_GPS_points">Retrieving GPS points</span></h3>
+<p>The following command returns, in GPX format, the GPS track points that are inside a given bounding box.
+</p>
+<pre>GET /api/0.6/trackpoints?bbox=<span style="border:thin solid black"><i>left</i></span>,<span style="border:thin solid black"><i>bottom</i></span>,<span style="border:thin solid black"><i>right</i></span>,<span style="border:thin solid black"><i>top</i></span>&amp;page=<span style="border:thin solid black"><i>pageNumber</i></span>
+</pre>
+<p>where:
+</p>
+<ul><li> <code><span style="border:thin solid black"><i>left</i></span></code>, <code><span style="border:thin solid black"><i>bottom</i></span></code>, <code><span style="border:thin solid black"><i>right</i></span></code>, and <code><span style="border:thin solid black"><i>top</i></span></code> are used the same way as they are in the command to retrieve nodes, ways, and relations.
+</li><li> <code><span style="border:thin solid black"><i>pageNumber</i></span></code> specifies which group of 5,000 points, or <i>page</i>, to return. Since the command does not return more than 5,000 points at a time, this parameter must be incremented—and the command sent again (using the same bounding box)—in order to retrieve all of the points for a bounding box that contains more than 5,000 points. When this parameter is 0 (zero), the command returns the first 5,000 points; when it is 1, the command returns points 5,001–10,000, etc.
+</li></ul>
+<h4> <span class="mw-headline" id="Examples">Examples</span></h4>
+<p>Retrieve the first 5,000 points for a bounding box:
+</p>
+<pre><a href="http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0,51.5,0.25,51.75&page=0" class="external free" rel="nofollow">http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0,51.5,0.25,51.75&amp;page=0</a>
+</pre>
+<p>Retrieve the next 5,000 points (points 5,001–10,000) for the same bounding box:
+</p>
+<pre><a href="http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0,51.5,0.25,51.75&page=1" class="external free" rel="nofollow">http://api.openstreetmap.org/api/0.6/trackpoints?bbox=0,51.5,0.25,51.75&amp;page=1</a>
+</pre>
+<p><br>
+</p>
+<h3> <span class="mw-headline" id="Uploading_Traces">Uploading Traces</span></h3>
+<p>You can upload a GPX file or archive of GPX files through the API:
+</p>
+<table>
+
+<tbody><tr>
+<td><pre>POST /api/0.6/gpx/create
+</pre>
+</td></tr></tbody></table>
+<p>This is the only API call using the POST method. It expects the following POST parameters in a multipart/form-data HTTP message:
+</p>
+<table class="wikitable">
+<tbody><tr>
+<th>parameter
+</th><th>description
+</th></tr>
+<tr>
+<td>file
+</td><td>The GPX file containing the track points. Note that for successful processing, the file must contain trackpoints (&lt;trkpt&gt;), not only waypoints, and the trackpoints must have a valid timestamp. Since the file is processed asynchronously, the call will complete successfully even if the file cannot be processed.  The file may also be a .tar, .tar.gz or .zip containing multiple gpx files, although it will appear as a single entry in the upload log.
+</td></tr>
+<tr>
+<td>description
+</td><td>The trace description.
+</td></tr>
+<tr>
+<td>tags
+</td><td>A string containing tags for the trace.
+</td></tr>
+<tr>
+<td>public
+</td><td>1 if the trace is public, 0 if not. This exists for backwards compatibility only - the visibility parameter should now be used instead. This value will be ignored if visibility is also provided.
+</td></tr>
+<tr>
+<td>visibility
+</td><td>One of the following: private, public, trackable, identifiable (for explanations see <a href="http://www.openstreetmap.org/traces/mine" class="external text">OSM trace upload page</a> or <a href="http://wiki.openstreetmap.org/wiki/Visibility_of_GPS_traces" title="Visibility of GPS traces">Visibility of GPS traces</a>)
+</td></tr></tbody></table>
+<p>HTTP basic authentication is required.
+</p>
+<h3> <span class="mw-headline" id="Downloading_Trace_Metadata">Downloading Trace Metadata</span></h3>
+<p>You access a GPX file's details and download the full file:
+</p>
+<table>
+
+<tbody><tr>
+<td><pre>GET /api/0.6/gpx/&lt;id&gt;/details
+GET /api/0.6/gpx/&lt;id&gt;/data
+</pre>
+</td></tr></tbody></table>
+<p>HTTP basic authentication is required, although theoretically these calls should be allowed without authentication if the trace is marked public. If the trace is not public, only the owner may access the data.
+</p><p>Example "details" response:
+</p>
+<table>
+
+<tbody><tr>
+<td><pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;osm version="0.6" generator="OpenStreetMap server"&gt;
+  &lt;gpx_file id="836619" name="track.gpx" lat="52.0194" lon="8.51807" 
+            user="Hartmut Holzgraefe" visibility="public" pending="false"  
+            timestamp="2010-10-09T09:24:19Z"&gt;
+    &lt;description&gt;PHP upload test&lt;/description&gt;
+    &lt;tag&gt;test&lt;/tag&gt;
+    &lt;tag&gt;php&lt;/tag&gt;
+  &lt;/gpx_file&gt;
+&lt;/osm&gt;
+</pre>
+</td></tr></tbody></table>
+<p>The "data" response will be the exact file uploaded.
+</p><p><br>
+You can also get a list of all the GPX traces for the authenticated user using:
+</p>
+<table>
+
+<tbody><tr>
+<td><pre>GET /api/0.6/user/gpx_files
+</pre>
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="Methods_for_User_Data">Methods for User Data</span></h2>
+<p>Unless noted otherwise, all user-specific API calls require authentication and operate on the currently authenticated user account. That's why they don't normally have an explicit "username" parameter.
+</p>
+<h3> <span class="mw-headline" id="Details"> Details </span></h3>
+<p>You can get the home location and the displayname of the user, by using
+</p>
+<pre>GET /api/0.6/user/details
+</pre>
+<p>this returns an XML document of the from
+</p>
+<pre>&lt;osm version="0.6" generator="OpenStreetMap server"&gt;
+ &lt;user display_name="Max Muster" account_created="2006-07-21T19:28:26Z" id="1234"&gt;
+   &lt;home lat="49.4733718952806" lon="8.89285988577866" zoom="3"/&gt;
+   &lt;description&gt;The description of your profile&lt;/description&gt;
+   &lt;languages&gt;
+     &lt;lang&gt;de-DE&lt;/lang&gt;
+     &lt;lang&gt;de&lt;/lang&gt;
+     &lt;lang&gt;en-US&lt;/lang&gt;
+     &lt;lang&gt;en&lt;/lang&gt;
+   &lt;/languages&gt;
+ &lt;/user&gt;
+&lt;/osm&gt;
+</pre>
+<h3> <span class="mw-headline" id="Preferences"> Preferences </span></h3>
+<p>The OSM server supports storing arbitrary user preferences. This can be used by editors, for example, to offer the same configuration wherever the user logs in, instead of a locally-stored configuration.
+</p><p>You can retrieve the list of current preferences using
+</p>
+<pre> GET /api/0.6/user/preferences
+</pre>
+<p>this returns an XML document of the form
+</p>
+<pre>  &lt;osm version="0.6" generator="OpenStreetMap server"&gt;
+    &lt;preferences&gt;
+       &lt;preference k="somekey" v="somevalue" /&gt;
+       ...
+    &lt;/preferences&gt;
+  &lt;/osm&gt;
+</pre>
+<p>The same structure can be used to upload preferences (using the PUT method instead of GET). All existing preferences are replaced by the newly uploaded set.
+</p><p>Also possible is to PUT a single preference using
+</p>
+<pre> PUT /api/0.6/user/preferences/[your_key] (without the brackets)
+</pre>
+<p>in this instance, the payload of the request should only contain the value of the preference, i.e. not XML formatted.
+</p><p>The PUT call returns HTTP response code 406 (not acceptable) if the same key occurs more than once, and code 413 (request entity too large) if you try to upload more than 150 preferences at once. The sizes of the key and value are limited to 255 characters.
+</p>
+<h1> <span class="mw-headline" id="When_NOT_to_use_the_API">When NOT to use the API</span></h1>
+<p>For bulk upload scripts or data modification, the API may not be the proper mechanism.  The modern version of creating a bulk upload or modification script is to build a change set, load it into an editor like JOSM, and verify the work prior to commit.  You can also use the API to upload a change set in an atomic manner.  See also: <a href="http://wiki.openstreetmap.org/wiki/Change_File_Formats" class="external free" rel="nofollow">http://wiki.openstreetmap.org/wiki/Change_File_Formats</a>
+</p>
+<h1> <span class="mw-headline" id="Further_Reading">Further Reading</span></h1>
+<ul><li> People making clients, see <a href="http://wiki.openstreetmap.org/wiki/API_v0.6_(Archive)#Changes_in_related_software" title="API v0.6 (Archive)">API v0.6 (Archive)#Changes_in_related_software</a>
+</li><li> People interested in the DB see <a href="http://wiki.openstreetmap.org/wiki/API_v0.6_(Archive)#Database_improvements" title="API v0.6 (Archive)">API v0.6 (Archive)#Database_improvements</a>
+</li><li> Status of routing file <a href="http://wiki.openstreetmap.org/wiki/API_v0.6/Command_Overview" title="API v0.6/Command Overview">API v0.6/Command Overview</a>
+</li><li> <a href="http://wiki.openstreetmap.org/wiki/API_v0.6/APIError" title="API v0.6/APIError">possible API errors</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 2012/1000000
+Post-expand include size: 12856/2097152 bytes
+Template argument size: 4307/2097152 bytes
+Expensive parser function count: 56/100
+-->
+
+<!-- Saved in parser cache with key wiki:pcache:idhash:14902-0!1!0!!en!2!edit=0 and timestamp 20110713145550 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wiki.openstreetmap.org/wiki/API_v0.6">http://wiki.openstreetmap.org/wiki/API_v0.6</a>"</div>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://wiki.openstreetmap.org/wiki/Special:Categories" title="Special:Categories">Category</a>: <span dir="ltr"><a href="http://wiki.openstreetmap.org/wiki/Category:OSM_API" title="Category:OSM API">OSM API</a></span></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li id="pt-login"><a href="http://wiki.openstreetmap.org/w/index.php?title=Special:UserLogin&returnto=API_v0.6" title="You are encouraged to log in; however, it is not mandatory [ctrl-alt-o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6" title="View the content page [ctrl-alt-c]" accesskey="c"><span>Page</span></a></li>
+					<li id="ca-talk"><a href="http://wiki.openstreetmap.org/wiki/Talk:API_v0.6" title="Discussion about the content page [ctrl-alt-t]" accesskey="t"><span>Discussion</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h5><span>Variants</span><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><a href="http://wiki.openstreetmap.org/wiki/API_v0.6"><span>Read</span></a></li>
+					<li id="ca-viewsource"><a href="http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&action=edit" title="This page is protected.
+You can view its source [ctrl-alt-e]" accesskey="e"><span>View source</span></a></li>
+					<li id="ca-history" class="collapsible "><a href="http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&action=history" title="Past revisions of this page [ctrl-alt-h]" accesskey="h"><span>View history</span></a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="http://wiki.openstreetmap.org/wiki/API_v0.6#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="http://wiki.openstreetmap.org/w/index.php" id="searchform">
+		<input type="hidden" name="title" value="Special:Search">
+				<div id="simpleSearch">
+			<input id="searchInput" name="search" type="text" title="Search OpenStreetMap Wiki [ctrl-alt-f]" accesskey="f" value="" autocomplete="off">
+			<button id="searchButton" type="submit" name="button" title="Search the pages for this text">&nbsp;</button>
+		<label style="position: absolute; bottom: 0px; padding-top: 0.25em; padding-right: 0.25em; padding-bottom: 0.25em; padding-left: 0.25em; color: rgb(153, 153, 153); cursor: text; left: 0px; ">Search</label></div>
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/osm_logo_wiki.png);" href="http://wiki.openstreetmap.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- recentchanges -->
+<div class="portal" id="p-recentchanges">
+	<h5>Recent changes</h5>
+	<div class="body">
+				<ul>
+					<li id="n-recentchanges"><a href="http://wiki.openstreetmap.org/wiki/Special:RecentChanges" title="The list of recent changes in the wiki [ctrl-alt-r]" accesskey="r">Recent changes</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /recentchanges -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage"><a href="http://wiki.openstreetmap.org/wiki/Main_Page" title="Visit the main page [ctrl-alt-z]" accesskey="z">Main Page</a></li>
+					<li id="n-The-map"><a href="http://www.openstreetmap.org/">The map</a></li>
+					<li id="n-portal"><a href="http://wiki.openstreetmap.org/wiki/Mapping_projects" title="About the project, what you can do, where to find things">Mapping projects</a></li>
+					<li id="n-Map-Features"><a href="http://wiki.openstreetmap.org/wiki/Map_Features">Map Features</a></li>
+					<li id="n-help"><a href="http://wiki.openstreetmap.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+					<li id="n-Blog"><a href="http://wiki.openstreetmap.org/wiki/OSM_Blogs">Blog</a></li>
+					<li id="n-Shop"><a href="http://wiki.openstreetmap.org/wiki/Merchandise">Shop</a></li>
+					<li id="n-Donations"><a href="http://wiki.openstreetmap.org/wiki/Donations">Donations</a></li>
+					<li id="n-Impressum"><a href="http://wiki.openstreetmap.org/wiki/OpenStreetMap:Impressum">Impressum</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+					<li id="t-whatlinkshere"><a href="http://wiki.openstreetmap.org/wiki/Special:WhatLinksHere/API_v0.6" title="List of all wiki pages that link here [ctrl-alt-j]" accesskey="j">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="http://wiki.openstreetmap.org/wiki/Special:RecentChangesLinked/API_v0.6" title="Recent changes in pages linked from this page [ctrl-alt-k]" accesskey="k">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="http://wiki.openstreetmap.org/wiki/Special:SpecialPages" title="List of all special pages [ctrl-alt-q]" accesskey="q">Special pages</a></li>
+									<li id="t-print"><a href="http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&printable=yes" rel="alternate" title="Printable version of this page [ctrl-alt-p]" accesskey="p">Printable version</a></li>
+						<li id="t-permalink"><a href="http://wiki.openstreetmap.org/w/index.php?title=API_v0.6&oldid=648881" title="Permanent link to this revision of the page">Permanent link</a></li>
+						</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 21 June 2011, at 12:13.</li>
+																							<li id="footer-info-copyright">Content is available under <a href="http://wiki.openstreetmap.org/wiki/OpenStreetMap_License" title="OpenStreetMap License">Creative Commons Attribution-ShareAlike 2.0 license</a>.</li>
+															</ul>
+															<ul id="footer-places">
+																	<li id="footer-places-privacy"><a href="http://wiki.openstreetmap.org/wiki/Privacy_Policy" title="Privacy Policy">Privacy policy</a></li>
+																							<li id="footer-places-about"><a href="http://wiki.openstreetmap.org/wiki/About" title="About">About OpenStreetMap Wiki</a></li>
+																							<li id="footer-places-disclaimer"><a href="http://wiki.openstreetmap.org/wiki/OpenStreetMap:General_disclaimer" title="OpenStreetMap:General disclaimer">Disclaimers</a></li>
+															</ul>
+										<ul id="footer-icons" class="noprint">
+								<li id="footer-icon-poweredby"><a href="http://www.mediawiki.org/"><img src="./OpenStreetMapAPIv0.6_files/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki"></a></li>
+												<li id="footer-icon-copyright"><a href="http://creativecommons.org/licenses/by-sa/2.0/"><img src="./OpenStreetMapAPIv0.6_files/cc-wiki.png" alt="Creative Commons Attribution-ShareAlike 2.0 license" width="88" height="31"></a></li>
+							</ul>
+			<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+		<!-- Served in 0.105 secs. -->			
+
+<div style="top: 71px; left: 1508px; width: 121px; display: none; " class="suggestions"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>
