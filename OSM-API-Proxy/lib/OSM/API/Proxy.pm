@@ -1,5 +1,6 @@
 package OSM::API::Proxy;
 use Dancer ':syntax';
+use YAML;
 
 our $VERSION = '0.1';
 
@@ -46,6 +47,16 @@ get '/api/0.6/user/preferences/' => sub {
     <preferences>
        <preference k="somekey" v="somevalue" />
     </preferences>
+  </osm>
+';
+};
+
+# /api/0.6/user/details
+get '/api/0.6/user/details' => sub {
+'<osm version="0.6" generator="OpenStreetMap server">
+    <user>
+       <preference k="somekey" v="somevalue" />
+    </usr>
   </osm>
 ';
 };
@@ -147,7 +158,7 @@ put '/api/0.6/changeset/create' => sub {
     header('Keep-Alive' => 'timeout=15, max=100');
     header('Connection' => 'Keep-Alive');
     #header('Transfer-Encoding' => 'chunked');
-    
+    debug Dump(request->{body});    
     $changetsetid++ . "\n";
 
 # send this to another server 
@@ -219,7 +230,14 @@ post '/api/0.6/changeset/*/upload' => sub {
       my ($id) = splat;
 #      warn "got changeset $id";
       # now lets process it 
-      
+      debug Dump(request->{body});      
+
+# #<osmChange version="0.6" generator="JOSM">
+# <modify>
+#   <node id='1287731165' action='modify' timestamp='2011-05-16T14:56:18Z' uid='355102' user='BesfortGuri/Besfort Guri/BesfortGuri/Besfort Guri/Besfort Guri/BesfortGuri' visible='true' version='2' changeset='1000001384' lat='42.61893168122738' lon='20.57614856619908' />
+# </modify>
+# </osmChange>
+
  print " <?xml version='1.0' encoding='UTF-8'?>
 <diffResult version='0.6' generator='FOSM API 0.6'>
 </diffResult>
@@ -279,7 +297,7 @@ post '/api/0.6/changeset/*' => sub {
       my ($id) = splat();
 #      warn "got changeset $id";
       # now lets process it 
-
+      debug Dump(request->{body});
     template 'changeset.tt', { 
 	changeset => 
 	    [ 
@@ -307,11 +325,120 @@ post '/api/0.6/changeset/*' => sub {
 
 };
 
+
+=pod 
+
+&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
+&lt;osm version=&#39;0.6&#39; generator=&#39;JOSM&#39;&gt;
+  &lt;changeset  id=&#39;1000001384&#39; open=&#39;false&#39;&gt;
+    &lt;tag k=&#39;comment&#39; v=&#39;test of move&#39; /&gt;
+    &lt;tag k=&#39;created_by&#39; v=&#39;JOSM/1.5 (4018 en)&#39; /&gt;
+  &lt;/changeset&gt;
+&lt;/osm&gt;
+</pre><div class="title">Stack</div><pre class="content">main in ./bin/app.pl l. 4
+Dancer in /usr/local/share/perl/5.10.1/Dancer.pm l. 353
+Dancer::Handler in /usr/local/share/perl/5.10.1/Dancer/Handler.pm l. 179
+Dancer::Handler::Standalone in /usr/local/share/perl/5.10.1/Dancer/Handler/Standalone.pm l. 36
+HTTP::Server::Simple in /usr/share/perl5/HTTP/Server/Simple.pm l. 296
+HTTP::Server::Simple in /usr/share/perl5/HTTP/Server/Simple.pm l. 332
+HTTP::Server::Simple in /usr/share/perl5/HTTP/Server/Simple.pm l. 427
+HTTP::Server::Simple::PSGI in /usr/local/share/perl/5.10.1/HTTP/Server/Simple/PSGI.pm l. 103
+HTTP::Server::Simple::PSGI in /usr/local/share/perl/5.10.1/HTTP/Server/Simple/PSGI.pm l. 103
+Dancer::Handler in /usr/local/share/perl/5.10.1/Dancer/Handler.pm l. 102
+Dancer::Handler in /usr/local/share/perl/5.10.1/Dancer/Handler.pm l. 71
+Dancer::Handler in /usr/local/share/perl/5.10.1/Dancer/Handler.pm l. 78
+Dancer::Handler in /usr/local/share/perl/5.10.1/Dancer/Handler.pm l. 79
+Dancer::Renderer in /usr/local/share/perl/5.10.1/Dancer/Renderer.pm l. 28
+Dancer::Renderer in /usr/local/share/perl/5.10.1/Dancer/Renderer.pm l. 125
+Dancer::Route in /usr/local/share/perl/5.10.1/Dancer/Route.pm l. 169
+Dancer::Route in /usr/local/share/perl/5.10.1/Dancer/Route.pm l. 241
+Dancer::Object in /usr/local/share/perl/5.10.1/Dancer/Object.pm l. 15
+Dancer::Error in /usr/local/share/perl/5.10.1/Dancer/Error.pm l. 34
+Dancer::Error in /usr/local/share/perl/5.10.1/Dancer/Error.pm l. 248</pre> <div class="title">Settings</div><pre class="content">{
+  <span class="key">engines</span>  =&gt; {
+    <span class="key">template_toolkit</span>  =&gt; {
+      <span class="key">start_tag</span>  =&gt; '[%',
+      <span class="key">end_tag</span>  =&gt; '%]',
+      <span class="key">encoding</span>  =&gt; 'utf8'
+    }
+  },
+  <span class="key">plugins</span>  =&gt; {},
+  <span class="key">import_warnings</span>  =&gt; 1,
+  <span class="key">appname</span>  =&gt; 'OSM::API::Proxy',
+  <span class="key">views</span>  =&gt; '/home/mdupont/experiments/osm/dist/dancer/OSM-API-Proxy/views',
+  <span class="key">layout</span>  =&gt; 'main',
+  <span class="key">confdir</span>  =&gt; '/home/mdupont/experiments/osm/dist/dancer/OSM-API-Proxy',
+  <span class="key">public</span>  =&gt; '/home/mdupont/experiments/osm/dist/dancer/OSM-API-Proxy/public',
+  <span class="key">show_errors</span>  =&gt; '1',
+  <span class="key">server</span>  =&gt; '0.0.0.0',
+  <span class="key">log</span>  =&gt; 'core',
+  <span class="key">daemon</span>  =&gt; 0,
+  <span class="key">logger</span>  =&gt; 'console',
+  <span class="key">warnings</span>  =&gt; '1',
+  <span class="key">template</span>  =&gt; 'template_toolkit',
+  <span class="key">traces</span>  =&gt; 0,
+  <span class="key">charset</span>  =&gt; 'utf-8',
+  <span class="key">appdir</span>  =&gt; '/home/mdupont/experiments/osm/dist/dancer/OSM-API-Proxy',
+  <span class="key">handlers</span>  =&gt; {},
+  <span class="key">startup_info</span>  =&gt; 1,
+  <span class="key">port</span>  =&gt; '3000',
+  <span class="key">environment</span>  =&gt; 'development',
+  <span class="key">content_type</span>  =&gt; 'text/html',
+  <span class="key">apphandler</span>  =&gt; 'Standalone',
+  <span class="key">auto_reload</span>  =&gt; '0'
+}
+</pre>  <div class="title">Environment</div><pre class="content">{
+  <span class="key">SCRIPT_NAME</span>  =&gt; '',
+  <span class="key">SERVER_NAME</span>  =&gt; '0.0.0.0',
+  <span class="key">'psgi.multiprocess'</span>  =&gt; 0,
+  <span class="key">PATH_INFO</span>  =&gt; '/api/0.6/changeset/1000001384',
+  <span class="key">HTTP_CONNECTION</span>  =&gt; 'keep-alive',
+  <span class="key">CONTENT_LENGTH</span>  =&gt; '233',
+  <span class="key">REQUEST_METHOD</span>  =&gt; 'PUT',
+  <span class="key">HTTP_ACCEPT</span>  =&gt; 'text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2',
+  <span class="key">'psgi.multithread'</span>  =&gt; 0,
+  <span class="key">QUERY_STRING</span>  =&gt; '',
+  <span class="key">HTTP_USER_AGENT</span>  =&gt; 'JOSM/1.5 (4018 en) Java/1.6.0_20',
+  <span class="key">SERVER_PORT</span>  =&gt; '3000',
+  <span class="key">HTTP_COOKIE</span>  =&gt; undef,
+  <span class="key">REMOTE_ADDR</span>  =&gt; '127.0.0.1',
+  <span class="key">CONTENT_TYPE</span>  =&gt; 'text/xml',
+  <span class="key">SERVER_PROTOCOL</span>  =&gt; 'HTTP/1.1',
+  <span class="key">'psgi.streaming'</span>  =&gt; 1,
+  <span class="key">'psgi.errors'</span>  =&gt; *::STDERR,
+  <span class="key">REQUEST_URI</span>  =&gt; '/api/0.6/changeset/1000001384',
+  <span class="key">'psgi.version'</span>  =&gt; [
+    1,
+    1
+  ],
+  <span class="key">'psgi.nonblocking'</span>  =&gt; 0,
+  <span class="key">'psgix.io'</span>  =&gt; bless( \*Symbol::GEN30, 'FileHandle' ),
+  <span class="key">HTTP_AUTHORIZATION</span>  =&gt; 'Basic aDRjazNybTFrMzp2ZXJpdGFzYmVybGlub3Nt',
+  <span class="key">'psgi.url_scheme'</span>  =&gt; 'http',
+  <span class="key">'psgi.run_once'</span>  =&gt; 0,
+  <span class="key">HTTP_HOST</span>  =&gt; 'localhost:3000',
+  <span class="key">'psgi.input'</span>  =&gt; $VAR1->{'psgix.io'}
+}
+=cut 
 put '/api/0.6/changeset/*' => sub {
       my ($id) = splat();
 #      warn "got changeset $id";
       # now lets process it 
+       my $all_uploads = request->uploads;
+#      warn Dump($all_uploads);
+      #request->input_handle;
+      debug Dump(request->{body});
+# called before upload
+# <?xml version='1.0' encoding='UTF-8'?>
+# <osm version='0.6' generator='JOSM'>
+#   <changeset  id='1000001384' open='true'>
+#     <tag k='comment' v='fsdfsdfsdfsd' />
+#     <tag k='created_by' v='JOSM/1.5 (4018 en)' />
+#   </changeset>
+# </osm> 
 
+
+#      open ">data/${id}."
     template 'changeset.tt', { 
 	changeset => 
 	    [ 
@@ -340,6 +467,7 @@ put '/api/0.6/changeset/*' => sub {
 
 #<node old_id='-4368' new_id='1000000073409' new_version='1'/>
 };
+
 
 
 

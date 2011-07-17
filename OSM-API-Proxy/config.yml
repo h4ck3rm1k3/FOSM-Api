@@ -28,3 +28,5 @@ engines:
     start_tag: '[%'
     end_tag:   '%]'
 
+logger: "file"
+log: "core"
