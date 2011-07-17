@@ -162,7 +162,9 @@ C_FILES  =
 O_FILES  = 
 H_FILES  = 
 MAN1PODS = 
-MAN3PODS = 
+MAN3PODS = README.pod \
+	lib/OSM/API/OsmChange.pm \
+	lib/OSM/API/Proxy.pm
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
@@ -184,11 +186,13 @@ PERL_ARCHIVE       =
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/OSM/API/Box.pm \
+TO_INST_PM = README.pod \
+	lib/OSM/API/Box.pm \
 	lib/OSM/API/ChangeSet.pm \
 	lib/OSM/API/Changeset.pm \
 	lib/OSM/API/Makefile \
 	lib/OSM/API/OsmApi.pm \
+	lib/OSM/API/OsmChange.pm \
 	lib/OSM/API/Point.pm \
 	lib/OSM/API/Proxy.pm \
 	lib/OSM/API/RemoteServerAgent.pm \
@@ -202,6 +206,8 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/User.pm \
 	lib/OSM/API/RemoteServerAgent.pm \
 	blib/lib/OSM/API/RemoteServerAgent.pm \
+	README.pod \
+	$(INST_LIB)/OSM/API/README.pod \
 	lib/OSM/API/Changeset.pm \
 	blib/lib/OSM/API/Changeset.pm \
 	lib/OSM/API/Point.pm \
@@ -217,7 +223,9 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	lib/OSM/API/ChangeSet.pm \
 	blib/lib/OSM/API/ChangeSet.pm \
 	lib/OSM/API/Proxy.pm \
-	blib/lib/OSM/API/Proxy.pm
+	blib/lib/OSM/API/Proxy.pm \
+	lib/OSM/API/OsmChange.pm \
+	blib/lib/OSM/API/OsmChange.pm
 
 
 # --- MakeMaker platform_constants section:
@@ -438,8 +446,14 @@ POD2MAN_EXE = $(PERLRUN) "-MExtUtils::Command::MM" -e pod2man "--"
 POD2MAN = $(POD2MAN_EXE)
 
 
-manifypods : pure_all 
-	$(NOECHO) $(NOOP)
+manifypods : pure_all  \
+	README.pod \
+	lib/OSM/API/Proxy.pm \
+	lib/OSM/API/OsmChange.pm
+	$(NOECHO) $(POD2MAN) --section=$(MAN3EXT) --perm_rw=$(PERM_RW) \
+	  README.pod $(INST_MAN3DIR)/OSM::API::README.$(MAN3EXT) \
+	  lib/OSM/API/Proxy.pm $(INST_MAN3DIR)/OSM::API::Proxy.$(MAN3EXT) \
+	  lib/OSM/API/OsmChange.pm $(INST_MAN3DIR)/OSM::API::OsmChange.$(MAN3EXT) 
 
 
 
@@ -814,6 +828,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/OSM/API/Tag.pm blib/lib/OSM/API/Tag.pm \
 	  lib/OSM/API/User.pm blib/lib/OSM/API/User.pm \
 	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm \
+	  README.pod $(INST_LIB)/OSM/API/README.pod \
 	  lib/OSM/API/Changeset.pm blib/lib/OSM/API/Changeset.pm \
 	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
 	  lib/OSM/API/Box.pm blib/lib/OSM/API/Box.pm \
@@ -821,7 +836,8 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/OSM/API/Tags.pm blib/lib/OSM/API/Tags.pm \
 	  lib/OSM/API/OsmApi.pm blib/lib/OSM/API/OsmApi.pm \
 	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
-	  lib/OSM/API/Proxy.pm blib/lib/OSM/API/Proxy.pm 
+	  lib/OSM/API/Proxy.pm blib/lib/OSM/API/Proxy.pm \
+	  lib/OSM/API/OsmChange.pm blib/lib/OSM/API/OsmChange.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 

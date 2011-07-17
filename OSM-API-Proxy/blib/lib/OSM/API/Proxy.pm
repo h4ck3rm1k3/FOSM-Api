@@ -228,6 +228,15 @@ There are create, read, update and delete calls for all of the three basic eleme
 #POST http://localhost:3000/api/0.6/changeset/1000001384/upload
 post '/api/0.6/changeset/*/upload' => sub {
       my ($id) = splat;
+
+      ############################################
+      header('Content-Type' => 'text/plain');	
+      header('Set-cookie' => '_osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly');
+      header('Vary' => 'Authorization,Accept-Encoding');
+      header('Keep-Alive' => 'timeout=15, max=100');
+      header('Connection' => 'Keep-Alive');
+      ##########################################
+
 #      warn "got changeset $id";
       # now lets process it 
       debug Dump(request->{body});      
@@ -238,7 +247,7 @@ post '/api/0.6/changeset/*/upload' => sub {
 # </modify>
 # </osmChange>
 
- print " <?xml version='1.0' encoding='UTF-8'?>
+      "<?xml version='1.0' encoding='UTF-8'?>
 <diffResult version='0.6' generator='FOSM API 0.6'>
 </diffResult>
 ";

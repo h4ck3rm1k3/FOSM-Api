@@ -1,0 +1,5 @@
+# put this in your ~/.fosmapi
+username=h4ck3rm1k3
+password=veritasberlinosm
+apiurl=http://api.fosm.org/api/
+realm=FOSM
