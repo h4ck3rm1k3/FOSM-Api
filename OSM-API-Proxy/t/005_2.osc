@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osmChange version="0.6" generator="Osmosis 0.31.1">
+  <modify>
+    <way id="11175590" version="2" timestamp="2009-09-18T14:49:39Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99463527"/>
+      <nd ref="99463530"/>
+      <nd ref="99463531"/>
+      <nd ref="99463532"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="Stagury Dr"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+    </way>
+    <way id="11177358" version="2" timestamp="2009-09-18T14:49:36Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99472020"/>
+      <nd ref="99472022"/>
+      <nd ref="99472023"/>
+      <nd ref="99472025"/>
+      <nd ref="99463547"/>
+      <nd ref="99472026"/>
+      <nd ref="99472028"/>
+      <nd ref="99472029"/>
+      <nd ref="99472031"/>
+      <nd ref="99472033"/>
+      <nd ref="99472040"/>
+      <nd ref="99472042"/>
+      <nd ref="500334866"/>
+      <nd ref="99472045"/>
+      <nd ref="99472046"/>
+      <nd ref="99472047"/>
+      <nd ref="99472049"/>
+      <nd ref="500334903"/>
+      <nd ref="500334907"/>
+      <nd ref="500334911"/>
+      <nd ref="500334917"/>
+      <nd ref="500334920"/>
+      <nd ref="99472050"/>
+      <nd ref="99472051"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="John Wycliffe Blvd"/>
+      <tag k="tiger:cfcc" v="A41"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:name_base" v="John Wycliffe"/>
+      <tag k="tiger:name_type" v="Blvd"/>
+      <tag k="tiger:reviewed" v="no"/>
+      <tag k="tiger:separated" v="no"/>
+      <tag k="tiger:source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:tlid" v="94418712:94418713:94418896:94418899:94418900:94418697:94418864:94418885"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+      <tag k="tiger:zip_left" v="32832"/>
+      <tag k="tiger:zip_right" v="32832"/>
+    </way>
+    <way id="11187183" version="4" timestamp="2009-09-18T14:49:28Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99472049"/>
+      <nd ref="99548434"/>
+      <nd ref="99548436"/>
+      <nd ref="99548437"/>
+      <nd ref="99548438"/>
+      <nd ref="99548440"/>
+      <nd ref="99548442"/>
+      <nd ref="99548443"/>
+      <nd ref="99463527"/>
+      <nd ref="99548445"/>
+      <nd ref="99548448"/>
+      <nd ref="99548450"/>
+      <nd ref="499515286"/>
+      <nd ref="499515288"/>
+      <nd ref="499515291"/>
+      <nd ref="499515293"/>
+      <nd ref="499515295"/>
+      <nd ref="99548451"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="Great Commission Way"/>
+      <tag k="tiger:cfcc" v="A41"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:name_base" v="Great Commission"/>
+      <tag k="tiger:name_type" v="Way"/>
+      <tag k="tiger:reviewed" v="no"/>
+      <tag k="tiger:separated" v="no"/>
+      <tag k="tiger:source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:tlid" v="94418863:94418878:94418714:94418888:94418889"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+    </way>
+    <way id="11188350" version="2" timestamp="2009-09-18T14:49:20Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99548443"/>
+      <nd ref="500334562"/>
+      <nd ref="99556097"/>
+      <nd ref="99556099"/>
+      <nd ref="500334577"/>
+      <nd ref="99556100"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="Mossy Oak Dr"/>
+      <tag k="tiger:cfcc" v="A41"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:name_base" v="Mossy Oak"/>
+      <tag k="tiger:name_type" v="Dr"/>
+      <tag k="tiger:reviewed" v="no"/>
+      <tag k="tiger:separated" v="no"/>
+      <tag k="tiger:source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:tlid" v="94418881:94418884:94418887"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+      <tag k="tiger:zip_left" v="32832"/>
+      <tag k="tiger:zip_right" v="32832"/>
+    </way>
+    <way id="11190685" version="2" timestamp="2009-09-18T14:49:45Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99472042"/>
+      <nd ref="99574462"/>
+      <nd ref="99574464"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="Manobo Dr"/>
+      <tag k="tiger:cfcc" v="A41"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:name_base" v="Manobo"/>
+      <tag k="tiger:name_type" v="Dr"/>
+      <tag k="tiger:reviewed" v="no"/>
+      <tag k="tiger:separated" v="no"/>
+      <tag k="tiger:source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:tlid" v="94418901"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+    </way>
+    <way id="11205031" version="2" timestamp="2009-09-18T14:49:48Z" uid="174494" user="dimenso" changeset="2524642">
+      <nd ref="99649079"/>
+      <nd ref="99649080"/>
+      <nd ref="99472031"/>
+      <tag k="highway" v="residential"/>
+      <tag k="name" v="Translation Way"/>
+      <tag k="tiger:cfcc" v="A41"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:name_base" v="Translation"/>
+      <tag k="tiger:name_type" v="Way"/>
+      <tag k="tiger:reviewed" v="no"/>
+      <tag k="tiger:separated" v="no"/>
+      <tag k="tiger:source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:tlid" v="94418892:94418895:94418898"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+      <tag k="tiger:zip_left" v="32832"/>
+      <tag k="tiger:zip_right" v="32832"/>
+    </way>
+  </modify>
+</osmChange>

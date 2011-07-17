@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osmChange version="0.6" generator="Osmosis 0.31.1">
+  <modify>
+    <node id="99463527" version="4" timestamp="2009-09-18T14:49:25Z" uid="174494" user="dimenso" changeset="2524642" lat="28.4167421" lon="-81.207242">
+      <tag k="source" v="tiger_import_dch_v0.6_20070809"/>
+      <tag k="tiger:county" v="Orange, FL"/>
+      <tag k="tiger:tlid" v="94418863:94418868:94418878"/>
+      <tag k="tiger:upload_uuid" v="bulk_upload.pl-2a48c04b-80d5-444d-817b-afeff6924aff"/>
+    </node>
+  </modify>
+  <create>
+    <relation id="254667" version="1" timestamp="2009-09-18T14:49:32Z" uid="71261" user="David Paleino" changeset="2524643">
+      <member type="way" ref="41055443" role=""/>
+      <member type="way" ref="41055442" role="link"/>
+      <member type="way" ref="41055444" role="link"/>
+      <member type="way" ref="41055441" role="link"/>
+      <member type="way" ref="41055445" role="link"/>
+      <tag k="route" v="road"/>
+      <tag k="type" v="route"/>
+    </relation>
+  </create>
+</osmChange>
