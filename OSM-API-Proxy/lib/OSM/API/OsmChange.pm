@@ -26,11 +26,11 @@ has_attr 'generator' =>
 has_element 'nodes' =>
     is => "ro",
     required=> 1,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Node|OSM::API::OsmChange::Modify::Way|OSM::API::OsmChange::Modify::Relation]",
+    isa => "ArrayRef[OSM::API::OsmChange::Node|OSM::API::OsmChange::Way|OSM::API::OsmChange::Relation]",
     xml_nodeName => {
-	'node' => 'OSM::API::OsmChange::Modify::Node',
-	'way' => 'OSM::API::OsmChange::Modify::Way',
-	'relation' => 'OSM::API::OsmChange::Modify::Relation',
+	'node' => 'OSM::API::OsmChange::Node',
+	'way' => 'OSM::API::OsmChange::Way',
+	'relation' => 'OSM::API::OsmChange::Relation',
 };
 
 1;
@@ -88,11 +88,11 @@ has_attr 'generator' =>
 has_element 'nodes' =>
     is => "ro",
     required=> 1,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Node|OSM::API::OsmChange::Modify::Way|OSM::API::OsmChange::Modify::Relation]",
+    isa => "ArrayRef[OSM::API::OsmChange::Node|OSM::API::OsmChange::Way|OSM::API::OsmChange::Relation]",
     xml_nodeName => {
-	'node' => 'OSM::API::OsmChange::Modify::Node',
-	'way' => 'OSM::API::OsmChange::Modify::Way',
-	'relation' => 'OSM::API::OsmChange::Modify::Relation',
+	'node' => 'OSM::API::OsmChange::Node',
+	'way' => 'OSM::API::OsmChange::Way',
+	'relation' => 'OSM::API::OsmChange::Relation',
 };
 
 
@@ -116,18 +116,18 @@ has_attr 'generator' =>
 has_element 'nodes' =>
     is => "ro",
     required=> 1,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Node|OSM::API::OsmChange::Modify::Way|OSM::API::OsmChange::Modify::Relation]",
+    isa => "ArrayRef[OSM::API::OsmChange::Node|OSM::API::OsmChange::Way|OSM::API::OsmChange::Relation]",
     xml_nodeName => {
-	'node' => 'OSM::API::OsmChange::Modify::Node',
-	'way' => 'OSM::API::OsmChange::Modify::Way',
-	'relation' => 'OSM::API::OsmChange::Modify::Relation',
+	'node' => 'OSM::API::OsmChange::Node',
+	'way' => 'OSM::API::OsmChange::Way',
+	'relation' => 'OSM::API::OsmChange::Relation',
 };
 
 #with 'OSM::API::OsmChange::Root';
 
 1;
 
-package OSM::API::OsmChange::Modify::Node;
+package OSM::API::OsmChange::Node;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
@@ -191,15 +191,15 @@ has_element 'tags' =>
 #    expected =>0,
 #    required=> 0,
     xml_required => 0,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Tag]",
+    isa => "ArrayRef[OSM::API::OsmChange::Tag]",
     xml_nodeName => {
-	'tag' => 'OSM::API::OsmChange::Modify::Tag',
+	'tag' => 'OSM::API::OsmChange::Tag',
 
 };
 
 1;
 
-package OSM::API::OsmChange::Modify::Tag;
+package OSM::API::OsmChange::Tag;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
@@ -215,7 +215,22 @@ has_attr 'v' =>
     ;
 
 1;
-package OSM::API::OsmChange::Modify::Way;
+
+1;
+
+package OSM::API::OsmChange::NodeRef;
+use Moose;
+use PRANG::Graph;
+use PRANG::XMLSchema::Types;
+
+has_attr 'ref' =>
+    is => "rw",
+    isa => "Str",
+    ;
+
+1;
+
+package OSM::API::OsmChange::Way;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
@@ -224,10 +239,57 @@ has_attr 'id' =>
     is => "rw",
     isa => "Str",
     ;
+#id="11205031"
+# version="2"
+# timestamp="2009-09-18T14:49:48Z"
+# uid="174494"
+# user="dimenso"
+# changeset="2524642"
+
+
+has_attr 'timestamp' =>
+    is => "rw",
+#    isa => "DateTime",
+    isa => "Str",
+    ;
+
+has_attr 'uid' =>
+    is => "rw",
+    isa => "Int",
+    ;
+
+has_attr 'user' =>
+    is => "rw",
+    isa => "Str",
+    ;
+
+has_attr 'version' =>
+    is => "rw",
+    isa => "Int", #true
+    ;
+
+has_attr 'changeset' =>
+    is => "rw",
+    isa => "Int", #true
+    ;
+
+has_element 'nd' =>
+    is => "ro",
+    xml_required => 0,
+    isa => "ArrayRef[OSM::API::OsmChange::NodeRef]",
+    xml_nodeName => {
+	'nd' => 'OSM::API::OsmChange::NodeRef'};
+
+has_element 'tags' =>
+    is => "ro",
+    xml_required => 0,
+    isa => "ArrayRef[OSM::API::OsmChange::Tag]",
+    xml_nodeName => {
+	'tag' => 'OSM::API::OsmChange::Tag'};
 
 1;
 
-package OSM::API::OsmChange::Modify::Relation;
+package OSM::API::OsmChange::Relation;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
@@ -268,20 +330,20 @@ has_attr 'changeset' =>
 has_element 'members' =>
     is => "ro",
     xml_required => 0,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Relation::Member]",
+    isa => "ArrayRef[OSM::API::OsmChange::Relation::Member]",
     xml_nodeName => {
-	'member' => 'OSM::API::OsmChange::Modify::Relation::Member'};
+	'member' => 'OSM::API::OsmChange::Relation::Member'};
 
 has_element 'tags' =>
     is => "ro",
     xml_required => 0,
-    isa => "ArrayRef[OSM::API::OsmChange::Modify::Tag]",
+    isa => "ArrayRef[OSM::API::OsmChange::Tag]",
     xml_nodeName => {
-	'tag' => 'OSM::API::OsmChange::Modify::Tag'};
+	'tag' => 'OSM::API::OsmChange::Tag'};
 
 1;
 
-package OSM::API::OsmChange::Modify::Relation::Member;
+package OSM::API::OsmChange::Relation::Member;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
@@ -322,10 +384,10 @@ sub parse
 {
     my $self=shift;
     my $content=shift;
-    warn "going to parse $content";
+#    warn "going to parse $content";
     my $obj = OSM::API::OsmChange::Root->parse($content);
 
-    warn Dump($obj);
+#    warn Dump($obj);
     warn "as xml" . Dump($obj->to_xml(1));
     $obj;
 }

@@ -29,6 +29,33 @@ $c2 = $p->parse($xml);
 #warn Dump($p);
 ok($p);
 ok($c2);
+
+####################################################
+open IN,"./t/420.osc" or die ;
+$xml="";
+while (<IN>)
+{
+	$xml .=		$_;
+}
+close IN;
+$c2 = $p->parse($xml);
+#warn Dump($p);
+ok($p);
+ok($c2);
+####################################################
+
+open IN,"./t/681.osc" or die ;
+$xml="";
+while (<IN>)
+{
+	$xml .=		$_;
+}
+close IN;
+$c2 = $p->parse($xml);
+#warn Dump($p);
+ok($p);
+ok($c2);
+
 ####################################################
 open IN,"./t/005.osc" or die ;
 $xml="";
