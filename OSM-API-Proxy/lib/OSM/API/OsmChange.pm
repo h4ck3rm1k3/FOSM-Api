@@ -39,6 +39,8 @@ has_element 'nodes' =>
 package OSM::API::OsmChange::Root;
 use Moose;
 use PRANG::Graph;
+use YAML;
+use Data::Dumper;
 sub root_element {
     'osmChange'
 };
@@ -63,7 +65,20 @@ has_element 'actions' =>
 	'modify' => 'OSM::API::OsmChange::Modify',
 };
 
+sub ProcessUsersUpload
+{
+    my $self=shift;
+    warn "In OSM::API::OsmChange::Root";
+#    warn Dump($self);
+	$Data::Dumper::Maxdepth=2;
 
+    # process the actions
+    $self->{"actions"}->[0]->ProcessUsersUpload();
+
+    # version
+    # generator at the root of the changeset.
+
+}
 
 with 'PRANG::Graph', 'OSM::API::OsmChange::Language';
 
@@ -102,7 +117,8 @@ package OSM::API::OsmChange::Modify;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
-
+use Data::Dumper;
+use YAML;
 has_attr 'version' =>
     is => "rw",
     isa => "Str",
@@ -122,6 +138,31 @@ has_element 'nodes' =>
 	'way' => 'OSM::API::OsmChange::Way',
 	'relation' => 'OSM::API::OsmChange::Relation',
 };
+
+
+sub ProcessUsersUpload
+{
+    my $self=shift;
+    warn "In OSM::API::OsmChange::Modify";
+#    warn Dump($self);
+	$Data::Dumper::Maxdepth=2;
+    foreach my $c (keys %$self)
+    {
+#	warn $c;
+
+#	warn Dumper($self->{$c});
+	$self->{$c}->[0]->ProcessUsersUploadModify(); # call a different method
+    }
+
+  #   nodes:
+  #     - !!perl/hash:OSM::API::OsmChange::Way
+  #       changeset: 2524642
+  #       id: 11175590
+  #       nd:
+  #         - !!perl/hash:OSM::API::OsmChange::NodeRef
+  #           ref: 99463527
+
+}
 
 #with 'OSM::API::OsmChange::Root';
 
@@ -216,8 +257,6 @@ has_attr 'v' =>
 
 1;
 
-1;
-
 package OSM::API::OsmChange::NodeRef;
 use Moose;
 use PRANG::Graph;
@@ -228,12 +267,17 @@ has_attr 'ref' =>
     isa => "Str",
     ;
 
+#$node->ProcessUsersUploadModify();
+
 1;
 
 package OSM::API::OsmChange::Way;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
+use Data::Dumper;
+use YAML;
+use Dancer::Plugin::DBIC qw(schema);
 #with 'OSM::API::OsmChange::Modify';
 has_attr 'id' =>
     is => "rw",
@@ -286,6 +330,73 @@ has_element 'tags' =>
     isa => "ArrayRef[OSM::API::OsmChange::Tag]",
     xml_nodeName => {
 	'tag' => 'OSM::API::OsmChange::Tag'};
+
+
+sub ProcessUsersUploadModify
+{
+    my $self=shift;
+    warn "In osmchange modify way";
+#    warn Dump($self);
+    $Data::Dumper::Maxdepth=2;
+
+# nodes at lib//OSM/API/OsmChange.pm line 181.
+# $VAR1 = [
+#           bless( {
+#                    'changeset' => '2524642',
+#                    'timestamp' => '2009-09-18T14:49:39Z',
+#                    'uid' => '174494',
+#                    'version' => '2',
+#                    'nd' => 'ARRAY(0xa686040)',
+#                    'user' => 'dimenso',
+#                    'id' => '11175590',
+#                    'tags' => 'ARRAY(0xa685a80)'
+#                  }, 'OSM::API::OsmChange::Way' ),
+
+    if ($self->{"nd"})
+    {
+	my $nodeslist = $self->{"nd"};
+	my @nodes = @$nodeslist;
+#	warn Dumper(\@nodes);
+	foreach my $node (@nodes)
+	{
+#\	    $node->ProcessUsersUploadModify();
+	    my $id = $node->ref();
+	    # lets lookup the node in the database
+	    my $node = schema("osm")->resultset('Node')->find( { id => $id });
+
+	}
+    }
+
+
+    if ($self->{"tags"})
+    {
+	my $nodeslist = $self->{"tags"};
+	my @nodes = @$nodeslist;
+#	warn Dumper(\@nodes);
+	foreach my $tag (@nodes)
+	{
+	    #$node->ProcessUsersUploadModify();
+	    warn Dump($tag);
+	}
+    }
+# changeset at lib//OSM/API/OsmChange.pm line 406.
+# timestamp at lib//OSM/API/OsmChange.pm line 406.
+# uid at lib//OSM/API/OsmChange.pm line 406.
+# version at lib//OSM/API/OsmChange.pm line 406.
+# nd at lib//OSM/API/OsmChange.pm line 406.
+# user at lib//OSM/API/OsmChange.pm line 406.
+# id at lib//OSM/API/OsmChange.pm line 406.
+# tags at lib//OSM/API/OsmChange.pm line 406.
+
+#    foreach my $c (keys %$self)
+ #   {
+#	warn $c;
+#	warn Dump($self->{$c});
+#	warn Dumper($self->{$c});
+	#$self->{$c}->[0]->ProcessUsersUploadModify();
+#    }
+}
+
 
 1;
 
@@ -392,6 +503,13 @@ sub parse
     $obj;
 }
 
+
+sub ProcessUsersUpload
+{
+    my $self=shift;
+#    warn "In osmchange base";
+#    warn Dump($self);
+}
 
 =head2 Response
 

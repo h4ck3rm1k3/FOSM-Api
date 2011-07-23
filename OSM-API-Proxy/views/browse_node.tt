@@ -18,7 +18,7 @@ created_at [%node.changeset.created_at %]</p>
 min_lat [%node.changeset.min_lat %]</p>
 min_lon [%node.changeset.min_lon %]</p>
 user_id [%node.changeset.user_id %]</p>
-user.name [%node.changeset.user.name %]</p>
+user.name [%node.changeset.user.email %]</p>
 
 <h2>TAGs</h3>
 [%- foreach tag in node.node_tags() - %]
