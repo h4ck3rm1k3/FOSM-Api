@@ -104,3 +104,7 @@ http://search.cpan.org/~abw/Template-Toolkit-2.22/lib/Template.pm#START_TAG,_END
 
 =cut
 
+
+=head 3 Loading the OSM db.
+After doing the rake migrate, I used this command to load the database.
+osmosis --read-xml test.osm --write-apidb  database="openstreetmap" user="openstreetmap" password="secret" populateCurrentTables=yes validateSchemaVersion=no
