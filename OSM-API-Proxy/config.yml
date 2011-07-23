@@ -30,3 +30,11 @@ engines:
 
 logger: "file"
 log: "core"
+
+
+plugins:
+  DBIC:
+    gisdb:
+      dsn:  "dbi:Pg:dbname=gisdb"
+    osm:
+      dsn:  "dbi:Pg:dbname=openstreetmap"

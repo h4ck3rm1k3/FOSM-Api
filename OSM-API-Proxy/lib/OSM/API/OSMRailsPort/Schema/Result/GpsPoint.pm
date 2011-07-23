@@ -49,7 +49,7 @@ __PACKAGE__->table("gps_points");
 =head2 timestamp
 
   data_type: 'timestamp'
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 tile
 
@@ -70,10 +70,11 @@ __PACKAGE__->add_columns(
   "gpx_id",
   { data_type => "bigint", is_foreign_key => 1, is_nullable => 0 },
   "timestamp",
-  { data_type => "timestamp", is_nullable => 1 },
+  { data_type => "timestamp", is_nullable => 0 },
   "tile",
   { data_type => "bigint", is_nullable => 1 },
 );
+__PACKAGE__->set_primary_key("trackid", "gpx_id", "timestamp");
 
 =head1 RELATIONS
 
@@ -93,8 +94,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-07-23 17:08:15
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Aj57ZYBKLG0kwx9DHEC0rw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-07-23 17:32:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Vp7+WAplrOAsYqyXUYel8Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

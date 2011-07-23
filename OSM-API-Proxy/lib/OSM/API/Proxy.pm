@@ -1,6 +1,7 @@
 package OSM::API::Proxy;
 use Dancer ':syntax';
 use YAML;
+use Dancer::Plugin::DBIC qw(schema);
 
 our $VERSION = '0.1';
 
@@ -18,6 +19,9 @@ get '/api/capabilities/test' => sub {
 
 
 get '/api/capabilities' => sub {
+
+     my $user = schema("osm")->resultset('User')->find(params->{id});
+     
     ' <osm version="0.6" generator="Interface to OpenStreetMap server via dancer">
    <api>
      <version minimum="0.6" maximum="0.6"/>
@@ -43,6 +47,9 @@ get 'http://www.openstreetmap.org/api/0.6/map' => sub
 #http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML006
 
 get '/api/0.6/user/preferences/' => sub {
+
+
+
 '<osm version="0.6" generator="OpenStreetMap server">
     <preferences>
        <preference k="somekey" v="somevalue" />
