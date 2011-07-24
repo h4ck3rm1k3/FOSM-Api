@@ -1,3 +1,9 @@
+=head1  LICENSE 
+copyright 2011 James Michael DuPont <JamesMikeDuPont@googlemail.com>
+licensed under GNU Affero General Public License
+http://www.fsf.org/licensing/licenses/agpl-3.0.html
+=cut
+
 =pod
 
 I am working on implementing the API in perl, in dancer. this will
