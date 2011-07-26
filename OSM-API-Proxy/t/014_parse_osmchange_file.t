@@ -12,17 +12,23 @@ my $p = OSM::API::OsmChange->new();
 
 open IN,"./t/005_1.osc" or die ;
 my $xml="";
-while (<IN>)
-{
-	$xml .=		$_;
-}
-close IN;
-my $c2 = $p->parse($xml);
-#warn Dump($p);
-ok($p);
-ok($c2);
+my $c2;
+   
+ while (<IN>)
+ {
+ 	$xml .=		$_;
+ }
+ close IN;
+ $c2 = $p->parse($xml);
+ $c2->ProcessUsersUpload();
+#warn Dump($c2);
+# warn Dump($p);
+ ok($p);
+ ok($c2);
 
 #####################################################
+if (0)
+{
 open IN,"./t/005_2.osc" or die ;
 $xml="";
 while (<IN>)
@@ -31,13 +37,15 @@ while (<IN>)
 }
 close IN;
 $c2 = $p->parse($xml);
-#warn Dump($p);
+
 ok($p);
 ok($c2);
 $c2->ProcessUsersUpload;
 #$p->ProcessUsersUpload;
-#warn Dump($c2);
-
+warn $xml;
+warn Dump($p);
+warn Dump($c2);
+}
 # ####################################################
 # open IN,"./t/420.osc" or die ;
 # $xml="";

@@ -8,9 +8,10 @@ use LWP::UserAgent;
 use Compress::Bzip2 qw(:all );
 use strict;
 use warnings;
-use constant overlap => 700000;
-use constant blocksize => 5000000;
-use constant  chunksize => 5000000;
+use constant overlap    => 634;
+use constant blocksize  => 280148; 
+use constant  chunksize => 280148;
+use IO::Uncompress::Bunzip2 qw(bunzip2 $Bunzip2Error) ;
 
 sub process_bzip_parts
 {
@@ -31,23 +32,15 @@ sub process_bzip_parts
 	    while (@stack)
 	    {
 		my $f1= pop @stack;
-		warn "Processing $f1";
+		warn "Processing zip file $f1";
+		my $z =bunzip2($f1);
+
+		while (<$z>)
+		{
+		    warn $z;
+		}
 	    }
 	}
-#	 0 dev      device number of filesystem
-#                 1 ino      inode number
-#                 2 mode     file mode  (type and permissions)
-#                 3 nlink    number of (hard) links to the file
-#                 4 uid      numeric user ID of file's owner
-#                 5 gid      numeric group ID of file's owner
-#                 6 rdev     the device identifier (special files only)
-#                 7 size     total size of file, in bytes
-#                 8 atime    last access time in seconds since the epoch
-#                 9 mtime    last modify time in seconds since the epoch
-#                10 ctime    inode change time in seconds since the epoch (*)
-#                11 blksize  preferred block size for file system I/O
-#                12 blocks   actual number of blocks allocated
-
     }
 
     warn "Begin Processing Final";
@@ -71,12 +64,12 @@ sub checkbz2
 
     if ($filename =~ /data\/(.+)/)
     {
-	$newfile = "data/rec00001${1}";
+	$newfile = "data/rec00002${1}";
 	$pattern = "data/rec?????${1}";
 	warn "new file is $newfile";
 
     }
-
+    warn "going to extract $newfile with bzip2recover";
     if (!-f "$newfile"   )
     {
 	open BZ,"bzip2recover $filename 2>&1 | ";
@@ -104,12 +97,18 @@ sub checkbz2
 		    die "file not there $1";
 		}
 	    }
+	    elsif (/\(incomplete/)
+	    {
+		die "Downloaded file incomplete\n";
+		rename ($filename, "$filename.bad");
+		die "filename is bad";
 
+	    }
 	    else
 	    {
 		warn "Other $_";
 	    }
-#	print $_;
+	    warn "Bzip2 recover said $_";
 	}
 	
 	close BZ;

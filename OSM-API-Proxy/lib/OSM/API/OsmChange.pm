@@ -174,6 +174,8 @@ use PRANG::Graph;
 use PRANG::XMLSchema::Types;
 #with 'OSM::API::OsmChange::Modify';
 use MooseX::Types::DateTimeX qw( DateTime );
+use Geo::Hash;
+my $gh = Geo::Hash->new;
 
 has_attr 'id' =>
     is => "rw",
@@ -225,18 +227,39 @@ has_attr 'lon' =>
     isa => "Num", #true
     ;
 
-#Tag
+ has_attr 'hash' =>
+     is => "rw",
+     isa => "Str", #true
+#     expected =>0,
+     xml_required => 0,
+    ;
 
 has_element 'tags' =>
     is => "ro",
-#    expected =>0,
-#    required=> 0,
     xml_required => 0,
     isa => "ArrayRef[OSM::API::OsmChange::Tag]",
     xml_nodeName => {
 	'tag' => 'OSM::API::OsmChange::Tag',
 
 };
+
+sub Hash
+{
+    my $self=shift;
+    my $hash = $gh->encode( $self->lat, $self->lon );
+    $self->hash($hash);
+    warn $self->lat . ",".  $self->lon . " " . $self->hash;
+}
+sub ProcessUsersUpload
+{
+    my $self=shift;
+    $self->Hash();
+}
+sub ProcessUsersUploadModify
+{
+    my $self=shift;
+    $self->Hash();
+}
 
 1;
 
@@ -375,8 +398,8 @@ sub ProcessUsersUploadModify
 #	warn Dumper(\@nodes);
 	foreach my $tag (@nodes)
 	{
-	    #$node->ProcessUsersUploadModify();
-	    warn Dump($tag);
+#	    $node->ProcessUsersUploadModify();
+#	    warn Dump($tag);
 	}
     }
 # changeset at lib//OSM/API/OsmChange.pm line 406.
@@ -499,7 +522,7 @@ sub parse
     my $obj = OSM::API::OsmChange::Root->parse($content);
 
 #    warn Dump($obj);
-    warn "as xml" . Dump($obj->to_xml(1));
+#    warn "as xml" . Dump($obj->to_xml(1));
     $obj;
 }
 
