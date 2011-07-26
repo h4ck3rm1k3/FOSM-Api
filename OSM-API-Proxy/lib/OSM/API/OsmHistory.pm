@@ -8,14 +8,15 @@ use LWP::UserAgent;
 use Compress::Bzip2 qw(:all );
 use strict;
 use warnings;
-use constant overlap    => 634;
-use constant blocksize  => 280148; 
-use constant  chunksize => 280148;
-use IO::Uncompress::Bunzip2 qw(bunzip2 $Bunzip2Error) ;
+use constant overlap    => 1024;
+use constant blocksize  => 280148 * 4; 
+use YAML;
+use IO::Uncompress::Bunzip2 ;
 
 sub process_bzip_parts
 {
     my @listoffiles= @_;
+    warn join "\n",@listoffiles;
     my @stack;
     foreach my $f (@listoffiles)
     {
@@ -29,16 +30,15 @@ sub process_bzip_parts
 	else
 	{
 	    warn "Begin Processing Stack";
+	    my @data;
 	    while (@stack)
 	    {
 		my $f1= pop @stack;
 		warn "Processing zip file $f1";
-		my $z =bunzip2($f1);
+		my $data;
+		IO::Uncompress::Bunzip2::bunzip2($f1 => \@data);
 
-		while (<$z>)
-		{
-		    warn $z;
-		}
+		warn "Got data" . join "\n", Dump(@data);
 	    }
 	}
     }
@@ -55,8 +55,8 @@ sub process_bzip_parts
 sub checkbz2
 {
     my $filename=shift;
-    warn "bzip2recover $filename ";
-    die "$filename not there" unless -f $filename;
+    warn "bzip2recover $filename "; # we will process the input file
+    warn "$filename not there" unless -f $filename;
 
     my $newfile = "error";
 
@@ -94,7 +94,7 @@ sub checkbz2
 		}
 		else
 		{
-		    die "file not there $1";
+		    warn "file not there yet $1";
 		}
 	    }
 	    elsif (/\(incomplete/)
@@ -108,6 +108,7 @@ sub checkbz2
 	    {
 		warn "Other $_";
 	    }
+
 	    warn "Bzip2 recover said $_";
 	}
 	
@@ -119,7 +120,8 @@ sub checkbz2
 	#data/rec?????osm_planet_dump_part_5663_.bz2
 
     }
-
+    
+    warn "going to look for $pattern";
     process_bzip_parts glob ($pattern);
     
 }
@@ -131,13 +133,34 @@ sub Download
     my $url =shift;
 
     mkdir "data" unless -d "data";
-
-
     my $filename = sprintf("data/osm_planet_dump_part_%0.4d_.bz2",$partno);
-    if (! -f $filename)
+    my $startpos =  (blocksize * $partno ) -  overlap ; # starting point
+    $startpos = 0 if $startpos < 0;    
+    my $endpos   =  $startpos + blocksize + overlap;   
+    my $filesize = $endpos - $startpos;    
+
+
+    if (-f $filename)
+    {
+	my @stat = stat($filename);
+	if ($stat[7]== $filesize)
+	{
+	    warn "$filename has $filesize";
+	}
+	else
+	{
+	    warn "$filename has wrong $filesize";
+	    unlink($filename); #remove it, lets download again
+	}	    
+    }
+   
+
+    if (
+	! -f $filename
+	)
     {
 	print "getting $filename\n";    
-	print  " chunksize " . chunksize . "\n";
+	print  " blocksize " . blocksize . "\n";
 	
 	my  $ua = LWP::UserAgent->new;
 	$ua->agent("FOSM API/0.1 ");
@@ -153,18 +176,9 @@ sub Download
 	die "content length is 0.\n" unless $cl;
 	print "$url\nLength on server: ", $cl, "\n";
 	
-	
-	
-	my $startpos =  (blocksize * $partno ) -  overlap ; # starting point
-	$startpos = 0 if $startpos < 0;
-	
-	my $endpos   =  $startpos + blocksize + overlap;
-	
-	$endpos = $cl if $endpos > $cl;
-	
-	my $blocks = $cl / chunksize ;
-	
-	printf " getting chunk # %d of # %d \n", $partno, $blocks;
+	$endpos = $cl if $endpos > $cl;    
+	my $blocks = $cl / blocksize ; # now many blocks in the file	
+	printf " getting block # %d of # %d \n", $partno, $blocks;
 	
 	printf "Requesting %s - %s\n", $startpos, $endpos - 1;
 	my $req = HTTP::Request->new('GET' => $url);
@@ -189,8 +203,24 @@ sub Download
 	close OUT;
 	
     }
+
+    if (-f $filename)
+    {
+	my @stat = stat($filename);
+	if ($stat[7]== $filesize)
+	{
+	    warn "$filename has $filesize";
+	    checkbz2 $filename;
+	}
+	else
+	{
+	    warn "$filename has wrong $filesize";
+	    unlink($filename); #remove it, lets download again
+	    die "cannot get the file $filename";
+	}	    
+    }
     
-    checkbz2 $filename;
+    
 
 }
 

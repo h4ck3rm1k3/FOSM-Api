@@ -387,6 +387,8 @@ sub ProcessUsersUploadModify
 	    # lets lookup the node in the database
 	    my $node = schema("osm")->resultset('Node')->find( { id => $id });
 
+	    # look up the node in the XML memory ?
+
 	}
     }
 
