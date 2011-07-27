@@ -13,11 +13,24 @@ use constant blocksize  => 280148 * 4;
 use YAML;
 use IO::Uncompress::Bunzip2 ;
 
+sub extract
+{
+    my $file=shift;
+    warn "Processing zip file $file";
+    my @data;
+    my $str;
+    IO::Uncompress::Bunzip2::bunzip2($file => \@data);
+    $str = join ("",map { $$_ } @data);
+    
+    return $str;
+    
+}
 sub process_bzip_parts
 {
     my @listoffiles= @_;
     warn join "\n",@listoffiles;
     my @stack;
+    my $str;
     foreach my $f (@listoffiles)
     {
 #	print "going to process $f\n";
@@ -30,15 +43,12 @@ sub process_bzip_parts
 	else
 	{
 	    warn "Begin Processing Stack";
-	    my @data;
+
 	    while (@stack)
 	    {
 		my $f1= pop @stack;
-		warn "Processing zip file $f1";
-		my $data;
-		IO::Uncompress::Bunzip2::bunzip2($f1 => \@data);
-
-		warn "Got data" . join "\n", Dump(@data);
+		$str .= extract($f1);
+#		warn "Extracted part " . $str;
 	    }
 	}
     }
@@ -48,10 +58,32 @@ sub process_bzip_parts
     {
 	my $f1= pop @stack;
 	warn "Processing $f1";
+	$str .= extract($f1);
     }
 
-}
+#    warn "Extracted" . $str;
+    $str;
 
+}
+sub     cleanup
+{
+
+    my $xml=shift;
+    
+    if ($xml =~ /([^\<]+)(\<[^\>]+\>)([^\>]+)/)
+    {
+	my $prev = $1;
+	my $data = $2;
+	my $post = $3;
+	warn "PREV:". $prev;
+	warn "DATA:". $data;
+	warn "POS:".$post;
+    }
+    else
+    {
+	warn "WTF $xml";
+    }
+}
 sub checkbz2
 {
     my $filename=shift;
@@ -122,7 +154,9 @@ sub checkbz2
     }
     
     warn "going to look for $pattern";
-    process_bzip_parts glob ($pattern);
+    my $xml = process_bzip_parts glob ($pattern);
+
+    cleanup($xml);
     
 }
 
