@@ -43,10 +43,11 @@ sub     cleanup
 #	warn "POS:".$post;
 #	warn "$data";
 #	my $c2 = XML::LibXML->load_xml(string => $data);
-
+	my $handler = XML::SAX::PurePerl::DebugHandler->new();
+#	OSM::API::OsmHistory::Handler->new
 	
 	my $parser = XML::SAX::ParserFactory->parser(
-	    Handler => OSM::API::OsmHistory::Handler->new
+	    Handler => $handler
 	    );
 	$parser->parse_string($data);
 
