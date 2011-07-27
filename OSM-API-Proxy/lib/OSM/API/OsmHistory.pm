@@ -3,6 +3,10 @@
 # http://www.fsf.org/licensing/licenses/agpl-3.0.html
 # 
 package OSM::API::OsmHistory::Handler;
+
+# borrowed from SAXOsmHandler - Osmrender implementation
+# http://svn.openstreetmap.org/applications/rendering/osmarender/orp/SAXOsmHandler.pm
+use YAML;
 sub new
 {
     my $class=shift;
@@ -10,6 +14,113 @@ sub new
 
     return bless $self,$class;
 }
+use base qw(XML::SAX::Base);
+
+sub start_element {
+    my $self = shift;
+    my $element = shift;
+#    warn "Got element " . Dump($data);
+    print "$element->{Name}\n";
+
+    if ($element->{Name} eq 'node') 
+    {
+        # undef $self->{current};
+        # return if defined $element->{'Attributes'}{'action'}
+        #        && $element->{'Attributes'}{'action'} eq 'delete';
+               
+        # my $id = $element->{Attributes}{id};
+        
+        # $self->{node}{$id} =
+        #   $self->{current} = {id        => $id,
+        #                       layer     => 0, 
+        #                       lat       => $element->{'Attributes'}{'lat'}, 
+        #                       lon       => $element->{'Attributes'}{'lon'}, 
+        #                       user      => $element->{'Attributes'}{'user'}, 
+        #                       timestamp => $element->{'Attributes'}{'timestamp'}, 
+        #                       ways      => [],
+        #                       relations => [] };
+        # bless $self->{current}, 'node';
+    }
+    elsif ($element->{Name} eq 'way')
+    {
+#         undef $self->{current};
+#         return if defined $element->{'Attributes'}{'action'}
+#                && $element->{'Attributes'}{'action'} eq 'delete';
+               
+#         my $id = $element->{'Attributes'}{'id'};
+#         $self->{way}{$id}  =
+#           $self->{current} = {id    => $id,
+#                               layer => 0, 
+#                               user      => $element->{'Attributes'}{'user'}, 
+#                               timestamp => $element->{'Attributes'}{'timestamp'}, 
+#                               nodes => [],
+#                               relations => [] };
+
+# #        bless $self->{current}, 'way';
+        
+    }
+    elsif ($element->{Name} eq 'relation')
+    {
+#         undef $self->{current};
+#         return if defined $element->{'Attributes'}{'action'}
+#                && $element->{'Attributes'}{'action'} eq 'delete';
+        
+#         my $id = $element->{'Attributes'}{'id'};
+# #        $self->{relation}{$id} =
+# #              $self->{current} = {id        => $id, 
+# #                                  user      => $element->{'Attributes'}{'user'}, 
+# #                                  timestamp => $element->{'Attributes'}{'timestamp'}, 
+# #                                  members   => [],
+# #                                  relations => [] };             
+#        bless $self->{current}, 'relation';
+    }
+    elsif (($element->{Name} eq 'nd') and (ref $self->{current} eq 'way'))
+    {
+#        push(@{$self->{current}{'nodes'}},
+#             $self->{node}{$element->{'Attributes'}->{'ref'}})
+#            if defined($self->{node}{$element->{'Attributes'}->{'ref'}});
+    }
+    elsif (($element->{Name} eq 'member') and (ref $self->{current} eq 'relation'))
+    {
+        # relation members are temporarily stored as symbolic references (e.g. a
+        # string that contains "way:1234") and only later replaced by proper 
+        # references.
+        
+#        push(@{$self->{current}{'members'}}, 
+#            [ $element->{Attributes}{role}, 
+#              $element->{Attributes}{type}.':'.
+#              $element->{Attributes}{ref } ]);
+    }
+    elsif ($element->{Name} eq 'tag')
+    {
+        # store the tag in the current element's hash table.
+        # also extract layer information into a direct hash member for ease of access.
+        
+#        $self->{current}{tags }{ $element->{Attributes}{k} }= $element->{Attributes}{v};
+#        $self->{current}{layer} = $element->{Attributes}{v}
+#            if $element->{Attributes}{k} eq "layer";
+    }
+    elsif ($element->{Name} eq 'bounds')
+    {
+        # my $b = $self->{bounds}; # Just a shortcut
+        # my $minlat = $element->{Attributes}{minlat};
+        # my $minlon = $element->{Attributes}{minlon};
+        # my $maxlat = $element->{Attributes}{maxlat};
+        # my $maxlon = $element->{Attributes}{maxlon};
+
+        # $b->{minlat} = $minlat if !defined($b->{minlat}) || $minlat < $b->{minlat};
+        # $b->{minlon} = $minlon if !defined($b->{minlon}) || $minlon < $b->{minlon};
+        # $b->{maxlat} = $maxlat if !defined($b->{maxlat}) || $maxlat > $b->{maxlat};
+        # $b->{maxlon} = $maxlon if !defined($b->{maxlon}) || $maxlon > $b->{maxlon};
+    }
+    else
+    {
+        # ignore for now
+    }
+
+    # do something
+    #$self->{Handler}->start_element($data); # BAD
+  }
 
 1;
 
@@ -43,8 +154,7 @@ sub     cleanup
 #	warn "POS:".$post;
 #	warn "$data";
 #	my $c2 = XML::LibXML->load_xml(string => $data);
-	my $handler = XML::SAX::PurePerl::DebugHandler->new();
-#	OSM::API::OsmHistory::Handler->new
+	my $handler = OSM::API::OsmHistory::Handler->new();
 	
 	my $parser = XML::SAX::ParserFactory->parser(
 	    Handler => $handler
