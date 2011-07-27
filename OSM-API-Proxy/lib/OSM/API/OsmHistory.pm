@@ -2,6 +2,17 @@
 # licensed under GNU Affero General Public License
 # http://www.fsf.org/licensing/licenses/agpl-3.0.html
 # 
+package OSM::API::OsmHistory::Handler;
+sub new
+{
+    my $class=shift;
+    my $self={};
+
+    return bless $self,$class;
+}
+
+1;
+
 package OSM::API::OsmHistory;
 
 use LWP::UserAgent;
@@ -11,7 +22,50 @@ use warnings;
 use constant overlap    => 1024;
 use constant blocksize  => 280148 * 4; 
 use YAML;
-use IO::Uncompress::Bunzip2 ;
+use OSM::API::OsmFile;
+use IO::Uncompress::Bunzip2 qw ($Bunzip2Error);
+use IO::File;
+
+
+#use XML::LibXML;
+#XML::LibXML::SAX
+use XML::SAX;
+sub     cleanup
+{
+    my $xml=shift;
+    
+    if ($xml =~ /^([^\<]+)(\<.+\>)([^\>]+)$/)
+    {
+	my $prev = $1;
+	my $data = "<osm><bounds/>$2</osm>";
+	my $post = $3;
+#	warn "PREV:". $prev;
+#	warn "POS:".$post;
+#	warn "$data";
+#	my $c2 = XML::LibXML->load_xml(string => $data);
+
+	
+	my $parser = XML::SAX::ParserFactory->parser(
+	    Handler => OSM::API::OsmHistory::Handler->new
+	    );
+	$parser->parse_string($data);
+
+
+#	my $p = OSM::API::OsmFile::OSM->new();
+#	my $c2 = $p->parse($data);
+#	if ($c2)
+	{
+#	    $c2->ProcessHistory();
+#	    warn Dump($c2);
+	}
+#	warn Dump($p);
+
+    }
+    else
+    {
+	warn "WTF $xml";
+    }
+}
 
 sub extract
 {
@@ -19,12 +73,18 @@ sub extract
     warn "Processing zip file $file";
     my @data;
     my $str;
-    IO::Uncompress::Bunzip2::bunzip2($file => \@data);
-    $str = join ("",map { $$_ } @data);
+    my $fh=IO::Uncompress::Bunzip2->new( $file) or die "Couldn't open bzipped input file: $Bunzip2Error\n";
     
+    while(<$fh>)
+    {
+	$str .= $_;
+    }
+#    IO::Uncompress::Bunzip2::bunzip2($file => \@data);
+#    $str = join ("",map { $$_ } @data);
+#    warn "got $str";
     return $str;
-    
 }
+
 sub process_bzip_parts
 {
     my @listoffiles= @_;
@@ -35,71 +95,45 @@ sub process_bzip_parts
     {
 #	print "going to process $f\n";
 	my @stat=stat($f);
-	print $stat[7] . "\n";
-	if ($stat[7] < 1000)
-	{
-	    push @stack,$f;
-	}
-	else
-	{
-	    warn "Begin Processing Stack";
-
-	    while (@stack)
-	    {
-		my $f1= pop @stack;
-		$str .= extract($f1);
-#		warn "Extracted part " . $str;
-	    }
-	}
+	# print $stat[7] . "\n";
+	# if ($stat[7] < 1000)
+	# {
+#	push @stack,$f;
+	# }
+	# else
+	# {
+#	warn "Begin Processing Stack";
+#	while (@stack)
+#	    {
+#		my $f1= pop @stack;
+	$str .= extract($f);
+	
+#	    }
+#	}
     }
+    # warn "Begin Processing Final";
+    # while (@stack)
+    # {
+    # 	my $f1= pop @stack;
+    # 	warn "Processing $f1";
+    # 	$str .= extract($f1);
+    # }
 
-    warn "Begin Processing Final";
-    while (@stack)
-    {
-	my $f1= pop @stack;
-	warn "Processing $f1";
-	$str .= extract($f1);
-    }
-
-#    warn "Extracted" . $str;
-    $str;
-
+    return $str;
 }
-sub     cleanup
-{
 
-    my $xml=shift;
-    
-    if ($xml =~ /([^\<]+)(\<[^\>]+\>)([^\>]+)/)
-    {
-	my $prev = $1;
-	my $data = $2;
-	my $post = $3;
-	warn "PREV:". $prev;
-	warn "DATA:". $data;
-	warn "POS:".$post;
-    }
-    else
-    {
-	warn "WTF $xml";
-    }
-}
 sub checkbz2
 {
     my $filename=shift;
     warn "bzip2recover $filename "; # we will process the input file
     warn "$filename not there" unless -f $filename;
-
     my $newfile = "error";
-
     my $pattern = "";
-
     if ($filename =~ /data\/(.+)/)
     {
 	$newfile = "data/rec00002${1}";
 	$pattern = "data/rec?????${1}";
 	warn "new file is $newfile";
-
     }
     warn "going to extract $newfile with bzip2recover";
     if (!-f "$newfile"   )
@@ -134,13 +168,11 @@ sub checkbz2
 		die "Downloaded file incomplete\n";
 		rename ($filename, "$filename.bad");
 		die "filename is bad";
-
 	    }
 	    else
 	    {
 		warn "Other $_";
 	    }
-
 	    warn "Bzip2 recover said $_";
 	}
 	
@@ -150,30 +182,24 @@ sub checkbz2
     {
 	warn "data has already been split, in $newfile for example";
 	#data/rec?????osm_planet_dump_part_5663_.bz2
-
     }
     
     warn "going to look for $pattern";
     my $xml = process_bzip_parts glob ($pattern);
-
     cleanup($xml);
     
 }
-
 
 sub Download
 {
     my $partno=shift;
     my $url =shift;
-
     mkdir "data" unless -d "data";
     my $filename = sprintf("data/osm_planet_dump_part_%0.4d_.bz2",$partno);
     my $startpos =  (blocksize * $partno ) -  overlap ; # starting point
     $startpos = 0 if $startpos < 0;    
     my $endpos   =  $startpos + blocksize + overlap;   
     my $filesize = $endpos - $startpos;    
-
-
     if (-f $filename)
     {
 	my @stat = stat($filename);
@@ -187,8 +213,6 @@ sub Download
 	    unlink($filename); #remove it, lets download again
 	}	    
     }
-   
-
     if (
 	! -f $filename
 	)
@@ -237,7 +261,6 @@ sub Download
 	close OUT;
 	
     }
-
     if (-f $filename)
     {
 	my @stat = stat($filename);
@@ -253,11 +276,7 @@ sub Download
 	    die "cannot get the file $filename";
 	}	    
     }
-    
-    
-
 }
-
 
 sub Main
 {

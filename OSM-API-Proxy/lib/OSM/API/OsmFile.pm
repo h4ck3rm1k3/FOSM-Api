@@ -1,12 +1,108 @@
-package OSM::API::OsmFile::Language;
-use Moose::Role;
-#sub xmlns { "http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html" }
+package OSM::API::OsmFile;
+#use Moose;
+#use PRANG::Graph;
+#use YAML;
+#use Data::Dumper;
+use Moose::Role; # this is a multiple root document, http://search.cpan.org/~mutant/PRANG-0.14/lib/PRANG/Graph.pm PRANG::Graph for multi-root document types
 sub xmlns {   }
-sub root_element { "osm" }
+
+# has_attr 'version' =>
+#     is => "rw",
+#     isa => "Str",
+#     ;
+# has_attr 'generator' =>
+#     is => "rw",
+#     isa => "Str",
+#     ;
+# has_element 'bounds' =>
+#     is => "ro",
+# #    required=> 0,
+#     isa => "OSM::API::OsmFile::Bounds";
+# has_element 'node' =>
+#     is => "ro",
+#  #   required=> 1,
+#     isa => "ArrayRef[OSM::API::OsmFile::Node|OSM::API::OsmFile::Way|OSM::API::OsmFile::Relation]",
+#     xml_nodeName => {
+# 	'node' => 'OSM::API::OsmFile::Node',
+# 	'way' => 'OSM::API::OsmFile::Way',
+# 	'relation' => 'OSM::API::OsmFile::Relation',
+# };
+# sub ProcessHistory
+# {
+#     my $self=shift;
+#     warn "In OSM::API::OsmFile";
+# #    warn Dump($self);
+# 	$Data::Dumper::Maxdepth=2;
+#     # process the actions
+#     $self->{"actions"}->[0]->ProcessUsersUpload();
+#     # version
+#     # generator at the root of the changeset.
+# }
+
 with 'PRANG::Graph';
-#$class->meta->does_role("PRANG::Graph::Meta::Class");
 
 1;
+
+
+package OSM::API::OsmFile::OSM;
+use Moose;
+use PRANG::Graph;
+use YAML;
+use Data::Dumper;
+
+sub xmlns {   }
+sub root_element {
+    'osm'
+};
+
+
+has_attr 'version' =>
+    is => "rw",
+    isa => "Str",
+    ;
+
+has_attr 'generator' =>
+    is => "rw",
+    isa => "Str",
+    ;
+
+has_element 'bounds' =>
+    is => "ro",
+#    required=> 0,
+    isa => "OSM::API::OsmFile::Bounds";
+
+has_element 'node' =>
+    is => "ro",
+ #   required=> 1,
+    isa => "ArrayRef[OSM::API::OsmFile::Node|OSM::API::OsmFile::Way|OSM::API::OsmFile::Relation]",
+    xml_nodeName => {
+	'node' => 'OSM::API::OsmFile::Node',
+	'way' => 'OSM::API::OsmFile::Way',
+	'relation' => 'OSM::API::OsmFile::Relation',
+};
+
+
+sub ProcessHistory
+{
+    my $self=shift;
+    warn "In OSM::API::OsmFile";
+#    warn Dump($self);
+    $Data::Dumper::Maxdepth=2;
+    warn Dumper($self);
+    # process the actions
+    $self->{"node"}->[0]->ProcessHistory();
+    
+    # version
+    # generator at the root of the changeset.
+
+}
+
+with 'OSM::API::OsmFile';
+
+1;
+
+
+
 
 package OSM::API::OsmFile::Bounds;
 use Moose;
@@ -42,167 +138,15 @@ has_attr 'maxlon' =>
 
 1;
 
-
-package OSM::API::OsmFile;
-use Moose;
-use PRANG::Graph;
-use YAML;
-use Data::Dumper;
-sub root_element {
-    'osm'
-};
-
-has_attr 'version' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_attr 'generator' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_element 'bounds' =>
-    is => "ro",
-    required=> 0,
-    isa => "OSM::API::OsmFile::Bounds";
-
-has_element 'node' =>
-    is => "ro",
-    required=> 0,
-    isa => "ArrayRef[OSM::API::OsmFile::Node]",
-    xml_nodeName => {
-	'node' => 'OSM::API::OsmFile::Node',
-	'way' => 'OSM::API::OsmFile::Way',
-	'relation' => 'OSM::API::OsmFile::Relation',
-};
-
-has_element 'way' =>
-    is => "ro",
-    required=> 0,
-    isa => "ArrayRef[OSM::API::OsmFile::Way]",
-    xml_nodeName => {
-	'way' => 'OSM::API::OsmFile::Way',
-
-};
-
-has_element 'relation' =>
-    is => "ro",
-    required=> 0,
-    isa => "ArrayRef[OSM::API::OsmFile::Relation]",
-    xml_nodeName => {
-	'relation' => 'OSM::API::OsmFile::Relation',
-};
-
-
-sub ProcessUsersUpload
-{
-    my $self=shift;
-    warn "In OSM::API::OsmFile";
-#    warn Dump($self);
-	$Data::Dumper::Maxdepth=2;
-
-    # process the actions
-    $self->{"actions"}->[0]->ProcessUsersUpload();
-
-    # version
-    # generator at the root of the changeset.
-
-}
-
-with 'PRANG::Graph', 'OSM::API::OsmFile::Language';
-
-1;
-
-
-package OSM::API::OsmFile::Create;
-use Moose;
-use PRANG::Graph;
-use PRANG::XMLSchema::Types;
-
-has_attr 'version' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_attr 'generator' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_element 'nodes' =>
-    is => "ro",
-    required=> 1,
-    isa => "ArrayRef[OSM::API::OsmFile::Node|OSM::API::OsmFile::Way|OSM::API::OsmFile::Relation]",
-    xml_nodeName => {
-	'node' => 'OSM::API::OsmFile::Node',
-	'way' => 'OSM::API::OsmFile::Way',
-	'relation' => 'OSM::API::OsmFile::Relation',
-};
-
-
-1;
-
-package OSM::API::OsmFile::Modify;
-use Moose;
-use PRANG::Graph;
-use PRANG::XMLSchema::Types;
-use Data::Dumper;
-use YAML;
-has_attr 'version' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_attr 'generator' =>
-    is => "rw",
-    isa => "Str",
-    ;
-
-has_element 'nodes' =>
-    is => "ro",
-    required=> 1,
-    isa => "ArrayRef[OSM::API::OsmFile::Node|OSM::API::OsmFile::Way|OSM::API::OsmFile::Relation]",
-    xml_nodeName => {
-	'node' => 'OSM::API::OsmFile::Node',
-	'way' => 'OSM::API::OsmFile::Way',
-	'relation' => 'OSM::API::OsmFile::Relation',
-};
-
-
-sub ProcessUsersUpload
-{
-    my $self=shift;
-    warn "In OSM::API::OsmFile::Modify";
-#    warn Dump($self);
-	$Data::Dumper::Maxdepth=2;
-    foreach my $c (keys %$self)
-    {
-#	warn $c;
-
-#	warn Dumper($self->{$c});
-	$self->{$c}->[0]->ProcessUsersUploadModify(); # call a different method
-    }
-
-  #   nodes:
-  #     - !!perl/hash:OSM::API::OsmFile::Way
-  #       changeset: 2524642
-  #       id: 11175590
-  #       nd:
-  #         - !!perl/hash:OSM::API::OsmFile::NodeRef
-  #           ref: 99463527
-
-}
-
-#with 'OSM::API::OsmFile::Root';
-
-1;
-
 package OSM::API::OsmFile::Node;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
 #with 'OSM::API::OsmFile::Modify';
+sub root_element {
+    'node'
+};
+
 use MooseX::Types::DateTimeX qw( DateTime );
 use Geo::Hash;
 my $gh = Geo::Hash->new;
@@ -280,17 +224,14 @@ sub Hash
     $self->hash($hash);
     warn $self->lat . ",".  $self->lon . " " . $self->hash;
 }
-sub ProcessUsersUpload
-{
-    my $self=shift;
-    $self->Hash();
-}
-sub ProcessUsersUploadModify
+
+sub ProcessHistory
 {
     my $self=shift;
     $self->Hash();
 }
 
+with 'OSM::API::OsmFile';
 1;
 
 package OSM::API::OsmFile::Tag;
@@ -331,6 +272,11 @@ use PRANG::XMLSchema::Types;
 use Data::Dumper;
 use YAML;
 use Dancer::Plugin::DBIC qw(schema);
+
+sub root_element {
+    'way'
+};
+
 #with 'OSM::API::OsmFile::Modify';
 has_attr 'id' =>
     is => "rw",
@@ -397,18 +343,6 @@ sub ProcessUsersUploadModify
 #    warn Dump($self);
     $Data::Dumper::Maxdepth=2;
 
-# nodes at lib//OSM/API/OsmChange.pm line 181.
-# $VAR1 = [
-#           bless( {
-#                    'changeset' => '2524642',
-#                    'timestamp' => '2009-09-18T14:49:39Z',
-#                    'uid' => '174494',
-#                    'version' => '2',
-#                    'nd' => 'ARRAY(0xa686040)',
-#                    'user' => 'dimenso',
-#                    'id' => '11175590',
-#                    'tags' => 'ARRAY(0xa685a80)'
-#                  }, 'OSM::API::OsmFile::Way' ),
 
     if ($self->{"nd"})
     {
@@ -439,14 +373,6 @@ sub ProcessUsersUploadModify
 #	    warn Dump($tag);
 	}
     }
-# changeset at lib//OSM/API/OsmChange.pm line 406.
-# timestamp at lib//OSM/API/OsmChange.pm line 406.
-# uid at lib//OSM/API/OsmChange.pm line 406.
-# version at lib//OSM/API/OsmChange.pm line 406.
-# nd at lib//OSM/API/OsmChange.pm line 406.
-# user at lib//OSM/API/OsmChange.pm line 406.
-# id at lib//OSM/API/OsmChange.pm line 406.
-# tags at lib//OSM/API/OsmChange.pm line 406.
 
 #    foreach my $c (keys %$self)
  #   {
@@ -464,6 +390,11 @@ package OSM::API::OsmFile::Relation;
 use Moose;
 use PRANG::Graph;
 use PRANG::XMLSchema::Types;
+
+sub root_element {
+    'relation'
+};
+
 #with 'OSM::API::OsmFile::Modify';
 # version="1" timestamp="2009-09-18T14:49:32Z" uid="71261" user="David Paleino" changeset="2524643"
 has_attr 'id' =>
@@ -543,53 +474,5 @@ has_attr 'ref' =>
 1;
 
 
-package OSM::API::OsmChange;
-use YAML;
-use OSM::API::Box;
-use OSM::API::User;
-use OSM::API::Tags;
-use Moose;
-use Moose::Util::TypeConstraints;
-use OSM::API::RemoteServerAgent;
-
-use Moose;
-#use MooseX::DOM;
 
 
-#
-sub parse
-{
-    my $self=shift;
-    my $content=shift;
-#    warn "going to parse $content";
-    my $obj = OSM::API::OsmFile->parse($content);
-
-#    warn Dump($obj);
-#    warn "as xml" . Dump($obj->to_xml(1));
-    $obj;
-}
-
-
-sub ProcessUsersUpload
-{
-    my $self=shift;
-#    warn "In osmchange base";
-#    warn Dump($self);
-}
-
-=head2 Response
-
-If a diff is successfully applied a XML (content type C<text/xml>) is
-returned in the following format
-
- <diffResult generator="OpenStreetMap Server" version="0.6">
-   <node|way|relation old_id="#" new_id="#" new_version="#"/>
-   ...
- </diffResult>
-
-with one element for every element in the upload. Note that this can be
-counter-intuitive when the same element has appeared multiple times in
-the input then it will appear multiple times in the output.
-=cut
-
-1;
