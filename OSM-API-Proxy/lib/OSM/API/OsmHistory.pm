@@ -188,7 +188,7 @@ sub     cleanup
 sub extract
 {
     my $file=shift;
-    warn "Processing zip file $file";
+#    warn "Processing zip file $file";
     my @data;
     my $str;
     my $fh=IO::Uncompress::Bunzip2->new( $file) or die "Couldn't open bzipped input file: $Bunzip2Error\n";
@@ -207,7 +207,7 @@ sub process_bzip_parts
 {
 
     my @listoffiles= @_;
-    warn join "\n",@listoffiles;
+#    warn join "\n",@listoffiles;
     my @stack;
     my $str;
     foreach my $f (@listoffiles)
