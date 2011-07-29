@@ -93,7 +93,20 @@ sub Split
     
     my $file = $out. "/${out_file}nodes." . $self->partno . ".osm";
     open OUT,">>$file";
-    print OUT Dump($self);
+    my $str = "<node " .  join (" ", 
+				map { 
+				    if ($self->{$_})
+				    {
+					$_ . "='"  . $self->{$_} . "'"
+				    }
+				    else
+				    {
+					""	
+				    }
+				} ('id' , 'timestamp',  'user',  'visible',  'version',  'changeset',  'lat', 'lon')
+	);
+#    warn $str;
+    print OUT $str;
     close OUT;
 }
 

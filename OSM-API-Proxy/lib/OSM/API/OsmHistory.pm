@@ -3,14 +3,20 @@
 # http://www.fsf.org/licensing/licenses/agpl-3.0.html
 # 
 package OSM::API::OsmHistory::Handler;
-
+use  OSM::API::OsmObjects;
+use strict;
+use warnings;
 # borrowed from SAXOsmHandler - Osmrender implementation
 # http://svn.openstreetmap.org/applications/rendering/osmarender/orp/SAXOsmHandler.pm
 use YAML;
 sub new
 {
     my $class=shift;
-    my $self={};
+    my $partno =shift;
+
+    my $self={
+	partno => $partno
+    };
 
     return bless $self,$class;
 }
@@ -19,27 +25,27 @@ use base qw(XML::SAX::Base);
 sub start_element {
     my $self = shift;
     my $element = shift;
-#    warn "Got element " . Dump($data);
-    print "$element->{Name}\n";
+#    warn "Got element " . Dump($element);
+#    print "$element->{Name}\n";
 
     if ($element->{Name} eq 'node') 
     {
-        # undef $self->{current};
-        # return if defined $element->{'Attributes'}{'action'}
-        #        && $element->{'Attributes'}{'action'} eq 'delete';
-               
-        # my $id = $element->{Attributes}{id};
-        
-        # $self->{node}{$id} =
-        #   $self->{current} = {id        => $id,
-        #                       layer     => 0, 
-        #                       lat       => $element->{'Attributes'}{'lat'}, 
-        #                       lon       => $element->{'Attributes'}{'lon'}, 
-        #                       user      => $element->{'Attributes'}{'user'}, 
-        #                       timestamp => $element->{'Attributes'}{'timestamp'}, 
-        #                       ways      => [],
-        #                       relations => [] };
-        # bless $self->{current}, 'node';
+	my $n = OSM::API::OsmObjects::Node->new(
+	    {
+		partno => $self->{partno},
+		id        => $element->{'Attributes'}{'{}id'}{"Value"}, 
+		lat       => $element->{'Attributes'}{'{}lat'}{"Value"}, 
+		lon       => $element->{'Attributes'}{'{}lon'}{"Value"}, 
+		changeset      => $element->{'Attributes'}{'{}changeset'}{"Value"}, 
+		version      => $element->{'Attributes'}{'{}version'}{"Value"}, 
+		visible      => $element->{'Attributes'}{'{}visible'}{"Value"}, 
+		timestamp => $element->{'Attributes'}{'{}timestamp'}{"Value"}
+	    }
+	    );
+	$n->Hash();
+	$n->Split();
+#	warn Dump($n);
+
     }
     elsif ($element->{Name} eq 'way')
     {
@@ -144,7 +150,8 @@ use XML::SAX;
 sub     cleanup
 {
     my $xml=shift;
-    
+    my $partno=shift;
+
     if ($xml =~ /^([^\<]+)(\<.+\>)([^\>]+)$/)
     {
 	my $prev = $1;
@@ -154,7 +161,7 @@ sub     cleanup
 #	warn "POS:".$post;
 #	warn "$data";
 #	my $c2 = XML::LibXML->load_xml(string => $data);
-	my $handler = OSM::API::OsmHistory::Handler->new();
+	my $handler = OSM::API::OsmHistory::Handler->new( $partno );
 	
 	my $parser = XML::SAX::ParserFactory->parser(
 	    Handler => $handler
@@ -198,6 +205,7 @@ sub extract
 
 sub process_bzip_parts
 {
+
     my @listoffiles= @_;
     warn join "\n",@listoffiles;
     my @stack;
@@ -236,6 +244,7 @@ sub process_bzip_parts
 sub checkbz2
 {
     my $filename=shift;
+    my $partno =shift;
     warn "bzip2recover $filename "; # we will process the input file
     warn "$filename not there" unless -f $filename;
     my $newfile = "error";
@@ -296,8 +305,8 @@ sub checkbz2
     }
     
     warn "going to look for $pattern";
-    my $xml = process_bzip_parts glob ($pattern);
-    cleanup($xml);
+    my $xml = process_bzip_parts (glob ($pattern));
+    cleanup($xml,$partno);
     
 }
 
@@ -378,7 +387,7 @@ sub Download
 	if ($stat[7]== $filesize)
 	{
 	    warn "$filename has $filesize";
-	    checkbz2 $filename;
+	    checkbz2 $filename,$partno;
 	}
 	else
 	{
