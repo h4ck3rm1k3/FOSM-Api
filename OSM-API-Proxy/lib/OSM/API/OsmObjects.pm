@@ -130,7 +130,7 @@ sub Split
     my $out= "output/" . join ("/",@dirs);
     my $out_file= join ("",@name);
     make_path($out);
-#    warn "$hash is split to $out and $out_file" ;
+#    warn "$hash is $test split to $out and $out_file" ;
     my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->partno . ".osm";
     open OUT,">>$file";
     my $str = "<node " .  join (" ", 
