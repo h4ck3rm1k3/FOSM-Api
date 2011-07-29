@@ -121,15 +121,17 @@ sub Split
     my $self =shift;
     #write this node to the right file
     my $hash = $self->hash();
-    my @path = split //, $hash;
-    my @dirs = @path[0,5];
-    my @name = @path[6,-1];
-    my $out= "output/" . join ("/",@dirs);
-    make_path($out);
-
-    my $out_file= join ("",@name);
+    my @path = split (//, $hash);
     
-    my $file = $out. "/${out_file}nodes." . $self->partno . ".osm";
+    my $split = 5;
+    my @dirs = @path[0 .. $split];
+    my @name = @path[$split+1 .. scalar(@path) -1];
+#    my $test= join ("/",@path);
+    my $out= "output/" . join ("/",@dirs);
+    my $out_file= join ("",@name);
+    make_path($out);
+#    warn "$hash is split to $out and $out_file" ;
+    my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->partno . ".osm";
     open OUT,">>$file";
     my $str = "<node " .  join (" ", 
 				map { 
@@ -142,7 +144,7 @@ sub Split
 					""	
 				    }
 				} ('id' , 'timestamp',  'user',  'visible',  'version',  'changeset',  'lat', 'lon')
-	);
+	) . "></node>\n";
 #    warn $str;
     print OUT $str;
     close OUT;
