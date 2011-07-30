@@ -22,6 +22,18 @@ sub new
 }
 use base qw(XML::SAX::Base);
 
+sub finish_current
+{
+    my $self=shift;
+    if ($self->{current})
+    {
+	$self->{current}->Split();
+#	warn Dump($self->{current}) if (keys %{$self->{current}{tags}});
+	delete $self->{current};
+    }
+
+}
+
 sub start_element {
     my $self = shift;
     my $element = shift;
@@ -43,9 +55,10 @@ sub start_element {
 	    }
 	    );
 	$n->Hash();
-	$n->Split();
+#	$n->Split();
 #	warn Dump($n);
-
+	$self->finish_current();# finish the last one
+	$self->{current}=$n;
     }
     elsif ($element->{Name} eq 'way')
     {
@@ -101,8 +114,26 @@ sub start_element {
     {
         # store the tag in the current element's hash table.
         # also extract layer information into a direct hash member for ease of access.
-        
-#        $self->{current}{tags }{ $element->{Attributes}{k} }= $element->{Attributes}{v};
+        # just add the tags
+
+# Attributes:
+#   '{}k':
+#     LocalName: k
+#     Name: k
+#     NamespaceURI: ''
+#     Prefix: ''
+#     Value: highway
+#   '{}v':
+#     LocalName: v
+#     Name: v
+#     NamespaceURI: ''
+#     Prefix: ''
+#     Value: residential
+#	die unless $self->{current};
+#	warn $element->{Attributes}{'{}k'}{Value}
+#	warn $element->{Attributes}{'{}v'}{Value};
+	$self->{current}{tags}{$element->{Attributes}{'{}k'}{Value}}= $element->{Attributes}{'{}v'}{Value};
+#	warn Dump($self->{current}{tags});
 #        $self->{current}{layer} = $element->{Attributes}{v}
 #            if $element->{Attributes}{k} eq "layer";
     }
@@ -167,6 +198,8 @@ sub     cleanup
 	    Handler => $handler
 	    );
 	$parser->parse_string($data);
+
+	$handler->finish_current(); # process the last one 
 
 
 #	my $p = OSM::API::OsmFile::OSM->new();
@@ -245,8 +278,8 @@ sub checkbz2
 {
     my $filename=shift;
     my $partno =shift;
-    warn "bzip2recover $filename "; # we will process the input file
-    warn "$filename not there" unless -f $filename;
+    #warn "bzip2recover $filename "; # we will process the input file
+#    warn "$filename not there" unless -f $filename;
     my $newfile = "error";
     my $pattern = "";
     if ($filename =~ /data\/(.+)/)
@@ -255,7 +288,7 @@ sub checkbz2
 	$pattern = "data/rec?????${1}";
 	warn "new file is $newfile";
     }
-    warn "going to extract $newfile with bzip2recover";
+ #   warn "going to extract $newfile with bzip2recover";
     if (!-f "$newfile"   )
     {
 	open BZ,"bzip2recover $filename 2>&1 | ";
@@ -300,11 +333,11 @@ sub checkbz2
     }
     else
     {
-	warn "data has already been split, in $newfile for example";
+#	warn "data has already been split, in $newfile for example";
 	#data/rec?????osm_planet_dump_part_5663_.bz2
     }
     
-    warn "going to look for $pattern";
+ #   warn "going to look for $pattern";
     my $xml = process_bzip_parts (glob ($pattern));
     cleanup($xml,$partno);
     
@@ -325,7 +358,7 @@ sub Download
 	my @stat = stat($filename);
 	if ($stat[7]== $filesize)
 	{
-	    warn "$filename has $filesize";
+#	    warn "$filename has $filesize";
 	}
 	else
 	{
@@ -386,7 +419,7 @@ sub Download
 	my @stat = stat($filename);
 	if ($stat[7]== $filesize)
 	{
-	    warn "$filename has $filesize";
+#	    warn "$filename has $filesize";
 	    checkbz2 $filename,$partno;
 	}
 	else

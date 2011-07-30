@@ -61,6 +61,14 @@ my $gh = Geo::Hash->new;
 # #has_element 'tags' =>
 # #    is => "ro",
 
+sub new 
+{
+    my $class=shift;
+    my $self =shift;
+    $self->{tags}=    $self->{tags}={} ||{}; # create an empty hash of the tags
+    return bless $self,$class;
+}
+
 sub lat
 {
     my $self=shift;
@@ -93,11 +101,10 @@ sub partno
     return $self->{partno};
 }
 
-sub new 
+sub tags
 {
-    my $class=shift;
-    my $self =shift;
-    return bless $self,$class;
+    my $self=shift;
+    return $self->{tags};
 }
 
 sub Hash
@@ -133,6 +140,7 @@ sub Split
 #    warn "$hash is $test split to $out and $out_file" ;
     my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->partno . ".osm";
     open OUT,">>$file";
+    binmode OUT, ":utf8";
     my $str = "<node " .  join (" ", 
 				map { 
 				    if ($self->{$_})
@@ -144,8 +152,17 @@ sub Split
 					""	
 				    }
 				} ('id' , 'timestamp',  'user',  'visible',  'version',  'changeset',  'lat', 'lon')
-	) . "></node>\n";
+	) 
+	. ">". # end of node start	
+	# emit the tags, very cheap
+	join (" ", map {
+	    my $k = $_;
+	    my $v = $self->{tags}{$k};
+	    "<tag k='$k' v='$v' />"
+	      } (keys %{$self->{tags}}))	
+	. "</node>\n";
 #    warn $str;
+    
     print OUT $str;
     close OUT;
 }
