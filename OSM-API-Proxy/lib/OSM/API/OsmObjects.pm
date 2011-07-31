@@ -1,65 +1,157 @@
-package OSM::API::OsmObjects::Node;
-#use Moose;
-#use MooseX::Types::DateTimeX qw( DateTime );
+package OSM::API::OsmObjects::Global;
 use Geo::Hash;
+our $gh = Geo::Hash->new;
+1;
 
+package OSM::API::OsmObjects::ChangeSet;
 
-my $gh = Geo::Hash->new;
+my @fields = 
+    qw[
+closed_at
+created_at
+id
+max_lat
+max_lon
+min_lat
+min_lon
+open
+uid
+user];
+sub new 
+{
+    my $class=shift;
+    my $self =shift;
+#    $self->{tags}=    $self->{tags}={} ||{}; # create an empty hash of the tags
+    return bless $self,$class;
+}
 
-# has 'id' =>
-#     is => "rw",
-#     isa => "Num",
-#     ;
+# report fiel
+BEGIN
+{
+    open RPT, ">data/debugreport.txt";
+}
 
-# has 'timestamp' =>
-#     is => "rw",
-# #    isa => "DateTime",
-#     isa => "Str",
-#     ;
+END
+{
+    close RPT;
+}
 
-# # what part of the osm planet is this
-# has 'partno' =>
-#     is => "rw",
-#     isa => "Num",
-#     ;
+use File::Path qw(make_path remove_tree);
+sub Hash
+{
+    my $self=shift;
+    if ($self->{min_lat})
+    {
+#    warn "no bounds" unless $self->{min_lat};
+	warn "no bounds" unless $self->{min_lon};
+	warn "no bounds" unless $self->{max_lat};
+	warn "no bounds" unless $self->{max_lon};
 
-# has 'user' =>
-#     is => "rw",
-#     isa => "Str",
-#     ;
+	my $min_hash = $OSM::API::OsmObjects::Global::gh->encode( $self->{min_lat}, $self->{min_lon} );
+	my $max_hash = $OSM::API::OsmObjects::Global::gh->encode( $self->{max_lat}, $self->{max_lon} );
 
-# has 'visible' =>
-#     is => "rw",
-#     isa => "Str", #true
-#     ;
+	my $min_hash2 = $OSM::API::OsmObjects::Global::gh->encode( $self->{min_lat}, $self->{max_lon} );
+	my $max_hash2 = $OSM::API::OsmObjects::Global::gh->encode( $self->{max_lat}, $self->{min_lon} );
 
-# has 'version' =>
-#     is => "rw",
-#     isa => "Num", #true
-#     ;
+	# now we look for the common prefix
+	my @min_path = split (//, $min_hash);
+	my @max_path = split (//, $max_hash);
 
-# has 'changeset' =>
-#     is => "rw",
-#     isa => "Num", #true
-#     ;
+	my @min_path2 = split (//, $min_hash2);
+	my @max_path2 = split (//, $max_hash2);
+	$hash = "";
 
-# has 'lat' =>
-#     is => "rw",
-#     isa => "Num", #true
-#     ;
+	my $minlen = scalar(@min_path) -1;
+	my $maxlen = scalar(@max_path) -1;
 
-# has 'lon' =>
-#     is => "rw",
-#     isa => "Num", #true
-#     ;
+	my $minlen2 = scalar(@min_path2) -1;
+	my $maxlen2 = scalar(@max_path2) -1;
 
-# has 'hash' =>
-#      is => "rw",
-#      isa => "Str", #true
-#     ;
+	if ($minlen < $maxlen)    {	$minlen = $maxlen ;    }
+	if ($minlen < $maxlen2)    {	$minlen = $maxlen2 ;    }
+	if ($minlen < $minlen2)    {	$minlen = $minlen2;    }
 
-# #has_element 'tags' =>
-# #    is => "ro",
+	for my $x (0 .. $minlen)
+	{
+	    if ($min_path[$x] eq $max_path[$x])
+	    {
+		if ($min_path[$x] eq $max_path2[$x])
+		{
+		    if ($min_path[$x] eq $min_path2[$x])
+		    {
+			$hash .= $min_path[$x];
+		    }
+		}
+	    }
+	}
+
+	
+	$self->{hash} = $hash;
+	my ( $newlat, $newlon ) = $gh->decode( $hash );
+	my $report = $self->{min_lat} . ",".  $self->{min_lon} . " $min_hash - ";
+	$report .= $self->{max_lat} . ",".  $self->{max_lon}  . " $max_hash - ";
+	$report .= $self->{min_lat} . ",".  $self->{max_lon}  . " $max_hash2 - ";
+	$report .= $self->{max_lat} . ",".  $self->{min_lon}  . " $min_hash2 - ";
+	$report .= 	    $newlat . ",".  $newlon . " -> " ;
+	$report .= 	    $self->{hash} . "\n";
+	print RPT $report;
+    } # if it contains coords
+    else
+    {
+	$self->{hash} = "NULL";
+    }
+}
+
+sub ProcessHistory
+{
+    my $self=shift;
+    $self->Hash();
+}
+
+use YAML;
+
+sub Split
+{
+    my $self =shift;
+    #write this node to the right file
+    my $hash = $self->{hash};
+    warn "hash is $hash";
+    my @path = split (//, $hash);    
+    my $split = 5;
+    my $len = scalar(@path);
+    if ($len <= $split)
+    {
+	$split = $len -2; # 1
+    
+    }	
+    my @dirs = @path[0 .. $split];
+    my @name = ();
+    my $out= "output/" . join ("/",@dirs);
+    my $out_file= join ("",@name);
+    make_path($out);
+    print RPT "$hash is split to $out and $out_file\n" ;
+    my $file = $out. "/changeset_" . ${out_file} . "_p" . $self->{partno} . ".osm";
+    open OUT,">>$file";
+    binmode OUT, ":utf8";
+    my $str = "<changeset " .  join (" ", 
+				map { 
+				    if ($self->{$_})
+				    {
+					$_ . "='"  . $self->{$_} . "'"
+				    }
+				    else
+				    {
+					""	
+				    }
+				     } @fields
+	) 
+	. "/>\n";
+
+    print OUT $str;
+    close OUT;
+}
+
+package OSM::API::OsmObjects::Node;
 
 sub new 
 {
@@ -110,7 +202,7 @@ sub tags
 sub Hash
 {
     my $self=shift;
-    my $hash = $gh->encode( $self->lat, $self->lon );
+    my $hash = $OSM::API::OsmObjects::Global::gh->encode( $self->lat, $self->lon );
     $self->hash($hash);
 #    warn $self->lat . ",".  $self->lon . " " . $self->hash;
 }
@@ -123,6 +215,16 @@ sub ProcessHistory
 
 #use YAML;
 use File::Path qw(make_path remove_tree);
+BEGIN
+{
+    open RPT, ">data/debugreport_node.txt";
+}
+
+END
+{
+    close RPT;
+}
+
 sub Split
 {
     my $self =shift;
@@ -137,7 +239,7 @@ sub Split
     my $out= "output/" . join ("/",@dirs);
     my $out_file= join ("",@name);
     make_path($out);
-#    warn "$hash is $test split to $out and $out_file" ;
+    print RPT "$hash is split to $out and $out_file\n" ;
     my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->partno . ".osm";
     open OUT,">>$file";
     binmode OUT, ":utf8";
@@ -161,6 +263,68 @@ sub Split
 	    "<tag k='$k' v='$v' />"
 	      } (keys %{$self->{tags}}))	
 	. "</node>\n";
+#    warn $str;
+    
+    print OUT $str;
+    close OUT;
+}
+
+package OSM::API::OsmObjects::Way;
+sub new 
+{
+    my $class=shift;
+    my $self =shift;
+    $self->{tags}=    $self->{tags} ||{}; # create an empty hash of the tags
+    $self->{nodes}=    $self->{nodes} ||[]; # create an empty array of the nodes
+    return bless $self,$class;
+}
+
+sub partno
+{
+    my $self=shift;
+    return $self->{partno};
+}
+
+sub tags
+{
+    my $self=shift;
+    return $self->{tags};
+}
+
+#use YAML;
+use File::Path qw(make_path remove_tree);
+sub Split
+{
+    my $self =shift;
+
+    warn Dumper($self);
+    my $str = "<way " .  join (" ", 
+				map { 
+				    if ($self->{$_})
+				    {
+					$_ . "='"  . $self->{$_} . "'"
+				    }
+				    else
+				    {
+					""	
+				    }
+				} ('id' , 'timestamp',  'user',  'visible',  'version',  'changeset')
+	) 
+	. ">" # end of way start	
+
+	. join (" ", map {
+	    my $k = $_;
+	    my $v = $self->{tags}{$k};
+	    "<tag k='$k' v='$v' />"
+	      } (keys %{$self->{tags}}))	
+
+
+	. join (" ", map {
+	    "<nd ref='$k' />"
+	      } ( @{$self->{nodes}}))	
+	. 
+
+	"</way>\n";
 #    warn $str;
     
     print OUT $str;

@@ -25,23 +25,46 @@ use base qw(XML::SAX::Base);
 sub finish_current
 {
     my $self=shift;
-    if ($self->{current})
+    if (exists($self->{current}))
     {
-	$self->{current}->Split();
+	if ($self->{current})
+	{
+	    my $type = ref $self->{current};
+	    warn "check type $type";
+	    if ($type ne "HASH")
+	    {
+		$self->{current}->Split();
 #	warn Dump($self->{current}) if (keys %{$self->{current}{tags}});
-	delete $self->{current};
+	    }
+	    delete $self->{current};
+	    $self->{current} = undef;
+	}
     }
 
+}
+
+sub tagstats
+{
+    my $self = shift;
+    my $element = shift;
+    my $name=$element->{Name};
+    warn "got $name\n";
+    $self->{stats}{$name}++;# count the stats
+}
+sub tagstatsdump
+{
+    my $self = shift;
+    warn Dump($self->{stats});
 }
 
 sub start_element {
     my $self = shift;
     my $element = shift;
 #    warn "Got element " . Dump($element);
-#    print "$element->{Name}\n";
-
+    $self->tagstats($element);# count the stats
     if ($element->{Name} eq 'node') 
     {
+
 	my $n = OSM::API::OsmObjects::Node->new(
 	    {
 		partno => $self->{partno},
@@ -55,28 +78,49 @@ sub start_element {
 	    }
 	    );
 	$n->Hash();
-#	$n->Split();
-#	warn Dump($n);
 	$self->finish_current();# finish the last one
 	$self->{current}=$n;
     }
+    elsif ($element->{Name} eq 'tag')
+    {
+	$self->{current}{tags}{$element->{Attributes}{'{}k'}{Value}}= $element->{Attributes}{'{}v'}{Value};
+    }
+
+    elsif ($element->{Name} eq 'changeset') 
+    {
+	my $n = OSM::API::OsmObjects::ChangeSet->new(
+	    {
+		partno => $self->{partno},
+		id        => $element->{'Attributes'}{'{}id'}{"Value"}, 
+		created_at => $element->{'Attributes'}{'{}created_at'}{"Value"},
+		closed_at => $element->{'Attributes'}{'{}closed_at'}{"Value"},
+		max_lon => $element->{'Attributes'}{'{}max_lon'}{"Value"},
+		max_lat => $element->{'Attributes'}{'{}max_lat'}{"Value"},
+		min_lon => $element->{'Attributes'}{'{}min_lon'}{"Value"},
+		min_lat => $element->{'Attributes'}{'{}min_lat'}{"Value"},
+		user => $element->{'Attributes'}{'{}user'}{"Value"},
+		uid => $element->{'Attributes'}{'{}uid'}{"Value"},
+		open => $element->{'Attributes'}{'{}open'}{"Value"}
+	    }
+	    );
+	$n->Hash();
+	$self->finish_current();# finish the last one
+	$self->{current}=$n;	
+    }
     elsif ($element->{Name} eq 'way')
     {
-#         undef $self->{current};
-#         return if defined $element->{'Attributes'}{'action'}
-#                && $element->{'Attributes'}{'action'} eq 'delete';
-               
-#         my $id = $element->{'Attributes'}{'id'};
-#         $self->{way}{$id}  =
-#           $self->{current} = {id    => $id,
-#                               layer => 0, 
-#                               user      => $element->{'Attributes'}{'user'}, 
-#                               timestamp => $element->{'Attributes'}{'timestamp'}, 
-#                               nodes => [],
-#                               relations => [] };
-
-# #        bless $self->{current}, 'way';
-        
+	my $n = OSM::API::OsmObjects::Way->new(
+	    {
+		partno => $self->{partno},
+		id        => $element->{'Attributes'}{'{}id'}{"Value"}, 
+		changeset      => $element->{'Attributes'}{'{}changeset'}{"Value"}, 
+		version      => $element->{'Attributes'}{'{}version'}{"Value"}, 
+		visible      => $element->{'Attributes'}{'{}visible'}{"Value"}, 
+		timestamp => $element->{'Attributes'}{'{}timestamp'}{"Value"}
+	    }
+	    );
+	$self->finish_current();# finish the last one
+	$self->{current}=$n;
     }
     elsif ($element->{Name} eq 'relation')
     {
@@ -93,11 +137,10 @@ sub start_element {
 # #                                  relations => [] };             
 #        bless $self->{current}, 'relation';
     }
-    elsif (($element->{Name} eq 'nd') and (ref $self->{current} eq 'way'))
+    elsif ($element->{Name} eq 'nd')
     {
-#        push(@{$self->{current}{'nodes'}},
-#             $self->{node}{$element->{'Attributes'}->{'ref'}})
-#            if defined($self->{node}{$element->{'Attributes'}->{'ref'}});
+        push(@{$self->{current}{'nodes'}},
+             $self->{node}{$element->{'Attributes'}->{'{}ref'}});
     }
     elsif (($element->{Name} eq 'member') and (ref $self->{current} eq 'relation'))
     {
@@ -109,33 +152,6 @@ sub start_element {
 #            [ $element->{Attributes}{role}, 
 #              $element->{Attributes}{type}.':'.
 #              $element->{Attributes}{ref } ]);
-    }
-    elsif ($element->{Name} eq 'tag')
-    {
-        # store the tag in the current element's hash table.
-        # also extract layer information into a direct hash member for ease of access.
-        # just add the tags
-
-# Attributes:
-#   '{}k':
-#     LocalName: k
-#     Name: k
-#     NamespaceURI: ''
-#     Prefix: ''
-#     Value: highway
-#   '{}v':
-#     LocalName: v
-#     Name: v
-#     NamespaceURI: ''
-#     Prefix: ''
-#     Value: residential
-#	die unless $self->{current};
-#	warn $element->{Attributes}{'{}k'}{Value}
-#	warn $element->{Attributes}{'{}v'}{Value};
-	$self->{current}{tags}{$element->{Attributes}{'{}k'}{Value}}= $element->{Attributes}{'{}v'}{Value};
-#	warn Dump($self->{current}{tags});
-#        $self->{current}{layer} = $element->{Attributes}{v}
-#            if $element->{Attributes}{k} eq "layer";
     }
     elsif ($element->{Name} eq 'bounds')
     {
@@ -167,7 +183,7 @@ use LWP::UserAgent;
 use Compress::Bzip2 qw(:all );
 use strict;
 use warnings;
-use constant overlap    => 1024;
+use constant overlap    => 1024 * 100;
 use constant blocksize  => 280148 * 4; 
 use YAML;
 use OSM::API::OsmFile;
@@ -180,42 +196,33 @@ use IO::File;
 use XML::SAX;
 sub     cleanup
 {
-    my $xml=shift;
+    my $xml=shift || die "no input";
     my $partno=shift;
 
-    if ($xml =~ /^([^\<]+)(\<.+\>)([^\>]+)$/)
-    {
-	my $prev = $1;
-	my $data = "<osm><bounds/>$2</osm>";
-	my $post = $3;
-#	warn "PREV:". $prev;
-#	warn "POS:".$post;
-#	warn "$data";
-#	my $c2 = XML::LibXML->load_xml(string => $data);
-	my $handler = OSM::API::OsmHistory::Handler->new( $partno );
-	
+    my $handler = OSM::API::OsmHistory::Handler->new( $partno );
+    warn "processing $partno with data len:". length($xml); # 9000066 bytes of data collected
+
+    #..."/><tag k="..." v="..."/></changeset><
+    while (
+#	($xml =~ /[^\<](<(changeset|node|way|tag|relation|bounds|nd|member)[^\>]+(\/\>|\<\/$2\>))/g)# 
+#<\/(changeset|node|way|relation|bounds)>
+#	($xml =~ /(<(changeset|node|way|relation|bounds)>.+)/g)# 
+	($xml =~ /(<changeset.+<\/changeset>)/g)# 
+	)
+    {	
+	warn "Check this 1 $1" ;
+	warn "Check this 2 $2" if $2;
+	warn "Check this 3 $3" if $3;
+    	my $data = "<osm>$1</osm>";
+	warn "parse $data";
 	my $parser = XML::SAX::ParserFactory->parser(
 	    Handler => $handler
 	    );
 	$parser->parse_string($data);
-
 	$handler->finish_current(); # process the last one 
-
-
-#	my $p = OSM::API::OsmFile::OSM->new();
-#	my $c2 = $p->parse($data);
-#	if ($c2)
-	{
-#	    $c2->ProcessHistory();
-#	    warn Dump($c2);
-	}
-#	warn Dump($p);
-
     }
-    else
-    {
-	warn "WTF $xml";
-    }
+    $handler->tagstatsdump();
+
 }
 
 sub extract
@@ -339,7 +346,25 @@ sub checkbz2
     
  #   warn "going to look for $pattern";
     my $xml = process_bzip_parts (glob ($pattern));
-    cleanup($xml,$partno);
+    open DBG ,">data/debug_output" .$partno . ".xml";
+    print DBG $xml;
+    close DBG;
+    #strip out the leading chars until the final closing tag of any nodes that might be open
+    # 
+#    if ($xml =~ (/.*<\/node|way|changeset|relation>(.+)/))
+    {
+	my $len = length($xml);
+	my $part = substr($xml,0,1024);
+	warn "len:" . length($part);
+	warn "data:" . $part . "\n";
+	cleanup($part,$partno);
+
+	#last part 
+	$part = substr($xml,$len - 1024,$len);
+	warn "lenend:" . length($part);
+	warn "dataend:" . $part . "\n";
+	
+    }
     
 }
 
