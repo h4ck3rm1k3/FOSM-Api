@@ -30,7 +30,7 @@ sub finish_current
 	if ($self->{current})
 	{
 	    my $type = ref $self->{current};
-	    warn "check type $type";
+#	    warn "check type $type";
 	    if ($type ne "HASH")
 	    {
 		$self->{current}->Split();
@@ -127,12 +127,14 @@ sub start_element {
 
 	my $n = OSM::API::OsmObjects::Relation->new(
 	    {
-#		partno => $self->{partno},
+		partno => $self->{partno},
 		id        => $element->{'Attributes'}{'{}id'}{"Value"}, 
-#		changeset      => $element->{'Attributes'}{'{}changeset'}{"Value"}, 
-#		version      => $element->{'Attributes'}{'{}version'}{"Value"}, 
-#		visible      => $element->{'Attributes'}{'{}visible'}{"Value"}, 
-#		timestamp => $element->{'Attributes'}{'{}timestamp'}{"Value"}
+		changeset      => $element->{'Attributes'}{'{}changeset'}{"Value"}, 
+		version      => $element->{'Attributes'}{'{}version'}{"Value"}, 
+		visible      => $element->{'Attributes'}{'{}visible'}{"Value"}, 
+		timestamp => $element->{'Attributes'}{'{}timestamp'}{"Value"},
+		user => $element->{'Attributes'}{'{}user'}{"Value"},
+		uid => $element->{'Attributes'}{'{}uid'}{"Value"}
 	    }
 	    );
 	$self->finish_current();# finish the last one
@@ -153,8 +155,10 @@ sub start_element {
     }
     elsif ($element->{Name} eq 'nd')
     {
+#	warn Dump()
         push(@{$self->{current}{'nodes'}},
-             $self->{node}{$element->{'Attributes'}->{'{}ref'}});
+             $element->{'Attributes'}->{'{}ref'}{Value});
+#	$self->{node}{
     }
     elsif (($element->{Name} eq 'member') and (ref $self->{current} eq 'relation'))
     {
@@ -238,11 +242,11 @@ sub     cleanup
 	($xml =~ /$pattern/g)# 
 	)
     {	
-	warn "Check this 1 $1" ;
-	warn "Check this 2 $2" if $2;
-	warn "Check this 3 $3" if $3;
+#	warn "Check this 1 $1" ;
+#	warn "Check this 2 $2" if $2;
+#	warn "Check this 3 $3" if $3;
     	my $data = "<osm>$1</osm>";
-	warn "parse $data";
+#	warn "parse $data";
 	my $parser = XML::SAX::ParserFactory->parser(
 	    Handler => $handler
 	    );
@@ -380,16 +384,16 @@ sub checkbz2
     close DBG;
 
     my $len = length($xml);
-    my $blocksize = 2048;
+    my $blocksize = 2048 *10;
     my $part = substr($xml,0,$blocksize);
     warn "len:" . length($part);
-    warn "data:" . $part . "\n";
+    warn "data:" . substr($part,0,80) . "\n";
     cleanup($self,$part);
     
     #last part 
     $part = substr($xml,$len - $blocksize,$len);
     warn "lenend:" . length($part);
-    warn "dataend:" . $part . "\n";
+    warn "dataend:" . substr($part,0,80) . "\n";
     cleanup($self,$part);
     
     
@@ -510,6 +514,7 @@ sub Main
 	    partno => $partno
 	};
 	foreach my $k (keys %{$positions})
+#	foreach my $k ("way")
 	{
 	    $self->{partno}=$positions->{$k};
 	    $self->{key}=$k;
