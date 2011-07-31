@@ -124,6 +124,20 @@ sub start_element {
     }
     elsif ($element->{Name} eq 'relation')
     {
+
+	my $n = OSM::API::OsmObjects::Relation->new(
+	    {
+#		partno => $self->{partno},
+		id        => $element->{'Attributes'}{'{}id'}{"Value"}, 
+#		changeset      => $element->{'Attributes'}{'{}changeset'}{"Value"}, 
+#		version      => $element->{'Attributes'}{'{}version'}{"Value"}, 
+#		visible      => $element->{'Attributes'}{'{}visible'}{"Value"}, 
+#		timestamp => $element->{'Attributes'}{'{}timestamp'}{"Value"}
+	    }
+	    );
+	$self->finish_current();# finish the last one
+	$self->{current}=$n;
+
 #         undef $self->{current};
 #         return if defined $element->{'Attributes'}{'action'}
 #                && $element->{'Attributes'}{'action'} eq 'delete';
@@ -196,18 +210,32 @@ use IO::File;
 use XML::SAX;
 sub     cleanup
 {
+    my $self=shift;
     my $xml=shift || die "no input";
-    my $partno=shift;
+
+    my $partno=$self->{partno};
 
     my $handler = OSM::API::OsmHistory::Handler->new( $partno );
     warn "processing $partno with data len:". length($xml); # 9000066 bytes of data collected
+    my $patterns = 
+    {
+	changeset => '(<changeset.+<\/changeset>)',
+	node => '(<node.+(\/>|<\/node>))',
+	way => '(<way.+<\/way>)',
+	relation => '(<relation.+<\/relation>)',
+    };
+    warn "key is " . $self->{key};
+
+    my $pattern = $patterns->{$self->{key}}; # lookup the patter
+    warn "Pattern is $pattern";
 
     #..."/><tag k="..." v="..."/></changeset><
     while (
 #	($xml =~ /[^\<](<(changeset|node|way|tag|relation|bounds|nd|member)[^\>]+(\/\>|\<\/$2\>))/g)# 
 #<\/(changeset|node|way|relation|bounds)>
 #	($xml =~ /(<(changeset|node|way|relation|bounds)>.+)/g)# 
-	($xml =~ /(<changeset.+<\/changeset>)/g)# 
+#	($xml =~ /(<changeset.+<\/changeset>)/g)# 
+	($xml =~ /$pattern/g)# 
 	)
     {	
 	warn "Check this 1 $1" ;
@@ -283,8 +311,9 @@ sub process_bzip_parts
 
 sub checkbz2
 {
-    my $filename=shift;
-    my $partno =shift;
+    my $self=shift;
+    my $filename=$self->{filename};
+    my $partno =$self->{partno};
     #warn "bzip2recover $filename "; # we will process the input file
 #    warn "$filename not there" unless -f $filename;
     my $newfile = "error";
@@ -316,7 +345,7 @@ sub checkbz2
 	    {
 		if (-f $1)
 		{
-		    warn "to process file $1";
+#		    warn "to process file $1";
 		}
 		else
 		{
@@ -333,7 +362,7 @@ sub checkbz2
 	    {
 		warn "Other $_";
 	    }
-	    warn "Bzip2 recover said $_";
+#	    warn "Bzip2 recover said $_";
 	}
 	
 	close BZ;
@@ -349,29 +378,28 @@ sub checkbz2
     open DBG ,">data/debug_output" .$partno . ".xml";
     print DBG $xml;
     close DBG;
-    #strip out the leading chars until the final closing tag of any nodes that might be open
-    # 
-#    if ($xml =~ (/.*<\/node|way|changeset|relation>(.+)/))
-    {
-	my $len = length($xml);
-	my $part = substr($xml,0,1024);
-	warn "len:" . length($part);
-	warn "data:" . $part . "\n";
-	cleanup($part,$partno);
 
-	#last part 
-	$part = substr($xml,$len - 1024,$len);
-	warn "lenend:" . length($part);
-	warn "dataend:" . $part . "\n";
-	
-    }
+    my $len = length($xml);
+    my $blocksize = 2048;
+    my $part = substr($xml,0,$blocksize);
+    warn "len:" . length($part);
+    warn "data:" . $part . "\n";
+    cleanup($self,$part);
+    
+    #last part 
+    $part = substr($xml,$len - $blocksize,$len);
+    warn "lenend:" . length($part);
+    warn "dataend:" . $part . "\n";
+    cleanup($self,$part);
+    
     
 }
 
 sub Download
 {
-    my $partno=shift;
-    my $url =shift;
+    my $self=shift;
+    my $partno=$self->{partno};
+    my $url =$self->{url};
     mkdir "data" unless -d "data";
     my $filename = sprintf("data/osm_planet_dump_part_%0.4d_.bz2",$partno);
     my $startpos =  (blocksize * $partno ) -  overlap ; # starting point
@@ -445,7 +473,8 @@ sub Download
 	if ($stat[7]== $filesize)
 	{
 #	    warn "$filename has $filesize";
-	    checkbz2 $filename,$partno;
+	    $self->{filename}=$filename,
+	    checkbz2 $self;
 	}
 	else
 	{
@@ -462,10 +491,31 @@ sub Main
     $partno = 0 unless defined $partno;
     my $url = shift || 'http://planet.openstreetmap.org/full-experimental/full-planet-110619-1430.osm.bz2';
     
+    my $positions = 
+    {
+	changeset => 1,
+	node => 272,
+	way => 17910,
+	relation => 25029,
+#	end => 25282
+    };
+
+    
     if ($partno =~ /^(\d+)$/)
     {
 	warn "going to get  $1";
-	Download $1,$url;
+	my $self = {
+	    positions => $positions,
+	    url => $url,
+	    partno => $partno
+	};
+	foreach my $k (keys %{$positions})
+	{
+	    $self->{partno}=$positions->{$k};
+	    $self->{key}=$k;
+	    $self->{offset}=$partno;# the offset into the indexes we want to get
+	    Download $self;
+	}
     }
     elsif ($partno =~ /^(\d+)\-(\d+)$/)
     {
@@ -474,10 +524,15 @@ sub Main
 	    warn "going to get from $1 to $2";
 	    
 	    for (my $x = $1; $x <= $2; $x++)
-	    {
-		
+	    {		
 		warn "getting $x\n";
-		Download $x,$url;
+		Download 
+		{
+		    positions => $positions,
+		    url => $url,
+		    partno => $x
+		};
+#$x,$url;
 	    }
 	}
     }

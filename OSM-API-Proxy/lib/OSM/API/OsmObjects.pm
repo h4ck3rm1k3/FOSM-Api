@@ -269,6 +269,17 @@ sub Split
     close OUT;
 }
 
+package OSM::API::OsmObjects::Relation;
+sub new 
+{
+    my $class=shift;
+    my $self =shift;
+    $self->{tags}=    $self->{tags} ||{}; # create an empty hash of the tags
+    $self->{nodes}=    $self->{nodes} ||[]; # create an empty array of the nodes
+    return bless $self,$class;
+}
+
+
 package OSM::API::OsmObjects::Way;
 sub new 
 {
@@ -291,13 +302,15 @@ sub tags
     return $self->{tags};
 }
 
-#use YAML;
+use YAML;
 use File::Path qw(make_path remove_tree);
 sub Split
 {
     my $self =shift;
 
-    warn Dumper($self);
+    warn Dump($self);
+
+    
     my $str = "<way " .  join (" ", 
 				map { 
 				    if ($self->{$_})
@@ -310,22 +323,34 @@ sub Split
 				    }
 				} ('id' , 'timestamp',  'user',  'visible',  'version',  'changeset')
 	) 
-	. ">" # end of way start	
+	. ">"; # end of way start	
 
-	. join (" ", map {
-	    my $k = $_;
-	    my $v = $self->{tags}{$k};
-	    "<tag k='$k' v='$v' />"
-	      } (keys %{$self->{tags}}))	
+    $str .=  join (" ", map 
+		{
+		    my $k = $_;
+		    my $v = $self->{tags}{$k};
+		    if ($v)
+		    {
+			"<tag k='$k' v='$v' />"
+		    }
+		    else
+		    {
+			warn Dump($self);
+		    }
+		} 
+		(keys %{$self->{tags}
+		 }
+		))	;
 
 
-	. join (" ", map {
-	    "<nd ref='$k' />"
-	      } ( @{$self->{nodes}}))	
-	. 
+    $str .= join (" ", map {
+	"<nd ref='$k' />"
+		  } ( @{$self->{nodes}}))	
+	; 
 
-	"</way>\n";
+    $str .= "</way>\n";
 #    warn $str;
+#    my $str =
     
     print OUT $str;
     close OUT;
