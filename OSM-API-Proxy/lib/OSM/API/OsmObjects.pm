@@ -336,14 +336,20 @@ sub Split
 		  } (keys %{$self->{tags}}))	;
     
 
-    $str .= join (" ", map {
-	my $k = $_;
-#	my $v = $self->{members}{$k};
-	"<members " . Dump ($self->{members}{$k}). " />"
-		  } (keys %{$self->{members}}));
-    
-
-    $str .= "</relation>\n";
+    my @types = (keys %{$self->{members}});		  
+    $str .= join (" ", map 
+		  {
+		      my $type = $_;	
+		      map {
+			  my $role = $_;
+			  map {
+			      my $ref=$_;
+			      "<member type=$type role=$role  ref=$ref/>";
+			  } (@{$self->{members}{$type}{$role}});
+		      } (keys %{$self->{members}{$type}});
+		  } @types
+	);
+    $str .= "</relation>\n;"; 
     
     print OUT $str;
     close OUT;
@@ -397,7 +403,7 @@ sub Split
 {
     my $self =shift;
 
-    warn Dump($self);
+#    warn Dump($self);
     my $hash = $self->hash();
     my @path = split (//, $hash);    
     my $split = 5;
@@ -444,7 +450,7 @@ sub Split
 
 
 #    $str .= join (" ", map {	"<nd ref='$k' />"  } ( @{$self->{nodes}}))	
-    $str .= Dump($self->{nodes});
+#    $str .= Dump($self->{nodes});
 	; 
 
     $str .= "</way>\n";

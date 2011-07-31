@@ -48,7 +48,7 @@ sub tagstats
     my $self = shift;
     my $element = shift;
     my $name=$element->{Name};
-    warn "got $name\n";
+#    warn "got $name\n";
     $self->{stats}{$name}++;# count the stats
 }
 sub tagstatsdump
@@ -160,12 +160,35 @@ sub start_element {
              $element->{'Attributes'}->{'{}ref'}{Value});
 #	$self->{node}{
     }
-    elsif (($element->{Name} eq 'member') and (ref $self->{current} eq 'relation'))
+    elsif (($element->{Name} eq 'member') )
     {
+#	warn Dump($element);
+# Attributes:
+#   '{}ref':
+#     Value: 8662500
+#   '{}role':
+#     Name: role
+#     Value: ''
+#   '{}type':
+#     Value: way
+        push(
+	    @{
+
+		$self->{current}{'members'}
+		{
+		    $element->{'Attributes'}->{'{}type'}{Value}
+		}
+		{
+		    $element->{'Attributes'}->{'{}role'}{Value} 
+		}
+
+	     },
+	    $element->{'Attributes'}->{'{}ref'}{Value}
+	    );
+
         # relation members are temporarily stored as symbolic references (e.g. a
         # string that contains "way:1234") and only later replaced by proper 
-        # references.
-        
+        # references.        
 #        push(@{$self->{current}{'members'}}, 
 #            [ $element->{Attributes}{role}, 
 #              $element->{Attributes}{type}.':'.
@@ -204,7 +227,7 @@ use warnings;
 use constant overlap    => 1024 * 100;
 use constant blocksize  => 280148 * 4; 
 use YAML;
-use OSM::API::OsmFile;
+#use OSM::API::OsmFile;
 use IO::Uncompress::Bunzip2 qw ($Bunzip2Error);
 use IO::File;
 
@@ -320,21 +343,25 @@ sub checkbz2
     my $partno =$self->{partno};
     #warn "bzip2recover $filename "; # we will process the input file
 #    warn "$filename not there" unless -f $filename;
-    my $newfile = "error";
-    my $pattern = "";
-    if ($filename =~ /data\/(.+)/)
+    my $debugfilename="data/debug_output" .$partno . ".xml";
+    my $xml = "";
+    if (! -f $debugfilename)
     {
-	$newfile = "data/rec00002${1}";
-	$pattern = "data/rec?????${1}";
-	warn "new file is $newfile";
-    }
- #   warn "going to extract $newfile with bzip2recover";
-    if (!-f "$newfile"   )
-    {
-	open BZ,"bzip2recover $filename 2>&1 | ";
-	while (<BZ>)
+	my $newfile = "error";
+	my $pattern = "";
+	if ($filename =~ /data\/(.+)/)
 	{
-	    if (/block (\d+) runs from (\d+) to (\d+)/)
+	    $newfile = "data/rec00002${1}";
+	    $pattern = "data/rec?????${1}";
+	    warn "new file is $newfile";
+	}
+	#   warn "going to extract $newfile with bzip2recover";
+	if (!-f "$newfile"   )
+	{
+	    open BZ,"bzip2recover $filename 2>&1 | ";
+	    while (<BZ>)
+	    {
+		if (/block (\d+) runs from (\d+) to (\d+)/)
 	    {
 		my $block = $1;
 		my $from = $2;
@@ -345,46 +372,58 @@ sub checkbz2
 #	    warn "Block $block size $size";
 #	    warn "Block $block from $fromb";
 	    }
-	    elsif (/writing block \d+ to .(data\/rec\d+osm_planet_dump_part_\d+_.bz2)/)
-	    {
-		if (-f $1)
+		elsif (/writing block \d+ to .(data\/rec\d+osm_planet_dump_part_\d+_.bz2)/)
 		{
+		    if (-f $1)
+		    {
 #		    warn "to process file $1";
+		    }
+		    else
+		    {
+			warn "file not there yet $1";
+		    }
+		}
+		elsif (/\(incomplete/)
+		{
+		    die "Downloaded file incomplete\n";
+		    rename ($filename, "$filename.bad");
+		    die "filename is bad";
 		}
 		else
 		{
-		    warn "file not there yet $1";
+		    warn "Other $_";
 		}
-	    }
-	    elsif (/\(incomplete/)
-	    {
-		die "Downloaded file incomplete\n";
-		rename ($filename, "$filename.bad");
-		die "filename is bad";
-	    }
-	    else
-	    {
-		warn "Other $_";
-	    }
 #	    warn "Bzip2 recover said $_";
+	    }
+	    
+	    close BZ;
+	}
+	else
+	{
+#	warn "data has already been split, in $newfile for example";
+	    #data/rec?????osm_planet_dump_part_5663_.bz2
 	}
 	
-	close BZ;
+	#   warn "going to look for $pattern";
+	$xml = process_bzip_parts (glob ($pattern));
+	
+	open DBG ,">$debugfilename";
+	print DBG $xml;
+	close DBG;
     }
     else
     {
-#	warn "data has already been split, in $newfile for example";
-	#data/rec?????osm_planet_dump_part_5663_.bz2
+	open IN, "<$debugfilename";
+	while (<IN>)
+	{
+	    $xml .= $_; 
+	}
+	close IN;
     }
-    
- #   warn "going to look for $pattern";
-    my $xml = process_bzip_parts (glob ($pattern));
-    open DBG ,">data/debug_output" .$partno . ".xml";
-    print DBG $xml;
-    close DBG;
 
+## process
     my $len = length($xml);
-    my $blocksize = 2048 *10;
+    my $blocksize = 2048 *1000;
     my $part = substr($xml,0,$blocksize);
     warn "len:" . length($part);
     warn "data:" . substr($part,0,80) . "\n";
