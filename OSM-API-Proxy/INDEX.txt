@@ -1,0 +1,34 @@
+-- # -*- yaml -*-
+Entry :
+  url : http://planet.openstreetmap.org/full-experimental/full-planet-110619-1430.osm.bz2
+  Changesets :
+    start_in : 1
+  Nodes :
+    start_in: 272
+    first_object :
+      id :1
+      version: 1
+      changesset: 9257
+  Ways:
+    start: 17910
+    first_object :
+      id :?
+      version: ?
+      changesset: ?
+    
+  Relations :
+    start :25029
+    first_object :
+      id :?
+      version: ?
+      changesset: ?
+
+  File :
+    End :25283
+    foreach:
+      description : for each in field in each object_type , collect the min and max
+      collect : min max
+      
+    count_of_objects :
+      version: ? min max
+      changesset: ?
