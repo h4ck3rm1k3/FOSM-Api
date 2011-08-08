@@ -1,11 +1,75 @@
 package OSM::API::OsmObjects::Global;
 use Geo::Hash;
+use strict;
+use warnings;
+use File::Path qw(make_path remove_tree);
+use YAML;
+#global instance of the geohash to be reused
 our $gh = Geo::Hash->new;
 1;
 
-package OSM::API::OsmObjects::ChangeSet;
+package OSM::API::OsmObjects::Base;
+use strict;
+use warnings;
+use File::Path qw(make_path remove_tree);
+use YAML;
 
-my @fields = 
+our @fields =     qw[
+id
+uid
+user
+];
+#my $report = $self->{id} . " v".  $self->{version} . " c". $self->{changeset} . ": " .
+
+sub BasicInfoStr
+{
+    my $self=shift;
+    my $object_report=shift;
+    my $partno = $self->{partno};
+    return "p:$partno " . $object_report . "\n";
+}
+
+1;
+
+package OSM::API::OsmObjects::BaseGeo;
+use strict;
+use warnings;
+use File::Path qw(make_path remove_tree);
+use YAML;
+
+our @fields = 
+    qw[
+changeset
+version
+hash
+];
+
+sub BasicInfoStr
+{
+    my $self=shift;
+    my $object_report=shift;
+    my $id =$self->{id} || -9999999;
+    my $changeset =$self->{changeset} || -9999998;
+    my $version =$self->{version} || -9999998;
+    my  $report = " id:$id version:$version cs:$changeset : " . $object_report;
+    
+    $self->SUPER::BasicInfoStr($report);
+}
+
+our @ISA = qw[OSM::API::OsmObjects::Base];
+
+#my $report = $self->{id} . " v".  $self->{version} . " c". $self->{changeset} . ": " .
+
+1;
+
+package OSM::API::OsmObjects::ChangeSet;
+use strict;
+use warnings;
+use YAML;
+use File::Path qw(make_path remove_tree);
+
+our @ISA = qw[OSM::API::OsmObjects::Base];
+our @fields = 
     qw[
 closed_at
 created_at
@@ -36,7 +100,7 @@ END
     close RPT;
 }
 
-use File::Path qw(make_path remove_tree);
+
 sub Hash
 {
     my $self=shift;
@@ -59,7 +123,7 @@ sub Hash
 
 	my @min_path2 = split (//, $min_hash2);
 	my @max_path2 = split (//, $max_hash2);
-	$hash = "";
+	my $hash = "";
 
 	my $minlen = scalar(@min_path) -1;
 	my $maxlen = scalar(@max_path) -1;
@@ -88,13 +152,17 @@ sub Hash
 	
 	$self->{hash} = $hash;
 	my ( $newlat, $newlon ) = $gh->decode( $hash );
+
 	my $report = $self->{min_lat} . ",".  $self->{min_lon} . " $min_hash - ";
 	$report .= $self->{max_lat} . ",".  $self->{max_lon}  . " $max_hash - ";
 	$report .= $self->{min_lat} . ",".  $self->{max_lon}  . " $max_hash2 - ";
 	$report .= $self->{max_lat} . ",".  $self->{min_lon}  . " $min_hash2 - ";
 	$report .= 	    $newlat . ",".  $newlon . " -> " ;
-	$report .= 	    $self->{hash} . "\n";
+	$report .= 	    $self->{hash} . "". "\n";
+
+	$report = $self->SUPER::BasicInfoStr($report);
 	print RPT $report;
+
     } # if it contains coords
     else
     {
@@ -108,7 +176,7 @@ sub ProcessHistory
     $self->Hash();
 }
 
-use YAML;
+
 
 sub Split
 {
@@ -121,15 +189,15 @@ sub Split
     my $len = scalar(@path);
     if ($len <= $split)
     {
-	$split = $len -2; # 1
-    
+	$split = $len -2; # 1   
     }	
     my @dirs = @path[0 .. $split];
     my @name = ();
     my $out= "output/" . join ("/",@dirs);
     my $out_file= join ("",@name);
     make_path($out);
-    print RPT "$hash is split to $out and $out_file\n" ;
+
+    print RPT $self->SUPER::BasicInfoStr("$hash is split to $out and $out_file"); 
     my $file = $out. "/changeset_" . ${out_file} . "_p" . $self->{partno} . ".osm";
     open OUT,">>$file";
     binmode OUT, ":utf8";
@@ -147,12 +215,19 @@ sub Split
 	) 
 	. "/>\n";
 
-    print OUT $str;
+#    print OUT   SUPER::BasicInfoStr($self,$str);
+    print OUT   $str;
+
     close OUT;
 }
 
 package OSM::API::OsmObjects::Node;
+use strict;
+use warnings;
+use File::Path qw(make_path remove_tree);
+use YAML;
 
+our @ISA = qw[OSM::API::OsmObjects::BaseGeo];
 sub new 
 {
     my $class=shift;
@@ -213,8 +288,8 @@ sub ProcessHistory
     $self->Hash();
 }
 
-#use YAML;
-use File::Path qw(make_path remove_tree);
+
+
 BEGIN
 {
     open RPT, ">data/debugreport_node.txt";
@@ -233,13 +308,21 @@ sub Split
     my @path = split (//, $hash);
     
     my $split = 5;
+    my $len = scalar(@path);
+    if ($len <= $split)
+    {
+	$split = $len -2; # 1    
+    }	
+
     my @dirs = @path[0 .. $split];
     my @name = @path[$split+1 .. scalar(@path) -1];
 #    my $test= join ("/",@path);
+    
     my $out= "output/" . join ("/",@dirs);
     my $out_file= join ("",@name);
     make_path($out);
-    print RPT "$hash is split to $out and $out_file\n" ;
+
+    print RPT $self->SUPER::BasicInfoStr("$hash is split to $out and $out_file"); 
     my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->{partno} . ".osm";
     open OUT,">>$file";
     binmode OUT, ":utf8";
@@ -266,98 +349,19 @@ sub Split
 #    warn $str;
     
     print OUT $str;
+
     close OUT;
 }
 
-package OSM::API::OsmObjects::Relation;
-use File::Path qw(make_path remove_tree);
-
-BEGIN
-{
-    open RPT, ">data/debugreportrelation.txt";
-}
-
-END
-{
-    close RPT;
-}
-
-sub new 
-{
-    my $class=shift;
-    my $self =shift;
-    $self->{tags}=    $self->{tags} ||{}; # create an empty hash of the tags
-    $self->{nodes}=    $self->{nodes} ||[]; # create an empty array of the nodes
-    return bless $self,$class;
-}
-sub hash
-{
-    my $self=shift;
-    $self->{hash}="todo12";
-}
-
-sub Split
-{
-    my $self =shift;
-    #write this node to the right file
-    my $hash = $self->hash();
-    my @path = split (//, $hash);
-    
-    my $split = 5;
-    my @dirs = @path[0 .. $split];
-    my @name = @path[$split+1 .. scalar(@path) -1];
-#    my $test= join ("/",@path);
-    my $out= "output/" . join ("/",@dirs);
-    my $out_file= join ("",@name);
-    make_path($out);
-    print RPT "$hash is split to $out and $out_file\n" ;
-    my $file = $out. "/nodes_" . ${out_file} . "_p" . $self->{partno} . ".osm";
-    open OUT,">>$file";
-    binmode OUT, ":utf8";
-#<relation id="2284" version="9" timestamp="2008-12-16T17:03:15Z" changeset="419694" user="Cerritus" uid="12919" visible="true"><member type="node" ref="41847021" role="stop_5"/><member type="node" ref="46932840" role="stop_9"/><
-    my $str = "<relation " .  join (" ", 
-				map { 
-				    if ($self->{$_})
-				    {
-					$_ . "='"  . $self->{$_} . "'"
-				    }
-				    else
-				    {
-					""	
-				    }
-				} ('id', 'uid', 'user',  'visible',  'version',  'changeset')
-	) ;
-    $str .= ">"; # end of node start	
-	# emit the tags, very cheap
-    $str .= join (" ", map {
-	my $k = $_;
-	my $v = $self->{tags}{$k};
-	"<tag k='$k' v='$v' />"
-		  } (keys %{$self->{tags}}))	;
-    
-
-    my @types = (keys %{$self->{members}});		  
-    $str .= join (" ", map 
-		  {
-		      my $type = $_;	
-		      map {
-			  my $role = $_;
-			  map {
-			      my $ref=$_;
-			      "<member type=$type role=$role  ref=$ref/>";
-			  } (@{$self->{members}{$type}{$role}});
-		      } (keys %{$self->{members}{$type}});
-		  } @types
-	);
-    $str .= "</relation>\n;"; 
-    
-    print OUT $str;
-    close OUT;
-}
 
 
 package OSM::API::OsmObjects::Way;
+use strict;
+use warnings;
 use File::Path qw(make_path remove_tree);
+use YAML;
+
+our @ISA = qw[OSM::API::OsmObjects::BaseGeo];
 
 sub hash
 {
@@ -386,8 +390,6 @@ sub tags
     return $self->{tags};
 }
 
-use YAML;
-use File::Path qw(make_path remove_tree);
 
 BEGIN
 {
@@ -407,12 +409,18 @@ sub Split
     my $hash = $self->hash();
     my @path = split (//, $hash);    
     my $split = 5;
+    my $len = scalar(@path);
+    if ($len <= $split)
+    {
+	$split = $len -2; # 1    
+    }	
     my @dirs = @path[0 .. $split];
     my @name = @path[$split+1 .. scalar(@path) -1];
     my $out= "output/" . join ("/",@dirs);
     my $out_file= join ("",@name);
     make_path($out);
-    print RPT "$hash is split to $out and $out_file\n" ;
+
+    print RPT $self->SUPER::BasicInfoStr("$hash is split to $out and $out_file"); 
     my $file = $out. "/relations_" . ${out_file} . "_p" . $self->{partno} . ".osm";
     open OUT,">>$file";
     binmode OUT, ":utf8";
@@ -441,7 +449,7 @@ sub Split
 		    }
 		    else
 		    {
-			warn Dump($self);
+			warn " problem " . Dump($self);
 		    }
 		} 
 		(keys %{$self->{tags}

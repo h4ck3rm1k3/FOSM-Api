@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use OSM::API::OsmHistory;
 use lib "../lib";
 use lib "lib";
