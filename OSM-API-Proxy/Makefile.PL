@@ -1,7 +1,7 @@
 use strict;
 use warnings;
-use ExtUtils::MakeMaker;
-
+#use ExtUtils::MakeMaker;
+use Inline::MakeMaker;
 WriteMakefile(
     NAME                => 'OSM::API::Proxy',
     AUTHOR              => q{James Michael DuPont  <JamesMikeDuPont@googlemail.com>},

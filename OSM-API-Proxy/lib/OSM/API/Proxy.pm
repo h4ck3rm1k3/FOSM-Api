@@ -3,7 +3,10 @@ use Dancer ':syntax';
 use YAML;
 use Dancer::Plugin::DBIC qw(schema);
 use Data::Dumper;
-our $VERSION = '0.1';
+our $VERSION = '0.01';
+
+#use Inline CPP ;
+
 
 get '/' => sub {
     template 'index.tt', {}, { layout => undef };
@@ -512,3 +515,4 @@ get '/browse/node/*' => sub
 };
 
 1;
+

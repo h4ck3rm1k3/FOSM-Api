@@ -19,11 +19,16 @@ use Inline CPP,
 1;
 __END__
 __CPP__
-int add(int x, int y) { 
-     return x + y;
-}
+class GeoHash
+{
+public:
+    int add(int x, int y) { 
+	return x + y;
+};
 
 int subtract(int x, int y) {
     return x - y;
-}
+};
+
+};
 

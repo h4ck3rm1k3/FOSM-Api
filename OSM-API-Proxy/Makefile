@@ -1,7 +1,7 @@
 # This Makefile is for the OSM::API::Proxy extension to perl.
 #
 # It was generated automatically by MakeMaker version
-# 6.55_02 (Revision: 65502) from the contents of
+# 6.58 (Revision: 65800) from the contents of
 # Makefile.PL. Don't edit this file, edit Makefile.PL instead.
 #
 #       ANY CHANGES MADE HERE WILL BE LOST!
@@ -12,11 +12,12 @@
 #   MakeMaker Parameters:
 
 #     ABSTRACT => q[a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html ]
-#     AUTHOR => q[James Michael DuPont  <JamesMikeDuPont@googlemail.com>]
+#     AUTHOR => [q[James Michael DuPont  <JamesMikeDuPont@googlemail.com>]]
 #     BUILD_REQUIRES => {  }
+#     CONFIGURE_REQUIRES => {  }
 #     NAME => q[OSM::API::Proxy]
 #     PL_FILES => {  }
-#     PREREQ_PM => { Test::More=>q[0], YAML=>q[0], Dancer=>q[1.303] }
+#     PREREQ_PM => { Test::More=>q[0], YAML=>q[0], Dancer=>q[1.303], Inline=>q[0.44] }
 #     VERSION_FROM => q[lib/OSM/API/Proxy.pm]
 #     clean => { FILES=>q[OSM-API-Proxy-*] }
 #     dist => { COMPRESS=>q[gzip -9f], SUFFIX=>q[gz] }
@@ -58,11 +59,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = OSM::API::Proxy
 NAME_SYM = OSM_API_Proxy
-VERSION = 0.1
+VERSION = 0.01
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_1
+VERSION_SYM = 0_01
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.1
+XS_VERSION = 0.01
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -75,45 +76,45 @@ MAN1EXT = 1p
 MAN3EXT = 3pm
 INSTALLDIRS = site
 DESTDIR = 
-PREFIX = /usr
-PERLPREFIX = $(PREFIX)
-SITEPREFIX = $(PREFIX)/local
-VENDORPREFIX = $(PREFIX)
-INSTALLPRIVLIB = $(PERLPREFIX)/share/perl/5.10
+PREFIX = $(SITEPREFIX)
+PERLPREFIX = /usr
+SITEPREFIX = /usr/local
+VENDORPREFIX = /usr
+INSTALLPRIVLIB = /usr/share/perl/5.10
 DESTINSTALLPRIVLIB = $(DESTDIR)$(INSTALLPRIVLIB)
-INSTALLSITELIB = $(SITEPREFIX)/share/perl/5.10.1
+INSTALLSITELIB = /usr/local/share/perl/5.10.1
 DESTINSTALLSITELIB = $(DESTDIR)$(INSTALLSITELIB)
-INSTALLVENDORLIB = $(VENDORPREFIX)/share/perl5
+INSTALLVENDORLIB = /usr/share/perl5
 DESTINSTALLVENDORLIB = $(DESTDIR)$(INSTALLVENDORLIB)
-INSTALLARCHLIB = $(PERLPREFIX)/lib/perl/5.10
+INSTALLARCHLIB = /usr/lib/perl/5.10
 DESTINSTALLARCHLIB = $(DESTDIR)$(INSTALLARCHLIB)
-INSTALLSITEARCH = $(SITEPREFIX)/lib/perl/5.10.1
+INSTALLSITEARCH = /usr/local/lib/perl/5.10.1
 DESTINSTALLSITEARCH = $(DESTDIR)$(INSTALLSITEARCH)
-INSTALLVENDORARCH = $(VENDORPREFIX)/lib/perl5
+INSTALLVENDORARCH = /usr/lib/perl5
 DESTINSTALLVENDORARCH = $(DESTDIR)$(INSTALLVENDORARCH)
-INSTALLBIN = $(PERLPREFIX)/bin
+INSTALLBIN = /usr/bin
 DESTINSTALLBIN = $(DESTDIR)$(INSTALLBIN)
-INSTALLSITEBIN = $(SITEPREFIX)/bin
+INSTALLSITEBIN = /usr/local/bin
 DESTINSTALLSITEBIN = $(DESTDIR)$(INSTALLSITEBIN)
-INSTALLVENDORBIN = $(VENDORPREFIX)/bin
+INSTALLVENDORBIN = /usr/bin
 DESTINSTALLVENDORBIN = $(DESTDIR)$(INSTALLVENDORBIN)
-INSTALLSCRIPT = $(PERLPREFIX)/bin
+INSTALLSCRIPT = /usr/bin
 DESTINSTALLSCRIPT = $(DESTDIR)$(INSTALLSCRIPT)
-INSTALLSITESCRIPT = $(SITEPREFIX)/bin
+INSTALLSITESCRIPT = /usr/local/bin
 DESTINSTALLSITESCRIPT = $(DESTDIR)$(INSTALLSITESCRIPT)
-INSTALLVENDORSCRIPT = $(VENDORPREFIX)/bin
+INSTALLVENDORSCRIPT = /usr/bin
 DESTINSTALLVENDORSCRIPT = $(DESTDIR)$(INSTALLVENDORSCRIPT)
-INSTALLMAN1DIR = $(PERLPREFIX)/share/man/man1
+INSTALLMAN1DIR = /usr/share/man/man1
 DESTINSTALLMAN1DIR = $(DESTDIR)$(INSTALLMAN1DIR)
-INSTALLSITEMAN1DIR = $(SITEPREFIX)/man/man1
+INSTALLSITEMAN1DIR = /usr/local/man/man1
 DESTINSTALLSITEMAN1DIR = $(DESTDIR)$(INSTALLSITEMAN1DIR)
-INSTALLVENDORMAN1DIR = $(VENDORPREFIX)/share/man/man1
+INSTALLVENDORMAN1DIR = /usr/share/man/man1
 DESTINSTALLVENDORMAN1DIR = $(DESTDIR)$(INSTALLVENDORMAN1DIR)
-INSTALLMAN3DIR = $(PERLPREFIX)/share/man/man3
+INSTALLMAN3DIR = /usr/share/man/man3
 DESTINSTALLMAN3DIR = $(DESTDIR)$(INSTALLMAN3DIR)
-INSTALLSITEMAN3DIR = $(SITEPREFIX)/man/man3
+INSTALLSITEMAN3DIR = /usr/local/man/man3
 DESTINSTALLSITEMAN3DIR = $(DESTDIR)$(INSTALLSITEMAN3DIR)
-INSTALLVENDORMAN3DIR = $(VENDORPREFIX)/share/man/man3
+INSTALLVENDORMAN3DIR = /usr/share/man/man3
 DESTINSTALLVENDORMAN3DIR = $(DESTDIR)$(INSTALLVENDORMAN3DIR)
 PERL_LIB = /usr/share/perl/5.10
 PERL_ARCHLIB = /usr/lib/perl/5.10
@@ -137,9 +138,9 @@ PERM_DIR = 755
 PERM_RW = 644
 PERM_RWX = 755
 
-MAKEMAKER   = /usr/share/perl/5.10/ExtUtils/MakeMaker.pm
-MM_VERSION  = 6.55_02
-MM_REVISION = 65502
+MAKEMAKER   = /usr/local/share/perl/5.10.1/ExtUtils/MakeMaker.pm
+MM_VERSION  = 6.58
+MM_REVISION = 65800
 
 # FULLEXT = Pathname for extension directory (eg Foo/Bar/Oracle).
 # BASEEXT = Basename part of FULLEXT. May be just equal FULLEXT. (eg Oracle)
@@ -151,20 +152,71 @@ BASEEXT = Proxy
 PARENT_NAME = OSM::API
 DLBASE = $(BASEEXT)
 VERSION_FROM = lib/OSM/API/Proxy.pm
-OBJECT = 
+OBJECT = $(BASEEXT)$(OBJ_EXT)
 LDFROM = $(OBJECT)
 LINKTYPE = dynamic
 BOOTDEP = 
 
 # Handy lists of source code files:
 XS_FILES = 
-C_FILES  = 
-O_FILES  = 
+C_FILES  = output.c
+O_FILES  = output.o
 H_FILES  = 
 MAN1PODS = 
 MAN3PODS = README.pod \
+	lib/Geo/Hash2.pm \
+	lib/Geo/HashFast.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
+	lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
 	lib/OSM/API/OsmChange.pm \
-	lib/OSM/API/Proxy.pm
+	lib/OSM/API/Proxy.pm \
+	xmltwig.pl
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
@@ -176,9 +228,9 @@ INST_ARCHLIBDIR  = $(INST_ARCHLIB)/OSM/API
 INST_AUTODIR     = $(INST_LIB)/auto/$(FULLEXT)
 INST_ARCHAUTODIR = $(INST_ARCHLIB)/auto/$(FULLEXT)
 
-INST_STATIC      = 
-INST_DYNAMIC     = 
-INST_BOOT        = 
+INST_STATIC      = $(INST_ARCHAUTODIR)/$(BASEEXT)$(LIB_EXT)
+INST_DYNAMIC     = $(INST_ARCHAUTODIR)/$(DLBASE).$(DLEXT)
+INST_BOOT        = $(INST_ARCHAUTODIR)/$(BASEEXT).bs
 
 # Extra linker info
 EXPORT_LIST        = 
@@ -187,49 +239,229 @@ PERL_ARCHIVE_AFTER =
 
 
 TO_INST_PM = README.pod \
+	generatedb.pl \
+	lib/Geo/Hash2.pm \
+	lib/Geo/HashFast.pm \
+	lib/Geo/HashInline.pm \
+	lib/Inline/C.pm \
+	lib/Inline/Struct.pm \
 	lib/OSM/API/Box.pm \
 	lib/OSM/API/ChangeSet.pm \
-	lib/OSM/API/Changeset.pm \
 	lib/OSM/API/Makefile \
-	lib/OSM/API/OsmApi.pm \
+	lib/OSM/API/Mapnik/Schema.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
+	lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	lib/OSM/API/OSMRailsPort/Schema.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
 	lib/OSM/API/OsmChange.pm \
+	lib/OSM/API/OsmFile.pm \
+	lib/OSM/API/OsmHistory.pm \
+	lib/OSM/API/OsmHistory/SaxHandler.pm \
+	lib/OSM/API/OsmObjects.pm \
+	lib/OSM/API/OsmObjects/Relation.pm \
 	lib/OSM/API/Point.pm \
 	lib/OSM/API/Proxy.pm \
 	lib/OSM/API/RemoteServerAgent.pm \
 	lib/OSM/API/Tag.pm \
 	lib/OSM/API/Tags.pm \
-	lib/OSM/API/User.pm
+	lib/OSM/API/User.pm \
+	xmltwig.pl
 
 PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/Tag.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	lib/OSM/API/OsmHistory/SaxHandler.pm \
+	blib/lib/OSM/API/OsmHistory/SaxHandler.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	lib/OSM/API/OsmObjects/Relation.pm \
+	blib/lib/OSM/API/OsmObjects/Relation.pm \
+	lib/OSM/API/Mapnik/Schema.pm \
+	blib/lib/OSM/API/Mapnik/Schema.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	lib/OSM/API/OsmObjects.pm \
+	blib/lib/OSM/API/OsmObjects.pm \
 	lib/OSM/API/User.pm \
 	blib/lib/OSM/API/User.pm \
-	lib/OSM/API/RemoteServerAgent.pm \
-	blib/lib/OSM/API/RemoteServerAgent.pm \
 	README.pod \
 	$(INST_LIB)/OSM/API/README.pod \
-	lib/OSM/API/Changeset.pm \
-	blib/lib/OSM/API/Changeset.pm \
-	lib/OSM/API/Point.pm \
-	blib/lib/OSM/API/Point.pm \
-	lib/OSM/API/Box.pm \
-	blib/lib/OSM/API/Box.pm \
-	lib/OSM/API/Makefile \
-	blib/lib/OSM/API/Makefile \
-	lib/OSM/API/Tags.pm \
-	blib/lib/OSM/API/Tags.pm \
-	lib/OSM/API/OsmApi.pm \
-	blib/lib/OSM/API/OsmApi.pm \
-	lib/OSM/API/ChangeSet.pm \
-	blib/lib/OSM/API/ChangeSet.pm \
+	lib/OSM/API/OSMRailsPort/Schema.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	lib/Inline/C.pm \
+	blib/lib/Inline/C.pm \
+	xmltwig.pl \
+	$(INST_LIB)/OSM/API/xmltwig.pl \
+	lib/OSM/API/OsmFile.pm \
+	blib/lib/OSM/API/OsmFile.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
 	lib/OSM/API/Proxy.pm \
 	blib/lib/OSM/API/Proxy.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	lib/OSM/API/ChangeSet.pm \
+	blib/lib/OSM/API/ChangeSet.pm \
+	lib/Geo/HashInline.pm \
+	blib/lib/Geo/HashInline.pm \
+	lib/Geo/Hash2.pm \
+	blib/lib/Geo/Hash2.pm \
+	lib/OSM/API/RemoteServerAgent.pm \
+	blib/lib/OSM/API/RemoteServerAgent.pm \
+	lib/Geo/HashFast.pm \
+	blib/lib/Geo/HashFast.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	lib/OSM/API/Makefile \
+	blib/lib/OSM/API/Makefile \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	generatedb.pl \
+	$(INST_LIB)/OSM/API/generatedb.pl \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
 	lib/OSM/API/OsmChange.pm \
-	blib/lib/OSM/API/OsmChange.pm
+	blib/lib/OSM/API/OsmChange.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	lib/OSM/API/Box.pm \
+	blib/lib/OSM/API/Box.pm \
+	lib/Inline/Struct.pm \
+	blib/lib/Inline/Struct.pm \
+	lib/OSM/API/Tags.pm \
+	blib/lib/OSM/API/Tags.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	lib/OSM/API/OsmHistory.pm \
+	blib/lib/OSM/API/OsmHistory.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/OSM/API/Point.pm \
+	blib/lib/OSM/API/Point.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm \
+	blib/lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm
 
 
 # --- MakeMaker platform_constants section:
-MM_Unix_VERSION = 6.55_02
+MM_Unix_VERSION = 6.58
 PERL_MALLOC_DEF = -DPERL_EXTMALLOC_DEF -Dmalloc=Perl_malloc -Dfree=Perl_mfree -Drealloc=Perl_realloc -Dcalloc=Perl_calloc
 
 
@@ -240,6 +472,14 @@ AUTOSPLITFILE = $(ABSPERLRUN)  -e 'use AutoSplit;  autosplit($$ARGV[0], $$ARGV[1
 
 
 # --- MakeMaker tool_xsubpp section:
+
+XSUBPPDIR = /usr/local/share/perl/5.10.1/ExtUtils
+XSUBPP = $(XSUBPPDIR)$(DFSEP)xsubpp
+XSUBPPRUN = $(PERLRUN) $(XSUBPP)
+XSPROTOARG = 
+XSUBPPDEPS = /usr/share/perl/5.10/ExtUtils/typemap $(XSUBPP)
+XSUBPPARGS = -typemap /usr/share/perl/5.10/ExtUtils/typemap
+XSUBPP_EXTRA_ARGS = 
 
 
 # --- MakeMaker tools_other section:
@@ -294,7 +534,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = OSM-API-Proxy
-DISTVNAME = OSM-API-Proxy-0.1
+DISTVNAME = OSM-API-Proxy-0.01
 
 
 # --- MakeMaker macro section:
@@ -305,12 +545,24 @@ DISTVNAME = OSM-API-Proxy-0.1
 
 # --- MakeMaker cflags section:
 
+CCFLAGS = -D_REENTRANT -D_GNU_SOURCE -DDEBIAN -fno-strict-aliasing -pipe -fstack-protector -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+OPTIMIZE = -O2 -g
+PERLTYPE = 
+MPOLLUTE = 
+
 
 # --- MakeMaker const_loadlibs section:
 
+# OSM::API::Proxy might depend on some other libraries:
+# See ExtUtils::Liblist for details
+#
+
 
 # --- MakeMaker const_cccmd section:
-
+CCCMD = $(CC) -c $(PASTHRU_INC) $(INC) \
+	$(CCFLAGS) $(OPTIMIZE) \
+	$(PERLTYPE) $(MPOLLUTE) $(DEFINE_VERSION) \
+	$(XS_DEFINE_VERSION)
 
 # --- MakeMaker post_constants section:
 
@@ -319,6 +571,7 @@ DISTVNAME = OSM-API-Proxy-0.1
 
 PASTHRU = LIBPERL_A="$(LIBPERL_A)"\
 	LINKTYPE="$(LINKTYPE)"\
+	OPTIMIZE="$(OPTIMIZE)"\
 	PREFIX="$(PREFIX)"
 
 
@@ -331,11 +584,42 @@ PASTHRU = LIBPERL_A="$(LIBPERL_A)"\
 
 # --- MakeMaker c_o section:
 
+.c.i:
+	cc -E -c $(PASTHRU_INC) $(INC) \
+	$(CCFLAGS) $(OPTIMIZE) \
+	$(PERLTYPE) $(MPOLLUTE) $(DEFINE_VERSION) \
+	$(XS_DEFINE_VERSION) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.c > $*.i
+
+.c.s:
+	$(CCCMD) -S $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.c
+
+.c$(OBJ_EXT):
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.c
+
+.cpp$(OBJ_EXT):
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.cpp
+
+.cxx$(OBJ_EXT):
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.cxx
+
+.cc$(OBJ_EXT):
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.cc
+
+.C$(OBJ_EXT):
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.C
+
 
 # --- MakeMaker xs_c section:
 
+.xs.c:
+	$(XSUBPPRUN) $(XSPROTOARG) $(XSUBPPARGS) $(XSUBPP_EXTRA_ARGS) $*.xs > $*.xsc && $(MV) $*.xsc $*.c
+
 
 # --- MakeMaker xs_o section:
+
+.xs$(OBJ_EXT):
+	$(XSUBPPRUN) $(XSPROTOARG) $(XSUBPPARGS) $*.xs > $*.xsc && $(MV) $*.xsc $*.c
+	$(CCCMD) $(CCCDLFLAGS) "-I$(PERL_INC)" $(PASTHRU_DEFINE) $(DEFINE) $*.c
 
 
 # --- MakeMaker top_targets section:
@@ -422,11 +706,40 @@ dynamic :: $(FIRST_MAKEFILE) $(INST_DYNAMIC) $(INST_BOOT)
 
 
 # --- MakeMaker dynamic_bs section:
+BOOTSTRAP = $(BASEEXT).bs
 
-BOOTSTRAP =
+# As Mkbootstrap might not write a file (if none is required)
+# we use touch to prevent make continually trying to remake it.
+# The DynaLoader only reads a non-empty file.
+$(BOOTSTRAP) : $(FIRST_MAKEFILE) $(BOOTDEP) $(INST_ARCHAUTODIR)$(DFSEP).exists
+	$(NOECHO) $(ECHO) "Running Mkbootstrap for $(NAME) ($(BSLOADLIBS))"
+	$(NOECHO) $(PERLRUN) \
+		"-MExtUtils::Mkbootstrap" \
+		-e "Mkbootstrap('$(BASEEXT)','$(BSLOADLIBS)');"
+	$(NOECHO) $(TOUCH) $@
+	$(CHMOD) $(PERM_RW) $@
+
+$(INST_BOOT) : $(BOOTSTRAP) $(INST_ARCHAUTODIR)$(DFSEP).exists
+	$(NOECHO) $(RM_RF) $@
+	- $(CP) $(BOOTSTRAP) $@
+	$(CHMOD) $(PERM_RW) $@
 
 
 # --- MakeMaker dynamic_lib section:
+
+# This section creates the dynamically loadable $(INST_DYNAMIC)
+# from $(OBJECT) and possibly $(MYEXTLIB).
+ARMAYBE = :
+OTHERLDFLAGS = 
+INST_DYNAMIC_DEP = 
+INST_DYNAMIC_FIX = 
+
+$(INST_DYNAMIC): $(OBJECT) $(MYEXTLIB) $(BOOTSTRAP) $(INST_ARCHAUTODIR)$(DFSEP).exists $(EXPORT_LIST) $(PERL_ARCHIVE) $(PERL_ARCHIVE_AFTER) $(INST_DYNAMIC_DEP)
+	$(RM_F) $@
+	$(LD)  $(LDDLFLAGS) $(LDFROM) $(OTHERLDFLAGS) -o $@ $(MYEXTLIB)	\
+	  $(PERL_ARCHIVE) $(LDLOADLIBS) $(PERL_ARCHIVE_AFTER) $(EXPORT_LIST)	\
+	  $(INST_DYNAMIC_FIX)
+	$(CHMOD) $(PERM_RWX) $@
 
 
 # --- MakeMaker static section:
@@ -439,6 +752,12 @@ static :: $(FIRST_MAKEFILE) $(INST_STATIC)
 
 # --- MakeMaker static_lib section:
 
+$(INST_STATIC) : $(OBJECT) $(MYEXTLIB) $(INST_ARCHAUTODIR)$(DFSEP).exists
+	$(RM_RF) $@
+	$(FULL_AR) $(AR_STATIC_ARGS) $@ $(OBJECT) && $(RANLIB) $@
+	$(CHMOD) $(PERM_RWX) $@
+	$(NOECHO) $(ECHO) "$(EXTRALIBS)" > $(INST_ARCHAUTODIR)/extralibs.ld
+
 
 # --- MakeMaker manifypods section:
 
@@ -447,13 +766,117 @@ POD2MAN = $(POD2MAN_EXE)
 
 
 manifypods : pure_all  \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	lib/Geo/Hash2.pm \
+	lib/Geo/HashFast.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
+	lib/OSM/API/OsmChange.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
 	README.pod \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	xmltwig.pl \
+	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
 	lib/OSM/API/Proxy.pm \
-	lib/OSM/API/OsmChange.pm
-	$(NOECHO) $(POD2MAN) --section=$(MAN3EXT) --perm_rw=$(PERM_RW) \
+	lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm
+	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::GpxFileTag.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmNode.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentNode.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmRoad.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmLine.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::DiaryComment.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::UserPreference.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::OauthToken.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmPoint.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::GeographyColumn.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::OauthNonce.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Language.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::SpatialRefSy.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::WayTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Changeset.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::DiaryEntry.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentNodeTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::UserBlock.$(MAN3EXT) \
+	  lib/Geo/Hash2.pm $(INST_MAN3DIR)/Geo::Hash2.$(MAN3EXT) \
+	  lib/Geo/HashFast.pm $(INST_MAN3DIR)/Geo::HashFast.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::UserToken.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Acl.$(MAN3EXT) 
+	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::UserRole.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Relation.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Node.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::GpsPoint.$(MAN3EXT) \
+	  lib/OSM/API/OsmChange.pm $(INST_MAN3DIR)/OSM::API::OsmChange.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentWay.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::NodeTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentWayNode.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Message.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::RelationTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::RelationMember.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::SchemaMigration.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Country.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentRelation.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmPolygon.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Way.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Session.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentWayTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::WayNode.$(MAN3EXT) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmWay.$(MAN3EXT) \
 	  README.pod $(INST_MAN3DIR)/OSM::API::README.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentRelationTag.$(MAN3EXT) 
+	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmRel.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::ChangesetTag.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::ClientApplication.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Friend.$(MAN3EXT) \
+	  xmltwig.pl $(INST_MAN3DIR)/OSM::API::xmltwig.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentRelationMember.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/User.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::User.$(MAN3EXT) \
 	  lib/OSM/API/Proxy.pm $(INST_MAN3DIR)/OSM::API::Proxy.$(MAN3EXT) \
-	  lib/OSM/API/OsmChange.pm $(INST_MAN3DIR)/OSM::API::OsmChange.$(MAN3EXT) 
+	  lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::GeometryColumn.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::GpxFile.$(MAN3EXT) 
 
 
 
@@ -483,14 +906,15 @@ clean :: clean_subdirs
 	  *$(LIB_EXT) core \
 	  core.[0-9] $(INST_ARCHAUTODIR)/extralibs.all \
 	  core.[0-9][0-9] $(BASEEXT).bso \
-	  pm_to_blib.ts core.[0-9][0-9][0-9][0-9] \
+	  pm_to_blib.ts MYMETA.json \
+	  core.[0-9][0-9][0-9][0-9] MYMETA.yml \
 	  $(BASEEXT).x $(BOOTSTRAP) \
 	  perl$(EXE_EXT) tmon.out \
 	  *$(OBJ_EXT) pm_to_blib \
 	  $(INST_ARCHAUTODIR)/extralibs.ld blibdirs.ts \
 	  core.[0-9][0-9][0-9][0-9][0-9] *perl.core \
 	  core.*perl.*.? $(MAKE_APERL_FILE) \
-	  perl $(BASEEXT).def \
+	  $(BASEEXT).def perl \
 	  core.[0-9][0-9][0-9] mon.out \
 	  lib$(BASEEXT).def perlmain.c \
 	  perl.exe so_locations \
@@ -509,7 +933,8 @@ realclean_subdirs :
 # Delete temporary files (via clean) and also delete dist files
 realclean purge ::  clean realclean_subdirs
 	- $(RM_F) \
-	  $(MAKEFILE_OLD) $(FIRST_MAKEFILE) 
+	  $(OBJECT) $(MAKEFILE_OLD) \
+	  $(FIRST_MAKEFILE) 
 	- $(RM_RF) \
 	  $(DISTVNAME) 
 
@@ -517,31 +942,78 @@ realclean purge ::  clean realclean_subdirs
 # --- MakeMaker metafile section:
 metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
-	$(NOECHO) $(ECHO) '--- #YAML:1.0' > META_new.yml
-	$(NOECHO) $(ECHO) 'name:               OSM-API-Proxy' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version:            0.1' >> META_new.yml
-	$(NOECHO) $(ECHO) 'abstract:           a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html ' >> META_new.yml
+	$(NOECHO) $(ECHO) '---' > META_new.yml
+	$(NOECHO) $(ECHO) 'abstract: '\''a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html '\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    - James Michael DuPont  <JamesMikeDuPont@googlemail.com>' >> META_new.yml
-	$(NOECHO) $(ECHO) 'license:            unknown' >> META_new.yml
-	$(NOECHO) $(ECHO) 'distribution_type:  module' >> META_new.yml
-	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
+	$(NOECHO) $(ECHO) '  - '\''James Michael DuPont  <JamesMikeDuPont@googlemail.com>'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    ExtUtils::MakeMaker:  0' >> META_new.yml
-	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    Dancer:      1.303' >> META_new.yml
-	$(NOECHO) $(ECHO) '    Test::More:  0' >> META_new.yml
-	$(NOECHO) $(ECHO) '    YAML:        0' >> META_new.yml
-	$(NOECHO) $(ECHO) 'no_index:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    directory:' >> META_new.yml
-	$(NOECHO) $(ECHO) '        - t' >> META_new.yml
-	$(NOECHO) $(ECHO) '        - inc' >> META_new.yml
-	$(NOECHO) $(ECHO) 'generated_by:       ExtUtils::MakeMaker version 6.55_02' >> META_new.yml
+	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'dynamic_config: 1' >> META_new.yml
+	$(NOECHO) $(ECHO) 'generated_by: '\''ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930001'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'license: unknown' >> META_new.yml
 	$(NOECHO) $(ECHO) 'meta-spec:' >> META_new.yml
-	$(NOECHO) $(ECHO) '    url:      http://module-build.sourceforge.net/META-spec-v1.4.html' >> META_new.yml
-	$(NOECHO) $(ECHO) '    version:  1.4' >> META_new.yml
+	$(NOECHO) $(ECHO) '  url: http://module-build.sourceforge.net/META-spec-v1.4.html' >> META_new.yml
+	$(NOECHO) $(ECHO) '  version: 1.4' >> META_new.yml
+	$(NOECHO) $(ECHO) 'name: OSM-API-Proxy' >> META_new.yml
+	$(NOECHO) $(ECHO) 'no_index:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  directory:' >> META_new.yml
+	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
+	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
+	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Dancer: 1.303' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Inline: 0.44' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Test::More: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) '  YAML: 0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.01' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
+	$(NOECHO) $(ECHO) Generating META.json
+	$(NOECHO) $(ECHO) '{' > META_new.json
+	$(NOECHO) $(ECHO) '   "abstract" : "a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html ",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "author" : [' >> META_new.json
+	$(NOECHO) $(ECHO) '      "James Michael DuPont  <JamesMikeDuPont@googlemail.com>"' >> META_new.json
+	$(NOECHO) $(ECHO) '   ],' >> META_new.json
+	$(NOECHO) $(ECHO) '   "dynamic_config" : 1,' >> META_new.json
+	$(NOECHO) $(ECHO) '   "generated_by" : "ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930001",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "license" : [' >> META_new.json
+	$(NOECHO) $(ECHO) '      "unknown"' >> META_new.json
+	$(NOECHO) $(ECHO) '   ],' >> META_new.json
+	$(NOECHO) $(ECHO) '   "meta-spec" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",' >> META_new.json
+	$(NOECHO) $(ECHO) '      "version" : "2"' >> META_new.json
+	$(NOECHO) $(ECHO) '   },' >> META_new.json
+	$(NOECHO) $(ECHO) '   "name" : "OSM-API-Proxy",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "no_index" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '      "directory" : [' >> META_new.json
+	$(NOECHO) $(ECHO) '         "t",' >> META_new.json
+	$(NOECHO) $(ECHO) '         "inc"' >> META_new.json
+	$(NOECHO) $(ECHO) '      ]' >> META_new.json
+	$(NOECHO) $(ECHO) '   },' >> META_new.json
+	$(NOECHO) $(ECHO) '   "prereqs" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '      "build" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "ExtUtils::MakeMaker" : 0' >> META_new.json
+	$(NOECHO) $(ECHO) '         }' >> META_new.json
+	$(NOECHO) $(ECHO) '      },' >> META_new.json
+	$(NOECHO) $(ECHO) '      "configure" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "ExtUtils::MakeMaker" : 0' >> META_new.json
+	$(NOECHO) $(ECHO) '         }' >> META_new.json
+	$(NOECHO) $(ECHO) '      },' >> META_new.json
+	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Dancer" : "1.303",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Inline" : "0.44",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Test::More" : 0,' >> META_new.json
+	$(NOECHO) $(ECHO) '            "YAML" : 0' >> META_new.json
+	$(NOECHO) $(ECHO) '         }' >> META_new.json
+	$(NOECHO) $(ECHO) '      }' >> META_new.json
+	$(NOECHO) $(ECHO) '   },' >> META_new.json
+	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.01"' >> META_new.json
+	$(NOECHO) $(ECHO) '}' >> META_new.json
+	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
 
 # --- MakeMaker signature section:
@@ -633,8 +1105,12 @@ ci :
 
 # --- MakeMaker distmeta section:
 distmeta : create_distdir metafile
-	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'eval { maniadd({q{META.yml} => q{Module meta-data (added by MakeMaker)}}) } ' \
+	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'exit unless -e q{META.yml};' \
+	  -e 'eval { maniadd({q{META.yml} => q{Module YAML meta-data (added by MakeMaker)}}) }' \
 	  -e '    or print "Could not add META.yml to MANIFEST: $${'\''@'\''}\n"' --
+	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'exit unless -f q{META.json};' \
+	  -e 'eval { maniadd({q{META.json} => q{Module JSON meta-data (added by MakeMaker)}}) }' \
+	  -e '    or print "Could not add META.json to MANIFEST: $${'\''@'\''}\n"' --
 
 
 
@@ -674,7 +1150,9 @@ doc__install : doc_site_install
 	$(NOECHO) $(ECHO) INSTALLDIRS not defined, defaulting to INSTALLDIRS=site
 
 pure_perl_install :: all
-	$(NOECHO) umask 022; $(MOD_INSTALL) \
+	$(NOECHO) $(MOD_INSTALL) \
+		read $(PERL_ARCHLIB)/auto/$(FULLEXT)/.packlist \
+		write $(DESTINSTALLARCHLIB)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLPRIVLIB) \
 		$(INST_ARCHLIB) $(DESTINSTALLARCHLIB) \
 		$(INST_BIN) $(DESTINSTALLBIN) \
@@ -686,7 +1164,7 @@ pure_perl_install :: all
 
 
 pure_site_install :: all
-	$(NOECHO) umask 02; $(MOD_INSTALL) \
+	$(NOECHO) $(MOD_INSTALL) \
 		read $(SITEARCHEXP)/auto/$(FULLEXT)/.packlist \
 		write $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLSITELIB) \
@@ -699,7 +1177,9 @@ pure_site_install :: all
 		$(PERL_ARCHLIB)/auto/$(FULLEXT)
 
 pure_vendor_install :: all
-	$(NOECHO) umask 022; $(MOD_INSTALL) \
+	$(NOECHO) $(MOD_INSTALL) \
+		read $(VENDORARCHEXP)/auto/$(FULLEXT)/.packlist \
+		write $(DESTINSTALLVENDORARCH)/auto/$(FULLEXT)/.packlist \
 		$(INST_LIB) $(DESTINSTALLVENDORLIB) \
 		$(INST_ARCHLIB) $(DESTINSTALLVENDORARCH) \
 		$(INST_BIN) $(DESTINSTALLVENDORBIN) \
@@ -708,31 +1188,50 @@ pure_vendor_install :: all
 		$(INST_MAN3DIR) $(DESTINSTALLVENDORMAN3DIR)
 
 doc_perl_install :: all
+	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
+	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
+	-$(NOECHO) $(DOC_INSTALL) \
+		"Module" "$(NAME)" \
+		"installed into" "$(INSTALLPRIVLIB)" \
+		LINKTYPE "$(LINKTYPE)" \
+		VERSION "$(VERSION)" \
+		EXE_FILES "$(EXE_FILES)" \
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
 doc_site_install :: all
-	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLSITEARCH)/perllocal.pod
-	-$(NOECHO) umask 02; $(MKPATH) $(DESTINSTALLSITEARCH)
-	-$(NOECHO) umask 02; $(DOC_INSTALL) \
+	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
+	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
+	-$(NOECHO) $(DOC_INSTALL) \
 		"Module" "$(NAME)" \
 		"installed into" "$(INSTALLSITELIB)" \
 		LINKTYPE "$(LINKTYPE)" \
 		VERSION "$(VERSION)" \
 		EXE_FILES "$(EXE_FILES)" \
-		>> $(DESTINSTALLSITEARCH)/perllocal.pod
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
 doc_vendor_install :: all
+	$(NOECHO) $(ECHO) Appending installation info to $(DESTINSTALLARCHLIB)/perllocal.pod
+	-$(NOECHO) $(MKPATH) $(DESTINSTALLARCHLIB)
+	-$(NOECHO) $(DOC_INSTALL) \
+		"Module" "$(NAME)" \
+		"installed into" "$(INSTALLVENDORLIB)" \
+		LINKTYPE "$(LINKTYPE)" \
+		VERSION "$(VERSION)" \
+		EXE_FILES "$(EXE_FILES)" \
+		>> $(DESTINSTALLARCHLIB)/perllocal.pod
 
 
 uninstall :: uninstall_from_$(INSTALLDIRS)dirs
 	$(NOECHO) $(NOOP)
 
 uninstall_from_perldirs ::
+	$(NOECHO) $(UNINSTALL) $(PERL_ARCHLIB)/auto/$(FULLEXT)/.packlist
 
 uninstall_from_sitedirs ::
 	$(NOECHO) $(UNINSTALL) $(SITEARCHEXP)/auto/$(FULLEXT)/.packlist
 
 uninstall_from_vendordirs ::
-
+	$(NOECHO) $(UNINSTALL) $(VENDORARCHEXP)/auto/$(FULLEXT)/.packlist
 
 
 # --- MakeMaker force section:
@@ -743,8 +1242,55 @@ FORCE :
 
 # --- MakeMaker perldepend section:
 
+PERL_HDRS = \
+	$(PERL_INC)/EXTERN.h		\
+	$(PERL_INC)/INTERN.h		\
+	$(PERL_INC)/XSUB.h		\
+	$(PERL_INC)/av.h		\
+	$(PERL_INC)/config.h		\
+	$(PERL_INC)/cop.h		\
+	$(PERL_INC)/cv.h		\
+	$(PERL_INC)/dosish.h		\
+	$(PERL_INC)/embed.h		\
+	$(PERL_INC)/embedvar.h		\
+	$(PERL_INC)/fakethr.h		\
+	$(PERL_INC)/form.h		\
+	$(PERL_INC)/gv.h		\
+	$(PERL_INC)/handy.h		\
+	$(PERL_INC)/hv.h		\
+	$(PERL_INC)/intrpvar.h		\
+	$(PERL_INC)/iperlsys.h		\
+	$(PERL_INC)/keywords.h		\
+	$(PERL_INC)/mg.h		\
+	$(PERL_INC)/nostdio.h		\
+	$(PERL_INC)/op.h		\
+	$(PERL_INC)/opcode.h		\
+	$(PERL_INC)/patchlevel.h	\
+	$(PERL_INC)/perl.h		\
+	$(PERL_INC)/perlio.h		\
+	$(PERL_INC)/perlsdio.h		\
+	$(PERL_INC)/perlsfio.h		\
+	$(PERL_INC)/perlvars.h		\
+	$(PERL_INC)/perly.h		\
+	$(PERL_INC)/pp.h		\
+	$(PERL_INC)/pp_proto.h		\
+	$(PERL_INC)/proto.h		\
+	$(PERL_INC)/regcomp.h		\
+	$(PERL_INC)/regexp.h		\
+	$(PERL_INC)/regnodes.h		\
+	$(PERL_INC)/scope.h		\
+	$(PERL_INC)/sv.h		\
+	$(PERL_INC)/thread.h		\
+	$(PERL_INC)/unixish.h		\
+	$(PERL_INC)/util.h
+
+$(OBJECT) : $(PERL_HDRS)
+
 
 # --- MakeMaker makefile section:
+
+$(OBJECT) : $(FIRST_MAKEFILE)
+
 # We take a very conservative approach here, but it's worth it.
 # We move Makefile to Makefile.old here to avoid gnu make looping.
 $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
@@ -801,18 +1347,23 @@ testdb_dynamic :: pure_all
 
 test_ : test_dynamic
 
-test_static :: test_dynamic
-testdb_static :: testdb_dynamic
+test_static :: pure_all $(MAP_TARGET)
+	PERL_DL_NONLAZY=1 ./$(MAP_TARGET) "-MExtUtils::Command::MM" "-e" "test_harness($(TEST_VERBOSE), '$(INST_LIB)', '$(INST_ARCHLIB)')" $(TEST_FILES)
+
+testdb_static :: pure_all $(MAP_TARGET)
+	PERL_DL_NONLAZY=1 ./$(MAP_TARGET) $(TESTDB_SW) "-I$(INST_LIB)" "-I$(INST_ARCHLIB)" $(TEST_FILE)
+
 
 
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.1">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.01">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>a mini perl OSM api server for you to connect your josm to. It will then store the data and act like proxy to multiple osm api servers and also rendering servers and blogs. http://osmopenlayers.blogspot.com/2011/07/fosm-fake-osm-api.html </ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>James Michael DuPont  &lt;JamesMikeDuPont@googlemail.com&gt;</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Dancer::" VERSION="1.303" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Inline::" VERSION="0.44" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Test::More" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="YAML::" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="i686-linux-gnu-thread-multi-5.10" />' >> $(DISTNAME).ppd
@@ -826,18 +1377,80 @@ ppd :
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  lib/OSM/API/Tag.pm blib/lib/OSM/API/Tag.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm blib/lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
+	  lib/OSM/API/OsmHistory/SaxHandler.pm blib/lib/OSM/API/OsmHistory/SaxHandler.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Language.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm blib/lib/OSM/API/Mapnik/Schema/Result/SpatialRefSy.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayTag.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryEntry.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Changeset.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserBlock.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNodeTag.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserToken.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Acl.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
+	  lib/OSM/API/OsmObjects/Relation.pm blib/lib/OSM/API/OsmObjects/Relation.pm \
+	  lib/OSM/API/Mapnik/Schema.pm blib/lib/OSM/API/Mapnik/Schema.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
+	  lib/OSM/API/OsmObjects.pm blib/lib/OSM/API/OsmObjects.pm \
 	  lib/OSM/API/User.pm blib/lib/OSM/API/User.pm \
-	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm \
 	  README.pod $(INST_LIB)/OSM/API/README.pod \
-	  lib/OSM/API/Changeset.pm blib/lib/OSM/API/Changeset.pm \
-	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
-	  lib/OSM/API/Box.pm blib/lib/OSM/API/Box.pm \
-	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile \
-	  lib/OSM/API/Tags.pm blib/lib/OSM/API/Tags.pm \
-	  lib/OSM/API/OsmApi.pm blib/lib/OSM/API/OsmApi.pm \
-	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
+	  lib/OSM/API/OSMRailsPort/Schema.pm blib/lib/OSM/API/OSMRailsPort/Schema.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm \
+	  lib/Inline/C.pm blib/lib/Inline/C.pm \
+	  xmltwig.pl $(INST_LIB)/OSM/API/xmltwig.pl \
+	  lib/OSM/API/OsmFile.pm blib/lib/OSM/API/OsmFile.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationMember.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/User.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/User.pm \
 	  lib/OSM/API/Proxy.pm blib/lib/OSM/API/Proxy.pm \
-	  lib/OSM/API/OsmChange.pm blib/lib/OSM/API/OsmChange.pm 
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpxFile.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
+	  lib/Geo/HashInline.pm blib/lib/Geo/HashInline.pm \
+	  lib/Geo/Hash2.pm blib/lib/Geo/Hash2.pm \
+	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm \
+	  lib/Geo/HashFast.pm blib/lib/Geo/HashFast.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
+	  generatedb.pl $(INST_LIB)/OSM/API/generatedb.pl \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
+	  lib/OSM/API/OsmChange.pm blib/lib/OSM/API/OsmChange.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/NodeTag.pm \
+	  lib/OSM/API/Box.pm blib/lib/OSM/API/Box.pm \
+	  lib/Inline/Struct.pm blib/lib/Inline/Struct.pm \
+	  lib/OSM/API/Tags.pm blib/lib/OSM/API/Tags.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Country.pm \
+	  lib/OSM/API/OsmHistory.pm blib/lib/OSM/API/OsmHistory.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Friend.pm \
+	  lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm blib/lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 
@@ -848,3 +1461,13 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 
 
 # End.
+# Well, not quite. Inline::MakeMaker is adding this:
+
+# --- MakeMaker inline section:
+
+Proxy.inl : $(TO_INST_PM)
+	$(PERL) -Mblib -MInline=NOISY,_INSTALL_ -MOSM::API::Proxy -e1 0.01 $(INST_ARCHLIB)
+
+pure_all :: Proxy.inl
+
+# The End is here.

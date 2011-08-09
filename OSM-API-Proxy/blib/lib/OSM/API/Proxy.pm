@@ -1,8 +1,12 @@
 package OSM::API::Proxy;
 use Dancer ':syntax';
 use YAML;
+use Dancer::Plugin::DBIC qw(schema);
+use Data::Dumper;
+our $VERSION = '0.01';
 
-our $VERSION = '0.1';
+#use Inline CPP ;
+
 
 get '/' => sub {
     template 'index.tt', {}, { layout => undef };
@@ -16,8 +20,22 @@ get '/api/capabilities/test' => sub {
     template 'capabilities.tt', {}, { layout => undef };
 };
 
+get '/api/changes' => sub {
+    my $zoom = params->{zoom} || 12;
+	my $start = params->{start} ;
+    my $end = params->{end} ;
+    my $hours = params->{end} ;
+    # query nodes table 
+    # TODO 
+    template 'changes.tt', {}, { layout => undef };
+};
 
+# see source code 
+#  def capabilities in api_controller.rb in rails/app/controllers/api_controller.rb
 get '/api/capabilities' => sub {
+
+
+     
     ' <osm version="0.6" generator="Interface to OpenStreetMap server via dancer">
    <api>
      <version minimum="0.6" maximum="0.6"/>
@@ -30,17 +48,17 @@ get '/api/capabilities' => sub {
  </osm>';
 };
 
-get 'http://www.openstreetmap.org/api/0.6/map' => sub 
-{
-    template 'getmapbbox.tt', 
-    { 
-    }
-    , 
-    { layout => undef };
+# get 'http://www.openstreetmap.org/api/0.6/map' => sub 
+# {
+#     template 'getmapbbox.tt', 
+#     { 
+#     }
+#     , 
+#     { layout => undef };
 
-};
-#http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML005
-#http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML006
+# };
+# #http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML005
+# #http://www.openstreetmap.org/api/0.6/user/preferences/MerkaartorPrefsXML006
 
 get '/api/0.6/user/preferences/' => sub {
 '<osm version="0.6" generator="OpenStreetMap server">
@@ -59,6 +77,9 @@ get '/api/0.6/user/details' => sub {
     </usr>
   </osm>
 ';
+};
+
+get '/api/0.6/trackpoints' => sub {
 };
 
 get '/api/0.6/map' => sub {
@@ -477,7 +498,21 @@ put '/api/0.6/changeset/*' => sub {
 #<node old_id='-4368' new_id='1000000073409' new_version='1'/>
 };
 
-
-
+get '/browse/node/*' => sub 
+{
+    my ($id) = splat();
+    my $node = schema("osm")->resultset('Node')->find( { id => $id });
+#    my @node = schema("osm")->resultset('Node')->search_rs( { id => $id });
+    $Data::Dumper::Maxdepth=2;
+    debug Dumper(\$node);
+#    debug Dump($node);    
+#    debug Dump(\@node);    
+#    while(my $n = $node->next())
+#    foreach (@node)
+    {
+	template 'browse_node.tt', {node => $node }, { layout => undef };
+    }
+};
 
 1;
+
