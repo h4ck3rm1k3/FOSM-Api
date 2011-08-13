@@ -1,0 +1,18 @@
+TYPEMAP
+string          T_STR
+std::string          T_STR
+
+
+INPUT
+T_STR
+    {
+        if (SvTYPE($arg) != SVt_PV) {
+            warn(\"${Package}::$func_name() -- $var is invalid svtype\");
+            XSRETURN_UNDEF;
+        }
+        if (SvCUR($arg) == 0) {
+            warn(\"${Package}::$func_name() -- $var is empty\");
+            XSRETURN_UNDEF;
+        }
+        $var = string(SvPV_nolen($arg));
+    }
