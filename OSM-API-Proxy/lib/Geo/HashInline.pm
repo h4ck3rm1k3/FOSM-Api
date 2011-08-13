@@ -8,7 +8,8 @@ use Inline CPP,
     BUILD_NOISY => 1, 
     BUILD_TIMERS => 1 , 
     PRINT_INFO=>1,
-    REPORTBUG =>1 ;
+#    REPORTBUG =>1 
+    ;
 
 #use Inline ;
 
@@ -31,4 +32,3 @@ int subtract(int x, int y) {
 };
 
 };
-
