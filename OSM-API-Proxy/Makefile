@@ -166,6 +166,7 @@ MAN1PODS =
 MAN3PODS = README.pod \
 	lib/Geo/Hash2.pm \
 	lib/Geo/HashFast.pm \
+	lib/Inline/CPP.pod \
 	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
 	lib/OSM/API/Mapnik/Schema/Result/GeometryColumn.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
@@ -242,8 +243,14 @@ TO_INST_PM = README.pod \
 	generatedb.pl \
 	lib/Geo/Hash2.pm \
 	lib/Geo/HashFast.pm \
+	lib/Geo/HashInline.cpp \
+	lib/Geo/HashInline.map \
 	lib/Geo/HashInline.pm \
+	lib/Inline.pm \
 	lib/Inline/C.pm \
+	lib/Inline/CPP.pm \
+	lib/Inline/CPP.pod \
+	lib/Inline/CPP/grammar.pm \
 	lib/Inline/Struct.pm \
 	lib/OSM/API/Box.pm \
 	lib/OSM/API/ChangeSet.pm \
@@ -305,6 +312,7 @@ TO_INST_PM = README.pod \
 	lib/OSM/API/OsmObjects.pm \
 	lib/OSM/API/OsmObjects/Relation.pm \
 	lib/OSM/API/Point.pm \
+	lib/OSM/API/Proxy.cpp \
 	lib/OSM/API/Proxy.pm \
 	lib/OSM/API/RemoteServerAgent.pm \
 	lib/OSM/API/Tag.pm \
@@ -314,6 +322,8 @@ TO_INST_PM = README.pod \
 
 PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/Tag.pm \
+	lib/Inline/CPP/grammar.pm \
+	blib/lib/Inline/CPP/grammar.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
 	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
@@ -348,6 +358,8 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/OsmObjects/Relation.pm \
 	lib/OSM/API/Mapnik/Schema.pm \
 	blib/lib/OSM/API/Mapnik/Schema.pm \
+	lib/Geo/HashInline.cpp \
+	blib/lib/Geo/HashInline.cpp \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
@@ -374,6 +386,8 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
 	lib/OSM/API/OsmObjects.pm \
 	blib/lib/OSM/API/OsmObjects.pm \
+	lib/OSM/API/Proxy.cpp \
+	blib/lib/OSM/API/Proxy.cpp \
 	lib/OSM/API/User.pm \
 	blib/lib/OSM/API/User.pm \
 	README.pod \
@@ -402,14 +416,16 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
+	blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
-	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
-	blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
 	blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	lib/Geo/HashInline.map \
+	blib/lib/Geo/HashInline.map \
 	lib/OSM/API/ChangeSet.pm \
 	blib/lib/OSM/API/ChangeSet.pm \
 	lib/Geo/HashInline.pm \
@@ -420,6 +436,8 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/RemoteServerAgent.pm \
 	lib/Geo/HashFast.pm \
 	blib/lib/Geo/HashFast.pm \
+	lib/Inline/CPP.pm \
+	blib/lib/Inline/CPP.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
 	lib/OSM/API/Makefile \
@@ -448,6 +466,10 @@ PM_TO_BLIB = lib/OSM/API/Tag.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
 	blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/Inline/CPP.pod \
+	blib/lib/Inline/CPP.pod \
+	lib/Inline.pm \
+	blib/lib/Inline.pm \
 	lib/OSM/API/Point.pm \
 	blib/lib/OSM/API/Point.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
@@ -771,9 +793,9 @@ manifypods : pure_all  \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
+	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
-	lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
 	lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm \
@@ -807,6 +829,7 @@ manifypods : pure_all  \
 	lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
 	lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	lib/Inline/CPP.pod \
 	lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
 	README.pod \
 	lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
@@ -826,9 +849,9 @@ manifypods : pure_all  \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentNode.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmRoad.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmLine.$(MAN3EXT) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::OauthToken.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::DiaryComment.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::UserPreference.$(MAN3EXT) \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::OauthToken.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmPoint.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::GeographyColumn.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthNonce.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::OauthNonce.$(MAN3EXT) \
@@ -863,10 +886,11 @@ manifypods : pure_all  \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::Session.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentWayTag.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::WayNode.$(MAN3EXT) \
+	  lib/Inline/CPP.pod $(INST_MAN3DIR)/Inline::CPP.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmWay.$(MAN3EXT) \
-	  README.pod $(INST_MAN3DIR)/OSM::API::README.$(MAN3EXT) \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentRelationTag.$(MAN3EXT) 
+	  README.pod $(INST_MAN3DIR)/OSM::API::README.$(MAN3EXT) 
 	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::CurrentRelationTag.$(MAN3EXT) \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRel.pm $(INST_MAN3DIR)/OSM::API::Mapnik::Schema::Result::PlanetOsmRel.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::ChangesetTag.$(MAN3EXT) \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm $(INST_MAN3DIR)/OSM::API::OSMRailsPort::Schema::Result::ClientApplication.$(MAN3EXT) \
@@ -1377,6 +1401,7 @@ ppd :
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  lib/OSM/API/Tag.pm blib/lib/OSM/API/Tag.pm \
+	  lib/Inline/CPP/grammar.pm blib/lib/Inline/CPP/grammar.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmRoad.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmLine.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm blib/lib/OSM/API/Mapnik/Schema/Result/GeographyColumn.pm \
@@ -1394,20 +1419,22 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Relation.pm \
 	  lib/OSM/API/OsmObjects/Relation.pm blib/lib/OSM/API/OsmObjects/Relation.pm \
 	  lib/OSM/API/Mapnik/Schema.pm blib/lib/OSM/API/Mapnik/Schema.pm \
+	  lib/Geo/HashInline.cpp blib/lib/Geo/HashInline.cpp \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWay.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayNode.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Message.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationTag.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/RelationMember.pm \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm 
+	  lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/SchemaMigration.pm 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelation.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPolygon.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Session.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Way.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmWay.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentRelationTag.pm \
 	  lib/OSM/API/OsmObjects.pm blib/lib/OSM/API/OsmObjects.pm \
+	  lib/OSM/API/Proxy.cpp blib/lib/OSM/API/Proxy.cpp \
 	  lib/OSM/API/User.pm blib/lib/OSM/API/User.pm \
 	  README.pod $(INST_LIB)/OSM/API/README.pod \
 	  lib/OSM/API/OSMRailsPort/Schema.pm blib/lib/OSM/API/OSMRailsPort/Schema.pm \
@@ -1422,18 +1449,20 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpxFileTag.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmNode.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentNode.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/DiaryComment.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserPreference.pm \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/OauthToken.pm \
 	  lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm blib/lib/OSM/API/Mapnik/Schema/Result/PlanetOsmPoint.pm \
+	  lib/Geo/HashInline.map blib/lib/Geo/HashInline.map \
 	  lib/OSM/API/ChangeSet.pm blib/lib/OSM/API/ChangeSet.pm \
 	  lib/Geo/HashInline.pm blib/lib/Geo/HashInline.pm \
 	  lib/Geo/Hash2.pm blib/lib/Geo/Hash2.pm \
-	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm \
-	  lib/Geo/HashFast.pm blib/lib/Geo/HashFast.pm \
-	  lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
-	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile 
+	  lib/OSM/API/RemoteServerAgent.pm blib/lib/OSM/API/RemoteServerAgent.pm 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/Geo/HashFast.pm blib/lib/Geo/HashFast.pm \
+	  lib/Inline/CPP.pm blib/lib/Inline/CPP.pm \
+	  lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/UserRole.pm \
+	  lib/OSM/API/Makefile blib/lib/OSM/API/Makefile \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/Node.pm \
 	  generatedb.pl $(INST_LIB)/OSM/API/generatedb.pl \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/GpsPoint.pm \
@@ -1446,6 +1475,8 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  lib/OSM/API/OsmHistory.pm blib/lib/OSM/API/OsmHistory.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/CurrentWayTag.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/WayNode.pm \
+	  lib/Inline/CPP.pod blib/lib/Inline/CPP.pod \
+	  lib/Inline.pm blib/lib/Inline.pm \
 	  lib/OSM/API/Point.pm blib/lib/OSM/API/Point.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/ChangesetTag.pm \
 	  lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm blib/lib/OSM/API/OSMRailsPort/Schema/Result/ClientApplication.pm \

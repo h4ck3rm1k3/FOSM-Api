@@ -5,6 +5,8 @@ use Dancer::Plugin::DBIC qw(schema);
 use Data::Dumper;
 our $VERSION = '0.01';
 
+#use Inline CPP => dirname(__FILE__).'/Proxy.cpp',	    ENABLE => 'STD_IOSTREAM',    TYPEMAPS =>  dirname(__FILE__).'/HashInline.map',    INC => '-I/usr/include/stlport/',     BUILD_NOISY => 1,     BUILD_TIMERS => 1 ,     ;
+
 #use Inline CPP ;
 
 

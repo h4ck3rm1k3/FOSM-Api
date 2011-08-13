@@ -1,11 +1,11 @@
 package OSM::API::OsmObjects::Global;
-use Geo::Hash;
+use Geo::HashInline;
 use strict;
 use warnings;
 use File::Path qw(make_path remove_tree);
 use YAML;
 #global instance of the geohash to be reused
-our $gh = Geo::Hash->new;
+our $gh = Geo::HashInline->new;
 1;
 
 package OSM::API::OsmObjects::Base;
