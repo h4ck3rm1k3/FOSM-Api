@@ -1,0 +1,3 @@
+class Proxy {
+  int x;
+};
