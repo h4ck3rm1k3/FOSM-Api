@@ -14,6 +14,8 @@
 #endif
 
 #include <string>          // For placement new
+#include <map>          // For placement new
+//#include <funct>          // For placement new
 using namespace std;
 
 // On MSVC, disable "conditional expression is constant" warning (level 4). 
@@ -683,31 +685,29 @@ namespace rapidxml
     //! Base class for xml_node and xml_attribute implementing common functions: 
     //! name(), name_size(), value(), value_size() and parent().
     //! \param Ch Character type to use
+
     template<class Ch = char>
-    class xml_base
+    class xml_base 
     {
+    public:        
 
-    public:
-        
-        ///////////////////////////////////////////////////////////////////////////
-        // Construction & destruction
-      std::map<std::string, functor_base *(*)()> name_mapper;
-      xml_node_osm_node * create_eval_node(xml_base * pBase) { return ( xml_node_osm_node *)pBase; } // coherse
-      xml_node_osm_way  * create_eval_node(xml_base * pBase) { return ( xml_node_osm_way  *)pBase; } // coherse
-      functor_base *create_eval_way() { return new eval_y; }
+      typedef void (*t_process_func)(xml_base<Ch> *) ;
+      typedef std::map<std::string, t_process_func > t_name_mapper;
 
-      void load_classes()
-      {
-	name_mapper["node"] = create_eval_node;
-	name_mapper["way"] = create_eval_way;
-      }
+      ///////////////////////////////////////////////////////////////////////////
+      // Construction & destruction
+      static int name_mapper_loaded;
+      static t_name_mapper name_mapper;
+
+      static void load_classes();
 
       void checkclass ()
       {
 	if (m_name)
 	  {
 	    cout << "xml_base name:" << m_name;
-	    
+	    load_classes();
+	    name_mapper[m_name](this); // call the process function
 	  }
 	if (m_value)
 	  {
@@ -2690,6 +2690,47 @@ namespace rapidxml
     }
     //! \endcond
 
+  template<class Ch> class xml_node_osm_node
+  {
+  public:
+    static void process(xml_base<char> * self)
+    {
+      cout << "call back in the node" << endl;
+    };
+
+
+  };
+
+  template<class Ch> class xml_node_osm_way
+  {
+  public:
+    static void process(xml_base<char> * self)
+    {
+      cout << "we are in a way" << endl;
+    };
+  };
+
+  template <>
+  int xml_base<char>::name_mapper_loaded=0;
+
+  //  template<class Ch = char>
+  template <>
+  void xml_base<char>::load_classes()
+  {
+    if (!name_mapper_loaded)
+      {
+	name_mapper["node"] = xml_node_osm_node<char>::process;
+	name_mapper["way"] = xml_node_osm_way<char>::process;
+	name_mapper_loaded++;
+      }       
+  };
+
+  typedef void (*t_process_func)(xml_base<char> *) ;
+  //      typedef std::map<std::string, t_process_func > t_name_mapper;
+  typedef std::map<std::string, t_process_func > t_name_mapper;
+  template <>
+  t_name_mapper xml_base<char>::name_mapper=t_name_mapper();
+  
 }
 
 // Undefine internal macros

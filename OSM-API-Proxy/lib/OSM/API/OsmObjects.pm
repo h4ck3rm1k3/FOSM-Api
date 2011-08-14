@@ -1,11 +1,21 @@
 package OSM::API::OsmObjects::Global;
 use Geo::HashInline;
+use Geo::Hash;
 use strict;
 use warnings;
 use File::Path qw(make_path remove_tree);
 use YAML;
 #global instance of the geohash to be reused
-our $gh = Geo::HashInline->new;
+our $gh = Geo::Hash->new; # used only for decode for now
+#_Geo__HashInline_encodestr
+
+sub encode
+{
+    #OSM::API::OsmObjects::Global::gh->encode
+    my $x=shift;
+    my $y=shift;
+    return Geo::HashInline::encodestr($x,$y);
+}
 1;
 
 package OSM::API::OsmObjects::Base;
@@ -111,11 +121,11 @@ sub Hash
 	warn "no bounds" unless $self->{max_lat};
 	warn "no bounds" unless $self->{max_lon};
 
-	my $min_hash = $OSM::API::OsmObjects::Global::gh->encode( $self->{min_lat}, $self->{min_lon} );
-	my $max_hash = $OSM::API::OsmObjects::Global::gh->encode( $self->{max_lat}, $self->{max_lon} );
+	my $min_hash = OSM::API::OsmObjects::Global::encode( $self->{min_lat}, $self->{min_lon} );
+	my $max_hash = OSM::API::OsmObjects::Global::encode( $self->{max_lat}, $self->{max_lon} );
 
-	my $min_hash2 = $OSM::API::OsmObjects::Global::gh->encode( $self->{min_lat}, $self->{max_lon} );
-	my $max_hash2 = $OSM::API::OsmObjects::Global::gh->encode( $self->{max_lat}, $self->{min_lon} );
+	my $min_hash2 = OSM::API::OsmObjects::Global::encode( $self->{min_lat}, $self->{max_lon} );
+	my $max_hash2 = OSM::API::OsmObjects::Global::encode( $self->{max_lat}, $self->{min_lon} );
 
 	# now we look for the common prefix
 	my @min_path = split (//, $min_hash);
@@ -277,7 +287,7 @@ sub tags
 sub Hash
 {
     my $self=shift;
-    my $hash = $OSM::API::OsmObjects::Global::gh->encode( $self->lat, $self->lon );
+    my $hash = OSM::API::OsmObjects::Global::encode( $self->lat, $self->lon );
     $self->hash($hash);
 #    warn $self->lat . ",".  $self->lon . " " . $self->hash;
 }
