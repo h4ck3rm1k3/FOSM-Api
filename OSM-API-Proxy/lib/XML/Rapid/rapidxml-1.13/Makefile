@@ -1,4 +1,4 @@
-all :
+all : test.cpp rapidxml.hpp
 	g++ -g3 -pg test.cpp -o tester
 
 test: tester
