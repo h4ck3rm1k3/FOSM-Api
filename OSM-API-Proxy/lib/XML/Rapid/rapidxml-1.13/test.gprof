@@ -1,0 +1,470 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+ no time accumulated
+
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00   528378     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&)
+  0.00      0.00     0.00   223575     0.00     0.00  rapidxml::xml_document<char>::attribute_value_pure_pred<(char)34>::test(char)
+  0.00      0.00     0.00   211669     0.00     0.00  rapidxml::xml_document<char>::attribute_name_pred::test(char)
+  0.00      0.00     0.00    45199     0.00     0.00  rapidxml::xml_base<char>::nullstr()
+  0.00      0.00     0.00    45198     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&)
+  0.00      0.00     0.00    13572     0.00     0.00  rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const
+  0.00      0.00     0.00    13436     0.00     0.00  rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_doctype<0>(char*&)
+  0.00      0.00     0.00     9097     0.00     0.00  rapidxml::memory_pool<char>::align(char*)
+  0.00      0.00     0.00     9097     0.00     0.00  void rapidxml::xml_document<char>::parse<0>(char*)
+  0.00      0.00     0.00     9096     0.00     0.00  void rapidxml::xml_document<char>::parse_bom<0>(char*&)
+  0.00      0.00     0.00     9026     0.00     0.00  rapidxml::xml_node<char>::next_sibling(char const*, unsigned int, bool) const
+  0.00      0.00     0.00     4548     0.00     0.00  unsigned int rapidxml::internal::measure<char>(char const*)
+  0.00      0.00     0.00     4547     0.00     0.00  rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int)
+  0.00      0.00     0.00     4547     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >)
+  0.00      0.00     0.00     4547     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::fill_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, int, char)
+  0.00      0.00     0.00     4487     0.00     0.00  rapidxml::memory_pool<char>::init()
+  0.00      0.00     0.00     4479     0.00     0.00  void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::whitespace_pred, 0>(char*&)
+  0.00      0.00     0.00     4479     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int)
+  0.00      0.00     0.00     4479     0.00     0.00  rapidxml::xml_base<char>::value() const
+  0.00      0.00     0.00     4479     0.00     0.00  rapidxml::xml_base<char>::parent() const
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::memory_pool<char>::allocate_aligned(unsigned int)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_document<char>::whitespace_pred::test(char)
+  0.00      0.00     0.00     4478     0.00     0.00  void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::node_name_pred, 0>(char*&)
+  0.00      0.00     0.00     4478     0.00     0.00  void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::attribute_name_pred, 0>(char*&)
+  0.00      0.00     0.00     4478     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int)
+  0.00      0.00     0.00     4478     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int)
+  0.00      0.00     0.00     4478     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_attributes<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_base<char>::name(char const*, unsigned int)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_base<char>::value(char const*, unsigned int)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_node<char>::xml_node(rapidxml::node_type)
+  0.00      0.00     0.00     4478     0.00     0.00  rapidxml::xml_node<char>::type() const
+  0.00      0.00     0.00     4478     0.00     0.00  std::exception::exception()
+  0.00      0.00     0.00       70     0.00     0.00  rapidxml::xml_base<char>::value_size() const
+  0.00      0.00     0.00       69     0.00     0.00  void rapidxml::xml_document<char>::parse_node_attributes<0>(char*&, rapidxml::xml_node<char>*)
+  0.00      0.00     0.00        3     0.00     0.00  rapidxml::xml_attribute<char>::xml_attribute()
+  0.00      0.00     0.00        2     0.00     0.00  rapidxml::xml_base<char>::xml_base()
+  0.00      0.00     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::memory_pool<char>::clear()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::memory_pool<char>::memory_pool()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::parse_error::~parse_error()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_xml_declaration<0>(char*&)
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_document<char>::xml_document()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_document<char>::~xml_document()
+  0.00      0.00     0.00        1     0.00     0.00  std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int)
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*)
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_node<char>::remove_all_nodes()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_node<char>::remove_all_attributes()
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_node<char>::xml_node(rapidxml::node_type)
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::parse_error::what() const
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_attribute<char>::next_attribute(char const*, unsigned int, bool) const
+  0.00      0.00     0.00        1     0.00     0.00  rapidxml::xml_base<char>::name_size() const
+  0.00      0.00     0.00        1     0.00     0.00  std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream_iterator<char, char, std::char_traits<char> > const&)
+  0.00      0.00     0.00        1     0.00     0.00  std::iterator<std::output_iterator_tag, void, void, void, void>::iterator()
+  0.00      0.00     0.00        1     0.00     0.00  main
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) no time propagated
+
+index % time    self  children    called     name
+[1]      0.0    0.00    0.00    9096+2       <cycle 1 as a whole> [1]
+                0.00    0.00    9097             void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00       1             rapidxml::xml_node<char>::remove_all_nodes() <cycle 1> [52]
+-----------------------------------------------
+                0.00    0.00       1/1           global constructors keyed to main [60]
+[2]      0.0    0.00    0.00       1         main [2]
+                0.00    0.00       1/1           rapidxml::xml_document<char>::~xml_document() [49]
+                0.00    0.00       1/1           rapidxml::parse_error::~parse_error() [46]
+                0.00    0.00       1/9096        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00       1/1           rapidxml::xml_attribute<char>::next_attribute(char const*, unsigned int, bool) const [56]
+                0.00    0.00       1/1           rapidxml::parse_error::what() const [55]
+-----------------------------------------------
+                0.00    0.00   13434/528378      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_and_expand_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, char, std::ostream_iterator<char, char, std::char_traits<char> >) [91]
+                0.00    0.00   13437/528378      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+                0.00    0.00   15966/528378      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::fill_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, int, char) [20]
+                0.00    0.00   54357/528378      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+                0.00    0.00  431184/528378      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >) [19]
+[6]      0.0    0.00    0.00  528378         std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&) [6]
+-----------------------------------------------
+                0.00    0.00    7983/223575      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::fill_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, int, char) [20]
+                0.00    0.00  215592/223575      std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >) [19]
+[7]      0.0    0.00    0.00  223575         rapidxml::xml_document<char>::attribute_value_pure_pred<(char)34>::test(char) [7]
+-----------------------------------------------
+                0.00    0.00  211669/211669      void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::node_name_pred, 0>(char*&) [29]
+[8]      0.0    0.00    0.00  211669         rapidxml::xml_document<char>::attribute_name_pred::test(char) [8]
+-----------------------------------------------
+                0.00    0.00       1/45199       std::iterator<std::output_iterator_tag, void, void, void, void>::iterator() [59]
+                0.00    0.00   45198/45199       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream_iterator<char, char, std::char_traits<char> > const&) [58]
+[9]      0.0    0.00    0.00   45199         rapidxml::xml_base<char>::nullstr() [9]
+-----------------------------------------------
+                0.00    0.00       1/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int) [23]
+                0.00    0.00    4478/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_data_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [86]
+                0.00    0.00    4478/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_and_expand_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, char, std::ostream_iterator<char, char, std::char_traits<char> >) [91]
+                0.00    0.00    4547/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >) [19]
+                0.00    0.00    4547/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_attributes<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int) [33]
+                0.00    0.00    4548/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+                0.00    0.00    8958/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+                0.00    0.00   13641/45198       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[10]     0.0    0.00    0.00   45198         std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+-----------------------------------------------
+                                   1             rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+                0.00    0.00    4478/13572       rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+                0.00    0.00    9094/13572       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[11]     0.0    0.00    0.00   13572+1       rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+                0.00    0.00       1/1           rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [51]
+                0.00    0.00       1/9026        rapidxml::xml_node<char>::next_sibling(char const*, unsigned int, bool) const [16]
+                0.00    0.00       1/1           rapidxml::xml_base<char>::name_size() const [57]
+                0.00    0.00       1/4548        unsigned int rapidxml::internal::measure<char>(char const*) [17]
+                                   1             rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+-----------------------------------------------
+                0.00    0.00    4478/13436       rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [51]
+                0.00    0.00    4479/13436       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+                0.00    0.00    4479/13436       std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[12]     0.0    0.00    0.00   13436         rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_doctype<0>(char*&) [12]
+-----------------------------------------------
+                0.00    0.00       1/9097        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [27]
+                0.00    0.00    9096/9097        void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::whitespace_pred, 0>(char*&) [22]
+[13]     0.0    0.00    0.00    9097         rapidxml::memory_pool<char>::align(char*) [13]
+-----------------------------------------------
+                                   1             rapidxml::xml_node<char>::remove_all_nodes() <cycle 1> [52]
+                0.00    0.00       1/9096        main [2]
+                0.00    0.00      70/9096        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+                0.00    0.00    4478/9096        rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [51]
+                0.00    0.00    4547/9096        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[14]     0.0    0.00    0.00    9097         void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00       3/9096        void rapidxml::xml_document<char>::parse_bom<0>(char*&) [15]
+                0.00    0.00       2/4479        void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::whitespace_pred, 0>(char*&) [22]
+                0.00    0.00       1/1           rapidxml::memory_pool<char>::clear() [44]
+                0.00    0.00       1/1           rapidxml::xml_node<char>::remove_all_attributes() [53]
+                0.00    0.00       1/4478        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [27]
+                                   1             rapidxml::xml_node<char>::remove_all_nodes() <cycle 1> [52]
+-----------------------------------------------
+                0.00    0.00       3/9096        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00    4478/9096        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+                0.00    0.00    4615/9096        void rapidxml::xml_document<char>::parse_node_contents<0>(char*&, rapidxml::xml_node<char>*) [70]
+[15]     0.0    0.00    0.00    9096         void rapidxml::xml_document<char>::parse_bom<0>(char*&) [15]
+-----------------------------------------------
+                0.00    0.00       1/9026        rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+                0.00    0.00    4478/9026        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+                0.00    0.00    4547/9026        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[16]     0.0    0.00    0.00    9026         rapidxml::xml_node<char>::next_sibling(char const*, unsigned int, bool) const [16]
+-----------------------------------------------
+                0.00    0.00       1/4548        rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+                0.00    0.00      69/4548        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+                0.00    0.00    4478/4548        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+[17]     0.0    0.00    0.00    4548         unsigned int rapidxml::internal::measure<char>(char const*) [17]
+-----------------------------------------------
+                0.00    0.00      69/4547        void rapidxml::xml_document<char>::parse_node_contents<0>(char*&, rapidxml::xml_node<char>*) [70]
+                0.00    0.00    4478/4547        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+[18]     0.0    0.00    0.00    4547         rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int) [18]
+                0.00    0.00    4478/4478        rapidxml::memory_pool<char>::allocate_aligned(unsigned int) [26]
+                0.00    0.00    4478/4478        std::exception::exception() [38]
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>::xml_node(rapidxml::node_type) [36]
+-----------------------------------------------
+                0.00    0.00    4547/4547        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[19]     0.0    0.00    0.00    4547         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >) [19]
+                0.00    0.00  431184/528378      std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&) [6]
+                0.00    0.00  215592/223575      rapidxml::xml_document<char>::attribute_value_pure_pred<(char)34>::test(char) [7]
+                0.00    0.00    4547/45198       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+-----------------------------------------------
+                0.00    0.00    4547/4547        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[20]     0.0    0.00    0.00    4547         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::fill_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, int, char) [20]
+                0.00    0.00   15966/528378      std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&) [6]
+                0.00    0.00    7983/223575      rapidxml::xml_document<char>::attribute_value_pure_pred<(char)34>::test(char) [7]
+-----------------------------------------------
+                                   2             rapidxml::memory_pool<char>::init() [21]
+                0.00    0.00       3/4487        rapidxml::memory_pool<char>::clear() [44]
+                0.00    0.00       3/4487        rapidxml::xml_base<char>::name(char const*) [95]
+                0.00    0.00    4481/4487        rapidxml::memory_pool<char>::allocate_aligned(unsigned int) [26]
+[21]     0.0    0.00    0.00    4487+2       rapidxml::memory_pool<char>::init() [21]
+                                   2             rapidxml::memory_pool<char>::init() [21]
+-----------------------------------------------
+                0.00    0.00       2/4479        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00    4477/4479        void rapidxml::xml_document<char>::parse_node_contents<0>(char*&, rapidxml::xml_node<char>*) [70]
+[22]     0.0    0.00    0.00    4479         void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::whitespace_pred, 0>(char*&) [22]
+                0.00    0.00    9096/9097        rapidxml::memory_pool<char>::align(char*) [13]
+-----------------------------------------------
+                0.00    0.00    4479/4479        rapidxml::xml_node<char>::xml_node(rapidxml::node_type) [36]
+[23]     0.0    0.00    0.00    4479         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int) [23]
+                0.00    0.00       1/45198       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+                0.00    0.00       1/4479        rapidxml::xml_base<char>::parent() const [25]
+-----------------------------------------------
+                0.00    0.00       1/4479        rapidxml::xml_node<char>::remove_all_attributes() [53]
+                0.00    0.00    4478/4479        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_attributes<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int) [33]
+[24]     0.0    0.00    0.00    4479         rapidxml::xml_base<char>::value() const [24]
+-----------------------------------------------
+                0.00    0.00       1/4479        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int) [23]
+                0.00    0.00    4478/4479        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+[25]     0.0    0.00    0.00    4479         rapidxml::xml_base<char>::parent() const [25]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int) [18]
+[26]     0.0    0.00    0.00    4478         rapidxml::memory_pool<char>::allocate_aligned(unsigned int) [26]
+                0.00    0.00    4481/4487        rapidxml::memory_pool<char>::init() [21]
+                0.00    0.00       3/3           rapidxml::xml_attribute<char>::xml_attribute() [41]
+-----------------------------------------------
+                0.00    0.00       1/4478        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+                0.00    0.00    4477/4478        void rapidxml::xml_document<char>::parse_node_contents<0>(char*&, rapidxml::xml_node<char>*) [70]
+[27]     0.0    0.00    0.00    4478         rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [27]
+                0.00    0.00    4478/4478        rapidxml::xml_document<char>::whitespace_pred::test(char) [28]
+                0.00    0.00       1/9097        rapidxml::memory_pool<char>::align(char*) [13]
+                0.00    0.00       1/1           rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_xml_declaration<0>(char*&) [47]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [27]
+[28]     0.0    0.00    0.00    4478         rapidxml::xml_document<char>::whitespace_pred::test(char) [28]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+[29]     0.0    0.00    0.00    4478         void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::node_name_pred, 0>(char*&) [29]
+                0.00    0.00  211669/211669      rapidxml::xml_document<char>::attribute_name_pred::test(char) [8]
+-----------------------------------------------
+                0.00    0.00    4478/4478        void rapidxml::xml_document<char>::parse_node_attributes<0>(char*&, rapidxml::xml_node<char>*) [40]
+[30]     0.0    0.00    0.00    4478         void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::attribute_name_pred, 0>(char*&) [30]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+[31]     0.0    0.00    0.00    4478         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+                0.00    0.00   13437/528378      std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&) [6]
+                0.00    0.00    8958/45198       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+                0.00    0.00    4479/13436       rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_doctype<0>(char*&) [12]
+                0.00    0.00    4478/4478        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+                0.00    0.00       1/70          rapidxml::xml_base<char>::value_size() const [39]
+-----------------------------------------------
+                0.00    0.00    4478/4478        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+[32]     0.0    0.00    0.00    4478         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [32]
+                0.00    0.00    4548/45198       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+                0.00    0.00    4478/4479        rapidxml::xml_base<char>::parent() const [25]
+                0.00    0.00    4478/4548        unsigned int rapidxml::internal::measure<char>(char const*) [17]
+                0.00    0.00      70/9096        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+-----------------------------------------------
+                0.00    0.00    4478/4478        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[33]     0.0    0.00    0.00    4478         std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_attributes<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int) [33]
+                0.00    0.00    4547/45198       std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&) [10]
+                0.00    0.00    4478/4479        rapidxml::xml_base<char>::value() const [24]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+[34]     0.0    0.00    0.00    4478         rapidxml::xml_base<char>::name(char const*, unsigned int) [34]
+-----------------------------------------------
+                0.00    0.00    4478/4478        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[35]     0.0    0.00    0.00    4478         rapidxml::xml_base<char>::value(char const*, unsigned int) [35]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int) [18]
+[36]     0.0    0.00    0.00    4478         rapidxml::xml_node<char>::xml_node(rapidxml::node_type) [36]
+                0.00    0.00    4479/4479        std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int) [23]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [51]
+[37]     0.0    0.00    0.00    4478         rapidxml::xml_node<char>::type() const [37]
+-----------------------------------------------
+                0.00    0.00    4478/4478        rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int) [18]
+[38]     0.0    0.00    0.00    4478         std::exception::exception() [38]
+-----------------------------------------------
+                0.00    0.00       1/70          std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [31]
+                0.00    0.00      69/70          std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_element_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [90]
+[39]     0.0    0.00    0.00      70         rapidxml::xml_base<char>::value_size() const [39]
+-----------------------------------------------
+                0.00    0.00      69/69          rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_element<0>(char*&) [68]
+[40]     0.0    0.00    0.00      69         void rapidxml::xml_document<char>::parse_node_attributes<0>(char*&, rapidxml::xml_node<char>*) [40]
+                0.00    0.00    4478/4478        void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::attribute_name_pred, 0>(char*&) [30]
+-----------------------------------------------
+                0.00    0.00       3/3           rapidxml::memory_pool<char>::allocate_aligned(unsigned int) [26]
+[41]     0.0    0.00    0.00       3         rapidxml::xml_attribute<char>::xml_attribute() [41]
+-----------------------------------------------
+                0.00    0.00       1/2           rapidxml::memory_pool<char>::memory_pool() [45]
+                0.00    0.00       1/2           rapidxml::memory_pool<char>::clear() [44]
+[42]     0.0    0.00    0.00       2         rapidxml::xml_base<char>::xml_base() [42]
+-----------------------------------------------
+                0.00    0.00       1/1           _fini [111]
+[43]     0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [43]
+-----------------------------------------------
+                0.00    0.00       1/1           void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+[44]     0.0    0.00    0.00       1         rapidxml::memory_pool<char>::clear() [44]
+                0.00    0.00       3/4487        rapidxml::memory_pool<char>::init() [21]
+                0.00    0.00       1/2           rapidxml::xml_base<char>::xml_base() [42]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::memory_pool<char>::~memory_pool() [63]
+[45]     0.0    0.00    0.00       1         rapidxml::memory_pool<char>::memory_pool() [45]
+                0.00    0.00       1/2           rapidxml::xml_base<char>::xml_base() [42]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[46]     0.0    0.00    0.00       1         rapidxml::parse_error::~parse_error() [46]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [27]
+[47]     0.0    0.00    0.00       1         rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_xml_declaration<0>(char*&) [47]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_document<char>::~xml_document() [49]
+[48]     0.0    0.00    0.00       1         rapidxml::xml_document<char>::xml_document() [48]
+                0.00    0.00       1/1           std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int) [50]
+                0.00    0.00       1/1           rapidxml::xml_node<char>::xml_node(rapidxml::node_type) [54]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[49]     0.0    0.00    0.00       1         rapidxml::xml_document<char>::~xml_document() [49]
+                0.00    0.00       1/1           rapidxml::xml_document<char>::xml_document() [48]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_document<char>::xml_document() [48]
+[50]     0.0    0.00    0.00       1         std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int) [50]
+                0.00    0.00       1/1           std::iterator<std::output_iterator_tag, void, void, void, void>::iterator() [59]
+                0.00    0.00       1/1           std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream_iterator<char, char, std::char_traits<char> > const&) [58]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+[51]     0.0    0.00    0.00       1         rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [51]
+                0.00    0.00    4478/4478        rapidxml::xml_node<char>::type() const [37]
+                0.00    0.00    4478/13436       rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_doctype<0>(char*&) [12]
+                0.00    0.00    4478/9096        void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+-----------------------------------------------
+                                   1             void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+[52]     0.0    0.00    0.00       1         rapidxml::xml_node<char>::remove_all_nodes() <cycle 1> [52]
+                                   1             void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+-----------------------------------------------
+                0.00    0.00       1/1           void rapidxml::xml_document<char>::parse<0>(char*) <cycle 1> [14]
+[53]     0.0    0.00    0.00       1         rapidxml::xml_node<char>::remove_all_attributes() [53]
+                0.00    0.00       1/4479        rapidxml::xml_base<char>::value() const [24]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_document<char>::xml_document() [48]
+[54]     0.0    0.00    0.00       1         rapidxml::xml_node<char>::xml_node(rapidxml::node_type) [54]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[55]     0.0    0.00    0.00       1         rapidxml::parse_error::what() const [55]
+-----------------------------------------------
+                0.00    0.00       1/1           main [2]
+[56]     0.0    0.00    0.00       1         rapidxml::xml_attribute<char>::next_attribute(char const*, unsigned int, bool) const [56]
+-----------------------------------------------
+                0.00    0.00       1/1           rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const [11]
+[57]     0.0    0.00    0.00       1         rapidxml::xml_base<char>::name_size() const [57]
+-----------------------------------------------
+                0.00    0.00       1/1           std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int) [50]
+[58]     0.0    0.00    0.00       1         std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream_iterator<char, char, std::char_traits<char> > const&) [58]
+                0.00    0.00   45198/45199       rapidxml::xml_base<char>::nullstr() [9]
+-----------------------------------------------
+                0.00    0.00       1/1           std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int) [50]
+[59]     0.0    0.00    0.00       1         std::iterator<std::output_iterator_tag, void, void, void, void>::iterator() [59]
+                0.00    0.00       1/45199       rapidxml::xml_base<char>::nullstr() [9]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [43] __static_initialization_and_destruction_0(int, int) (test.cpp) [15] void rapidxml::xml_document<char>::parse_bom<0>(char*&) [54] rapidxml::xml_node<char>::xml_node(rapidxml::node_type)
+  [18] rapidxml::memory_pool<char>::allocate_node(rapidxml::node_type, char const*, char const*, unsigned int, unsigned int) [48] rapidxml::xml_document<char>::xml_document() [36] rapidxml::xml_node<char>::xml_node(rapidxml::node_type)
+  [26] rapidxml::memory_pool<char>::allocate_aligned(unsigned int) [49] rapidxml::xml_document<char>::~xml_document() [55] rapidxml::parse_error::what() const
+  [21] rapidxml::memory_pool<char>::init() [41] rapidxml::xml_attribute<char>::xml_attribute() [56] rapidxml::xml_attribute<char>::next_attribute(char const*, unsigned int, bool) const
+  [13] rapidxml::memory_pool<char>::align(char*) [23] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::print<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const&, int) [39] rapidxml::xml_base<char>::value_size() const
+  [44] rapidxml::memory_pool<char>::clear() [50] std::basic_ostream<char, std::char_traits<char> >& rapidxml::print<char>(std::basic_ostream<char, std::char_traits<char> >&, rapidxml::xml_node<char> const&, int) [24] rapidxml::xml_base<char>::value() const
+  [45] rapidxml::memory_pool<char>::memory_pool() [19] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::copy_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(char const*, char const*, std::ostream_iterator<char, char, std::char_traits<char> >) [25] rapidxml::xml_base<char>::parent() const
+  [46] rapidxml::parse_error::~parse_error() [20] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::fill_chars<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, int, char) [57] rapidxml::xml_base<char>::name_size() const
+  [27] rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_node<0>(char*&) [31] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_node<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [11] rapidxml::xml_node<char>::first_node(char const*, unsigned int, bool) const
+  [12] rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_doctype<0>(char*&) [32] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_children<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int, int) [16] rapidxml::xml_node<char>::next_sibling(char const*, unsigned int, bool) const
+  [28] rapidxml::xml_document<char>::whitespace_pred::test(char) [33] std::ostream_iterator<char, char, std::char_traits<char> > rapidxml::internal::print_attributes<std::ostream_iterator<char, char, std::char_traits<char> >, char>(std::ostream_iterator<char, char, std::char_traits<char> >, rapidxml::xml_node<char> const*, int) [37] rapidxml::xml_node<char>::type() const
+   [8] rapidxml::xml_document<char>::attribute_name_pred::test(char) [17] unsigned int rapidxml::internal::measure<char>(char const*) [58] std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream_iterator<char, char, std::char_traits<char> > const&)
+  [40] void rapidxml::xml_document<char>::parse_node_attributes<0>(char*&, rapidxml::xml_node<char>*) [34] rapidxml::xml_base<char>::name(char const*, unsigned int) [10] std::ostream_iterator<char, char, std::char_traits<char> >::ostream_iterator(std::ostream&)
+  [47] rapidxml::xml_node<char>* rapidxml::xml_document<char>::parse_xml_declaration<0>(char*&) [35] rapidxml::xml_base<char>::value(char const*, unsigned int) [6] std::ostream_iterator<char, char, std::char_traits<char> >::operator=(char const&)
+   [7] rapidxml::xml_document<char>::attribute_value_pure_pred<(char)34>::test(char) [9] rapidxml::xml_base<char>::nullstr() [59] std::iterator<std::output_iterator_tag, void, void, void, void>::iterator()
+  [29] void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::node_name_pred, 0>(char*&) [42] rapidxml::xml_base<char>::xml_base() [38] std::exception::exception()
+  [22] void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::whitespace_pred, 0>(char*&) [51] rapidxml::xml_node<char>::append_node(rapidxml::xml_node<char>*) [2] main
+  [30] void rapidxml::xml_document<char>::skip<rapidxml::xml_document<char>::attribute_name_pred, 0>(char*&) [52] rapidxml::xml_node<char>::remove_all_nodes() [1] <cycle 1>
+  [14] void rapidxml::xml_document<char>::parse<0>(char*) [53] rapidxml::xml_node<char>::remove_all_attributes()
