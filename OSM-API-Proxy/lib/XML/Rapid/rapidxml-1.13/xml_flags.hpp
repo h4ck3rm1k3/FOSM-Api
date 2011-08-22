@@ -18,14 +18,14 @@
     //! Use xml_node::type() function to query node type.
     enum node_type
     {
-        node_document,      //!< A document node. Name and value are empty.
-        node_element,       //!< An element node. Name contains element name. Value contains text of first data node.
-        node_data,          //!< A data node. Name is empty. Value contains data text.
-        node_cdata,         //!< A CDATA node. Name is empty. Value contains data text.
-        node_comment,       //!< A comment node. Name is empty. Value contains comment text.
-        node_declaration,   //!< A declaration node. Name and value are empty. Declaration parameters (version, encoding and standalone) are in node attributes.
-        node_doctype,       //!< A DOCTYPE node. Name is empty. Value contains DOCTYPE text.
-        node_pi             //!< A PI node. Name contains target. Value contains instructions.
+      node_document,      //!< A document node. Name and value are empty.
+      node_element,       //!< An element node. Name contains element name. Value contains text of first data node.
+      node_data,          //!< A data node. Name is empty. Value contains data text.
+	//        node_cdata,         //!< A CDATA node. Name is empty. Value contains data text.
+	//        node_comment,       //!< A comment node. Name is empty. Value contains comment text.
+	//        node_declaration,   //!< A declaration node. Name and value are empty. Declaration parameters (version, encoding and standalone) are in node attributes.
+	//        node_doctype,       //!< A DOCTYPE node. Name is empty. Value contains DOCTYPE text.
+	//        node_pi             //!< A PI node. Name contains target. Value contains instructions.
     };
 
     ///////////////////////////////////////////////////////////////////////

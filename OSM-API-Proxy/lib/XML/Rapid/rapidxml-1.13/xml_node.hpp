@@ -225,11 +225,12 @@ public:
 
   void append_node(xml_node<Ch> *child)
   {
-    this->checkclass ();
-    child->checkclass(); // on the child
+    //    this->checkclass ();
+    //    child->checkclass(); // on the child
     if (this->should_append())
       {
-	assert(child && !child->parent() && child->type() != node_document);
+	//	assert(child && !child->parent() && child->type() != node_document);
+	assert(child && child->type() != node_document);
 	if (first_node())
 	  {
 	    child->m_prev_sibling = m_last_node;
@@ -253,6 +254,7 @@ public:
       }
     else
       {
+	//	cout << "going to remove the child object" << endl;
 	child->clear();
 	// delete child;
       }
@@ -343,7 +345,8 @@ public:
   //! \param attribute Attribute to prepend.
   void prepend_attribute(xml_attribute<Ch> *attribute)
   {
-    assert(attribute && !attribute->parent());
+    //    assert(attribute && !attribute->parent());
+    assert(attribute);
     if (first_attribute())
       {
 	attribute->m_next_attribute = m_first_attribute;
@@ -363,7 +366,8 @@ public:
   //! \param attribute Attribute to append.
   void append_attribute(xml_attribute<Ch> *attribute)
   {
-    assert(attribute && !attribute->parent());
+    //    assert(attribute && !attribute->parent());
+    assert(attribute);
     if (first_attribute())
       {
 	attribute->m_prev_attribute = m_last_attribute;
@@ -386,7 +390,8 @@ public:
   void insert_attribute(xml_attribute<Ch> *where, xml_attribute<Ch> *attribute)
   {
     assert(!where || where->parent() == this);
-    assert(attribute && !attribute->parent());
+    //    assert(attribute && !attribute->parent());
+    assert(attribute);
     if (where == m_first_attribute)
       prepend_attribute(attribute);
     else if (where == 0)

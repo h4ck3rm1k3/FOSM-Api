@@ -126,29 +126,29 @@ namespace rapidxml
                 break;
             
             // CDATA
-            case node_cdata:
-                out = print_cdata_node(out, node, flags, indent);
-                break;
+            //case node_cdata:
+		//                out = print_cdata_node(out, node, flags, indent);
+		//                break;
 
             // Declaration
-            case node_declaration:
-                out = print_declaration_node(out, node, flags, indent);
-                break;
+		//            case node_declaration:
+		//                out = print_declaration_node(out, node, flags, indent);
+		//                break;
 
             // Comment
-            case node_comment:
-                out = print_comment_node(out, node, flags, indent);
-                break;
+		//            case node_comment:
+		//                out = print_comment_node(out, node, flags, indent);
+		//                break;
             
             // Doctype
-            case node_doctype:
-                out = print_doctype_node(out, node, flags, indent);
-                break;
+            //case node_doctype:
+		//                out = print_doctype_node(out, node, flags, indent);
+		//                break;
 
             // Pi
-            case node_pi:
-                out = print_pi_node(out, node, flags, indent);
-                break;
+            //case node_pi:
+		//                out = print_pi_node(out, node, flags, indent);
+		//                break;
 
                 // Unknown
             default:
@@ -217,28 +217,28 @@ namespace rapidxml
             return out;
         }
 
-        // Print data node
-        template<class OutIt, class Ch>
-        inline OutIt print_cdata_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
-        {
-            assert(node->type() == node_cdata);
-            if (!(flags & print_no_indenting))
-                out = fill_chars(out, indent, Ch('\t'));
-            *out = Ch('<'); ++out;
-            *out = Ch('!'); ++out;
-            *out = Ch('['); ++out;
-            *out = Ch('C'); ++out;
-            *out = Ch('D'); ++out;
-            *out = Ch('A'); ++out;
-            *out = Ch('T'); ++out;
-            *out = Ch('A'); ++out;
-            *out = Ch('['); ++out;
-            out = copy_chars(node->value(), node->value() + node->value_size(), out);
-            *out = Ch(']'); ++out;
-            *out = Ch(']'); ++out;
-            *out = Ch('>'); ++out;
-            return out;
-        }
+        // // Print data node
+        // template<class OutIt, class Ch>
+        // inline OutIt print_cdata_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
+        // {
+        //     assert(node->type() == node_cdata);
+        //     if (!(flags & print_no_indenting))
+        //         out = fill_chars(out, indent, Ch('\t'));
+        //     *out = Ch('<'); ++out;
+        //     *out = Ch('!'); ++out;
+        //     *out = Ch('['); ++out;
+        //     *out = Ch('C'); ++out;
+        //     *out = Ch('D'); ++out;
+        //     *out = Ch('A'); ++out;
+        //     *out = Ch('T'); ++out;
+        //     *out = Ch('A'); ++out;
+        //     *out = Ch('['); ++out;
+        //     out = copy_chars(node->value(), node->value() + node->value_size(), out);
+        //     *out = Ch(']'); ++out;
+        //     *out = Ch(']'); ++out;
+        //     *out = Ch('>'); ++out;
+        //     return out;
+        // }
 
         // Print element node
         template<class OutIt, class Ch>
@@ -320,62 +320,62 @@ namespace rapidxml
             return out;
         }
 
-        // Print comment node
-        template<class OutIt, class Ch>
-        inline OutIt print_comment_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
-        {
-            assert(node->type() == node_comment);
-            if (!(flags & print_no_indenting))
-                out = fill_chars(out, indent, Ch('\t'));
-            *out = Ch('<'), ++out;
-            *out = Ch('!'), ++out;
-            *out = Ch('-'), ++out;
-            *out = Ch('-'), ++out;
-            out = copy_chars(node->value(), node->value() + node->value_size(), out);
-            *out = Ch('-'), ++out;
-            *out = Ch('-'), ++out;
-            *out = Ch('>'), ++out;
-            return out;
-        }
+        // // Print comment node
+        // template<class OutIt, class Ch>
+        // inline OutIt print_comment_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
+        // {
+        //     assert(node->type() == node_comment);
+        //     if (!(flags & print_no_indenting))
+        //         out = fill_chars(out, indent, Ch('\t'));
+        //     *out = Ch('<'), ++out;
+        //     *out = Ch('!'), ++out;
+        //     *out = Ch('-'), ++out;
+        //     *out = Ch('-'), ++out;
+        //     out = copy_chars(node->value(), node->value() + node->value_size(), out);
+        //     *out = Ch('-'), ++out;
+        //     *out = Ch('-'), ++out;
+        //     *out = Ch('>'), ++out;
+        //     return out;
+        // }
 
-        // Print doctype node
-        template<class OutIt, class Ch>
-        inline OutIt print_doctype_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
-        {
-            assert(node->type() == node_doctype);
-            if (!(flags & print_no_indenting))
-                out = fill_chars(out, indent, Ch('\t'));
-            *out = Ch('<'), ++out;
-            *out = Ch('!'), ++out;
-            *out = Ch('D'), ++out;
-            *out = Ch('O'), ++out;
-            *out = Ch('C'), ++out;
-            *out = Ch('T'), ++out;
-            *out = Ch('Y'), ++out;
-            *out = Ch('P'), ++out;
-            *out = Ch('E'), ++out;
-            *out = Ch(' '), ++out;
-            out = copy_chars(node->value(), node->value() + node->value_size(), out);
-            *out = Ch('>'), ++out;
-            return out;
-        }
+        // // Print doctype node
+        // template<class OutIt, class Ch>
+        // inline OutIt print_doctype_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
+        // {
+        //     assert(node->type() == node_doctype);
+        //     if (!(flags & print_no_indenting))
+        //         out = fill_chars(out, indent, Ch('\t'));
+        //     *out = Ch('<'), ++out;
+        //     *out = Ch('!'), ++out;
+        //     *out = Ch('D'), ++out;
+        //     *out = Ch('O'), ++out;
+        //     *out = Ch('C'), ++out;
+        //     *out = Ch('T'), ++out;
+        //     *out = Ch('Y'), ++out;
+        //     *out = Ch('P'), ++out;
+        //     *out = Ch('E'), ++out;
+        //     *out = Ch(' '), ++out;
+        //     out = copy_chars(node->value(), node->value() + node->value_size(), out);
+        //     *out = Ch('>'), ++out;
+        //     return out;
+        // }
 
-        // Print pi node
-        template<class OutIt, class Ch>
-        inline OutIt print_pi_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
-        {
-            assert(node->type() == node_pi);
-            if (!(flags & print_no_indenting))
-                out = fill_chars(out, indent, Ch('\t'));
-            *out = Ch('<'), ++out;
-            *out = Ch('?'), ++out;
-            out = copy_chars(node->name(), node->name() + node->name_size(), out);
-            *out = Ch(' '), ++out;
-            out = copy_chars(node->value(), node->value() + node->value_size(), out);
-            *out = Ch('?'), ++out;
-            *out = Ch('>'), ++out;
-            return out;
-        }
+        // // Print pi node
+        // template<class OutIt, class Ch>
+        // inline OutIt print_pi_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
+        // {
+        //     assert(node->type() == node_pi);
+        //     if (!(flags & print_no_indenting))
+        //         out = fill_chars(out, indent, Ch('\t'));
+        //     *out = Ch('<'), ++out;
+        //     *out = Ch('?'), ++out;
+        //     out = copy_chars(node->name(), node->name() + node->name_size(), out);
+        //     *out = Ch(' '), ++out;
+        //     out = copy_chars(node->value(), node->value() + node->value_size(), out);
+        //     *out = Ch('?'), ++out;
+        //     *out = Ch('>'), ++out;
+        //     return out;
+        // }
 
     }
     //! \endcond

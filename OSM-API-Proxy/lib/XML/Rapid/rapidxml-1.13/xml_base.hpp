@@ -21,10 +21,10 @@ public:
   static void load_classes();
   void clear()
   {
-    cerr << "going to remove this object" <<  name ()<< endl;
+    //cerr << "going to remove this object" <<  name ()<< endl;
   }
   
-  void checkclass ()
+  void checkclass () // TODO slowest function
   {
     if (m_name)
       {	
@@ -36,14 +36,14 @@ public:
 	if ( found != name_mapper.end() )
 	  {
 	    // data was found
-	    cerr << "found data object" <<  name ()<< endl;
+	    //	    cerr << "found data object" <<  name ()<< endl;
 	    (*found).second(this); // call it 
 	    
 	  }
 	else
 	  {
-	    cout << "xml_base name:" << tname << "test" << endl;
-	    cout << "Missing type "<< m_name << endl;
+	    //	    cout << "xml_base name:" << tname << "test" << endl;
+	    //	    cout << "Missing type "<< tname << endl;
 	  }
       }
     if (m_value)
@@ -123,6 +123,7 @@ public:
   {
     m_name = const_cast<Ch *>(name);
     m_name_size = size;
+    // TODO : now we look up the right object for this name and allocate it
   }
 
   //! Sets name of node to a zero-terminated string.
