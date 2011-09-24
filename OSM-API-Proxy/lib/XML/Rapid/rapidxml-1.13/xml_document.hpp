@@ -21,7 +21,7 @@ public:
   Ch *endtext;
   Ch *curtext;
 
-  Ch * getText()
+  Ch * getText() // called many many times
   {
     return curtext;
   }
@@ -51,20 +51,22 @@ public:
 
   void setText(Ch *text)
   {
-    if (&curtext[0] < text)
+    if (&curtext[0] <= text)
       {
-	if (text <endtext)
+	if (text <= endtext)
 	  {
 	    curtext=text;
 	  }
 	else
 	  {
-	    	ParseError("access past end of string");
+	    cerr << (unsigned long)&curtext[0] << " < " << (unsigned long)text << " < " << (unsigned long) endtext << endl;
+	    ParseError("access past end of string1");
 	  }
       }
     else
       {
-	ParseError("access past end of string");
+	cerr << (unsigned long)&curtext[0] << " < " << (unsigned long)text << " < " << (unsigned long) endtext << endl;
+	ParseError("access past end of string 3");
       }
     
   }
@@ -78,12 +80,13 @@ public:
 
   Ch getChar(char pos=0)
   {
-    if (&curtext[pos] < endtext)
+    if (&curtext[pos] <= endtext)
       {
 	return curtext[pos];
       }
     else
       {
+	cerr << (unsigned long)&curtext[0] << " < " << (unsigned long)&curtext[pos] << " < " << (unsigned long) endtext << endl;
 	ParseError("access past end of string");
       }
   }
@@ -98,15 +101,17 @@ public:
     curtext[offset]=c;
   }
       
-  void incrementText(int size=1)
+  bool incrementText(int size=1)
   {
     if (curtext + size < endtext -1)
       {
 	curtext+=size;
+	return 1;
       }
     else
       {
 	cerr << "at the end of the buffer, cannot continue";
+	return 0;
       }
   }
 
@@ -135,7 +140,7 @@ public:
   //! Each new call to parse removes previous nodes and attributes (if any), but does not clear memory pool.
   //! \param text XML data to parse; pointer is non-const to denote fact that this data may be modified by the parser.
   template<int Flags>
-  void parse( )
+  bool parse( )
   {
     curtext=starttext; // the start of the text
     assert(getText());
@@ -165,15 +170,22 @@ public:
 		setFirstNode(getText()); //
 	      }
 		  
-	    incrementText();     // Skip '<'
-	    if (xml_node<Ch> *node = parse_node<Flags>())
+	    if (incrementText())     // Skip '<'
 	      {
-		this->append_node(node);
-			
+		if (xml_node<Ch> *node = parse_node<Flags>())
+		  {
+		    this->append_node(node);
+		    
+		  }
+		else
+		  {
+		    cerr << "no node returned " << endl;
+		    return 0;
+		  }
 	      }
 	    else
 	      {
-		cerr << "no node returned " << endl;
+		return 0; // return 
 	      }
 
 
@@ -188,12 +200,13 @@ public:
 	    else
 	      {
 		cerr << "internal error: expected <, got :" << getText()[0] << endl;			
+		return 0;
 	      }
 
 	    // all the data 
 	  }
       }
-
+    return 1;
   }
 
   //! Clears the document by deleting all nodes and clearing the memory pool.
@@ -230,7 +243,7 @@ private:
     }
   };
 
-  // Detect attribute name character
+  // Detect attribute name character, xml_internal.hpp:124:        const unsigned char lookup_tables<Dummy>::lookup_attribute_name[256]  this is a table of xml attribute valid characters.
   struct attribute_name_pred
   {
     static unsigned char test(Ch ch)
@@ -266,7 +279,7 @@ private:
     }
   };
 
-  // Detect attribute value character
+  // Detect attribute value character, checks if it is a quote char
   template<Ch Quote>
   struct attribute_value_pred
   {
@@ -362,7 +375,14 @@ private:
       ++tmp;
     if (tmp != getText())
       {
-	setText(tmp);
+	if (tmp < endtext)
+	  {
+	    setText(tmp);
+	  }
+	else
+	  {
+	    // end of string
+	  }
       }
   }
 

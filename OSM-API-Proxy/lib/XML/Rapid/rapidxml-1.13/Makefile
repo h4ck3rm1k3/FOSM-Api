@@ -15,3 +15,4 @@ oprofile: testern
 	./testern /home/mdupont/experiments/osm/dist/dancer/OSM-API-Proxy/data/debug_output17910.xml
 	sudo opcontrol --shutdown
 	opreport -lt1
+

@@ -31,7 +31,7 @@ int main(int argc, char ** argv )
 	  cerr << "read " << res << endl;
 	  buffer[res]=0;
 
-	  doc.setStartText(&buffer[0]);// set the end of the buffer
+	  doc.setStartText(&buffer[0]);// set the start of the buffer
 	  doc.setTextEnd(&buffer[blocksize]);// set the end of the buffer
 
 	  doc.parse<0>();    // parse the buffer we set...
