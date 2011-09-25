@@ -199,7 +199,7 @@ public:
 	      }
 	    else
 	      {
-		cerr << "internal error: expected <, got :" << getText()[0] << endl;			
+		cerr << "internal error: expected <, got :" << getChar() << endl;			
 		return 0;
 	      }
 
@@ -643,7 +643,7 @@ private:
     if (getText() == name)
       {
 	//RAPIDXML_PARSE_ERROR("expected element name", text);
-	cerr << "expected element name, got: "<< getText()  << endl;
+	cerr << "expected element name, got: "<< getChar()  << endl;
 	setError(getText());
       }
     element->name(name, getText() - name);

@@ -223,10 +223,20 @@ public:
     return this->m_subclass != 0;
   }
 
+
+  void print (std::ostream & os)
+  {
+    string name(this->name(),this->name_size());
+    os << "Node:" << name << endl;
+    //if (attribute->name() && attribute->value())
+
+  }
+
   void append_node(xml_node<Ch> *child)
   {
     //    this->checkclass ();
     //    child->checkclass(); // on the child
+    child->print(std::cerr);
     if (this->should_append())
       {
 	//	assert(child && !child->parent() && child->type() != node_document);
@@ -345,6 +355,7 @@ public:
   //! \param attribute Attribute to prepend.
   void prepend_attribute(xml_attribute<Ch> *attribute)
   {
+    cerr << "prepend_attribute" << endl;
     //    assert(attribute && !attribute->parent());
     assert(attribute);
     if (first_attribute())
@@ -366,6 +377,10 @@ public:
   //! \param attribute Attribute to append.
   void append_attribute(xml_attribute<Ch> *attribute)
   {
+    string name(attribute->name(),attribute->name_size());
+    string val(attribute->value(),attribute->value_size());
+    cerr << "attribute: " << name << " val " << val  << endl;
+    
     //    assert(attribute && !attribute->parent());
     assert(attribute);
     if (first_attribute())
@@ -389,6 +404,7 @@ public:
   //! \param attribute Attribute to insert.
   void insert_attribute(xml_attribute<Ch> *where, xml_attribute<Ch> *attribute)
   {
+    cerr << "insert_attribute" << endl;
     assert(!where || where->parent() == this);
     //    assert(attribute && !attribute->parent());
     assert(attribute);
