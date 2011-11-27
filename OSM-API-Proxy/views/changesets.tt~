@@ -1,2 +1,0 @@
-[% INCLUDE osm_header.tt %]
-[% INCLUDE osm_footer.tt %]
