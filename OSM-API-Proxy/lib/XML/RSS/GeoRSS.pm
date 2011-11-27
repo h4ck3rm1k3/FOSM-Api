@@ -91,5 +91,18 @@ sub handle_end {
     }
 }
 
+sub create_OSM
+{
+    my $self=shift;
+    if ($self->{GeoObj})
+    {
+	return    $self->{GeoObj}->create_OSM();
+    }
+    else
+    {
+	warn "no data";
+	return undef;
+    }
+}
 # 
 1;

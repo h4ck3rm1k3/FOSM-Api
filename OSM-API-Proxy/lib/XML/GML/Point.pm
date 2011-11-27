@@ -20,4 +20,19 @@ sub set_pos
     my $pos=shift;
     $self->{pos}=$pos;
 }
+
+sub create_OSM
+{
+    my $self=shift;
+    if ($self->{pos})
+    {
+	return  $self->{pos}->create_OSM();
+    }
+    else
+    {
+	warn "no data";
+	return undef;
+    }
+}
+
 1;

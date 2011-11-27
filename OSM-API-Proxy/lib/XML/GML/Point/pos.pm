@@ -19,5 +19,19 @@ sub handle_char
     $self->{lon}=$lon;
 }
 
+sub create_OSM
+{
+    my $self=shift;
+    if ($self->{lat})
+    {
+	return OSM::API::Point->new(lat=>$self->{lat},lon=>$self->{lon} );
+    }
+    else
+    {
+	warn "no data";
+	return undef;
+    }
+}
+
 
 1;
