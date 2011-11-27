@@ -1,4 +1,4 @@
-package OSM::API::Tags;
+package OSM::API::Tag;
 
 use Moose;
 use Moose::Util::TypeConstraints;
