@@ -1,0 +1,17 @@
+<osm version='0.6'>
+<node  id='-1' lat='47.05' lon='-66.22' ><tag  k="earthquakescanada.nrcan.gc.ca:link" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F2118%3A42%3A0847.0566.22"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:category" v="Pas Ressenti"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:guid" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F2118%3A42%3A0847.0566.22"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:title" v="2011/11/21:  1.5MN    57 km O de Miramichi,NB"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:description" v="2011/11/21 18:42:08  47.05N  66.22W  5.0*  1.5MN              57 km O de Miramichi,NB"/>
+</node><node  id='-2' lat='47.04' lon='-66.28' ><tag  k="earthquakescanada.nrcan.gc.ca:link" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F2108%3A42%3A4747.0466.28"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:category" v="Pas Ressenti"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:guid" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F2108%3A42%3A4747.0466.28"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:title" v="2011/11/21:  2.1MN    62 km O de Miramichi,NB"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:description" v="2011/11/21 08:42:47  47.04N  66.28W  5.0*  2.1MN              62 km O de Miramichi,NB"/>
+</node><node  id='-3' lat='47.01' lon='-67.30' ><tag  k="earthquakescanada.nrcan.gc.ca:link" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F0800%3A54%3A3147.0167.30"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:category" v="Pas Ressenti"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:guid" v="http://seismescanada.rncan.gc.ca/recent/maps-cartes/index-fra.php?tpl_region=nb&amp;event=2011%2F11%2F0800%3A54%3A3147.0167.30"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:title" v="2011/11/08:  2.0MN    14 km N-E de Plaster Rock,NB"/>
+<tag  k="earthquakescanada.nrcan.gc.ca:description" v="2011/11/08 00:54:31  47.01N  67.30W  5.0*  2.0MN              14 km N-E de Plaster Rock,NB"/>
+</node></osm>

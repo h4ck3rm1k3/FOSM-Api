@@ -45,7 +45,7 @@ sub filter_tags
     foreach my $tag (keys %{$entry})
     {
 	my $v =$entry->{$tag};
-
+	next if $v =~ /^\s+$/; # skip whitespace
 	$tag= "${prefix}:${tag}";
 #	warn "value:" .Dump($v);
 	my $ref= ref $v;
@@ -88,7 +88,7 @@ sub process_feed
 	$rss->parsefile($file)
 	    or die "error";
     }
-    
+    print "<osm version='0.6'>\n";
     my @entries=@{$rss->{items}};
     for my $entry (@entries) {
 #	warn Dump($entry);
@@ -104,7 +104,7 @@ sub process_feed
 		{
 		    $geo->{tags}=$tags;
 		}
-		print $geo->emit_OSM();
+		$geo->emit_OSM();
 	    }
 	    else
 	    {
@@ -113,6 +113,7 @@ sub process_feed
 	}
 	
     }
+    print "</osm>\n";
 }
 
 

@@ -15,6 +15,15 @@ has 'Ontology' => (
     isa=>'ArrayRef'
 );
 
+sub emit_OSM
+{
+    my $self=shift;
+    foreach my $tag (@{$self->{Tags}})
+    {
+	$tag->emit_OSM();
+    }
+}
+
 # ontology
 
 1;
