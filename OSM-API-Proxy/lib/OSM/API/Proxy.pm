@@ -262,7 +262,12 @@ post '/api/0.6/changeset/*/upload' => sub {
 
 #      warn "got changeset $id";
       # now lets process it 
-      debug Dump(request->{body});      
+      debug Dump(request->{body});
+
+      ## now update
+      open OUT, ">/tmp/osmupdate_$id.osm";
+      print OUT request->{body};
+      close OUT;
 
 # #<osmChange version="0.6" generator="JOSM">
 # <modify>
