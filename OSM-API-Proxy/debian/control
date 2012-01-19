@@ -1,0 +1,25 @@
+Source: libosm-api-proxy-perl
+Section: perl
+Priority: optional
+Maintainer: mdupont <mdupont@space-station>
+Build-Depends: debhelper (>= 8),
+ libdancer-perl (>= 1.303),
+ libdancer-plugin-dbic-perl,
+ libinline-perl (>= 0.44),
+ libyaml-perl,
+ perl
+Standards-Version: 3.9.2
+Homepage: http://search.cpan.org/dist/OSM-API-Proxy/
+
+Package: libosm-api-proxy-perl
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends},
+ libdancer-perl (>= 1.303),
+ libdancer-plugin-dbic-perl,
+ libinline-perl (>= 0.44),
+ libyaml-perl,
+ perl
+Description: (no short description found)
+ (no description was found)
+ .
+ This description was automagically extracted from the module by dh-make-perl.
