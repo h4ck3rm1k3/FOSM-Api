@@ -1,0 +1,24 @@
+<osmChange version="0.6" generator="JOSM">
+<create>
+  <node id='-4367' action='modify' visible='true' changeset='1333097186' lat='42.221013868140844' lon='20.729407604981557' />
+</create>
+<modify>
+  <way id='87251600' action='modify' timestamp='2010-12-01T14:08:20Z' uid='355102' user='BesfortGuri/Besfort Guri/BeeGeeS/Besfort Guri/BesfortGuri/BeeGeeS/Besfort Guri/BesfortGuri' visible='true' version='1' changeset='1333097186'>
+    <nd ref='691387795' />
+    <nd ref='-4367' />
+    <nd ref='691405526' />
+    <nd ref='691524052' />
+    <nd ref='691387922' />
+    <tag k='addr:street' v='Vetim Shala' />
+    <tag k='highway' v='residential' />
+    <tag k='meta:id' v='87251600' />
+    <tag k='meta:lastEdit' v='2010-12-01T14:08:20Z' />
+    <tag k='name' v='Vetim Shala' />
+    <tag k='source' v='Kuvendi_Komunal_Prizren' />
+  </way>
+  <node id='691387795' action='modify' timestamp='2010-11-26T15:42:42Z' uid='355102' user='BesfortGuri/Besfort Guri/BeeGeeS/Besfort Guri/BesfortGuri/BeeGeeS/Besfort Guri/BesfortGuri' visible='true' version='3' changeset='1333097186' lat='42.22120462167198' lon='20.729229254094665' />
+  <node id='691387922' action='modify' timestamp='2010-12-10T14:13:57Z' uid='355102' user='BesfortGuri/Besfort Guri/BeeGeeS/Besfort Guri/BesfortGuri/BeeGeeS/Besfort Guri/BesfortGuri' visible='true' version='6' changeset='1333097186' lat='42.220670923542656' lon='20.73069645409467' />
+  <node id='691405526' action='modify' timestamp='2010-12-01T13:10:59Z' uid='355102' user='BesfortGuri/Besfort Guri/BeeGeeS/Besfort Guri/BesfortGuri/BeeGeeS/Besfort Guri/BesfortGuri' visible='true' version='4' changeset='1333097186' lat='42.22107752211746' lon='20.729659954094664' />
+  <node id='691524052' action='modify' timestamp='2010-11-26T15:42:23Z' uid='355102' user='BesfortGuri/Besfort Guri/BeeGeeS/Besfort Guri/BesfortGuri/BeeGeeS/Besfort Guri/BesfortGuri' visible='true' version='3' changeset='1333097186' lat='42.220972122486906' lon='20.72989205409466' />
+</modify>
+</osmChange>

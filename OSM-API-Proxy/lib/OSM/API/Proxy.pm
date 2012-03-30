@@ -84,7 +84,77 @@ get '/api/0.6/user/details' => sub {
 get '/api/0.6/trackpoints' => sub {
 };
 
+get '/oauth/crossdomain.xml' => sub {
+    template 'crossdomain.xml.tt', {},
+    { layout => undef };
+};
+
+#use Net::OAuth::Client;
+
+use LWP::UserAgent;
+use YAML;
+use URI::Escape ();
+get '/oauth/request_token' => sub 
+{
+ #   "Hmmm";
+#    redirect "http://api.fosm.org/oauth/request_token";
+#    redirect "http://api.osm.org/oauth/request_token";
+#    redirect "http://api06.dev.openstreetmap.org/oauth/request_token";
+    my $ua = LWP::UserAgent->new;
+    my %params = request->params;
+ #   warn Dump(request->params);
+    my $param="?";
+    for my $paramname (keys %params)
+    {
+	$param .= $paramname . "=". URI::Escape::uri_escape( $params{$paramname}) . '&';
+    }
+
+#    my $headers;
+#    my $body =request->body();
+#    warn "Body". $body;
+#    warn $headers;
+#    warn "Param". $params;
+#http://api06.dev.openstreetmap.org/oauth/request_token
+    my $url = 'http://api06.dev.openstreetmap.org/oauth/request_token' . $param;
+#/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token?oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_signature=XYvNFs0L%2Bdl2h72pskA47l7jEBw%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1333067078
+    warn "Url $url";
+#http://api06.dev.openstreetmap.org/oauth/request_token?oauth_signature=XYvNFs0L+dl2h72pskA47l7jEBw=&oauth_timestamp=1333067078&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_signature_method=HMAC-SHA1&
+    my $req = HTTP::Request->new("GET", $url);
+
+    #$request->{_query_params}
+    #    $new_request->{body}    = $request->body;
+ #   $new_request->{headers} = $request->headers;
+    my $res= $ua->request($req,)->as_string;
+    warn $res;
+    print $res;
+#    delete $ENV{HTTP_PROXY};
+};
+
 get '/api/0.6/map' => sub {
+    my $ua = LWP::UserAgent->new;
+    my %params = request->params;
+    my $param="?";
+    for my $paramname (keys %params)
+    {
+	$param .= $paramname . "=". URI::Escape::uri_escape( $params{$paramname}) . '&';
+    }
+    my $url = 'http://api.fosm.org/api/0.6/map' . $param;
+
+    warn "Url $url";
+    my $req = HTTP::Request->new("GET", $url);
+    my $response= $ua->request($req);
+#    warn $res;
+#    print $res;
+
+    if ($response->is_success) {
+#	print $response->decoded_content;  # or whatever
+	return $response->decoded_content;  # or whatever
+    }
+#    else {
+#	$response->status_line;
+#    }
+#    return $res;
+    return "error";
 #GET /api/0.6/map?bbox=left,bottom,right,top
     #params->{left}
     #params->{bottom}
@@ -171,9 +241,10 @@ get '/api/0.6/changesets' => sub {
 };
 
 
-my $changetsetid = 1000001384;
+my $changesetid = time() + $$; # timestamp with pid, should be enough!
 
 put '/api/0.6/changeset/create' => sub {       
+    
     header('Content-Type' => 'text/plain');	
 #header('Server: Apache/2.2.16 (Debian)
     header('Set-cookie' => '_osm_session=46jsstvc0neelurdmxrnvpcn2rzx26nb; path=/; HttpOnly');
@@ -182,7 +253,7 @@ put '/api/0.6/changeset/create' => sub {
     header('Connection' => 'Keep-Alive');
     #header('Transfer-Encoding' => 'chunked');
     debug Dump(request->{body});    
-    $changetsetid++ . "\n";
+    $changesetid++ . "\n";
 
 # send this to another server 
 # HTTP/1.1 200 OK
@@ -265,7 +336,8 @@ post '/api/0.6/changeset/*/upload' => sub {
       debug Dump(request->{body});
 
       ## now update
-      open OUT, ">/tmp/osmupdate_$id.osm";
+      my $changesetfile="/pine02/www/FOSM-Api/OSM-API-Proxy/public/changesets/osmupdate_$id.osm";
+      open OUT, ">$changesetfile" or die "cannot open $changesetfile" ;
       print OUT request->{body};
       close OUT;
 

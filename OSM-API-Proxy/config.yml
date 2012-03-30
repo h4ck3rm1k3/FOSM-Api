@@ -30,7 +30,12 @@ engines:
 
 logger: "file"
 log: "core"
-
+log_path: "/pine02/www/FOSM-Api/OSM-API-Proxy/logs"
+log_handler:
+  file:
+    filename: /pine02/www/FOSM-Api/OSM-API-Proxy/log/debug.log
+    maxlevel: debug
+    minlevel: warning
 
 plugins:
   DBIC:
