@@ -133,6 +133,53 @@ sub generate_token {
     return join '', map { unpack('H2', chr(int rand 256)) } 1..10;
 }
 
+
+#/FOSM-Api/OSM-API-Proxy/public/dispatch.cgi/oauth/access_token?
+#oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ
+#oauth_nonce=F45F84A9-BB0C-4EAC-9C14-685E376B8F82
+#oauth_signature=bYccFXFyVxDdJaADU%2F9rHMJtsz0%3D
+#oauth_signature_method=HMAC-SHA1
+#oauth_timestamp=1333190866
+#oauth_token=19a8829c206931010a2d
+
+get '/oauth/access_token' => sub {
+#    "OK";
+#     my %params = request->params;
+#     my $oarequest = Net::OAuth->request("access token")->from_hash(
+# 	{
+# 	    %params,
+# #	    'oauth_token'=>$params{oauth_token},
+# 	    'callback'=>'oob',
+# 	},
+# 	'consumer_secret' => 'jJs8XFPjywSyrVlwkNvLanh7ZVyHaJWTQHWFOn1U',
+# 	'consumer_key' => 'jJs8XFPjywSyrVlwkNvLanh7ZVyHaJWTQHWFOn1U',
+# 	'token_secret' => 'jJs8XFPjywSyrVlwkNvLanh7ZfsdfsfdVyHaJWTQHWFOn1U',
+# 	'request_method' => 'GET',
+# 	'timestamp' => '1333185703',
+# 	'nonce' => 'F2EBB736-C47E-BF79-5A65-680F6D2DC424',
+# 	'signature_method' => 'HMAC-SHA1',
+# 	'request_url' => 'http://pine02.fosm.org/FOSM-Api/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token',
+# 	);
+
+    my $oaresponse = Net::OAuth::AccessTokenResponse->new(
+	token => 'abcdef',
+	token_secret => '0123456',
+	extra_params => {
+	    foo => 'bar',
+	},
+	);
+
+    my $output = $oaresponse->to_post_body;
+    warn "check output:".  $output;
+    $output;
+};
+
+#/oauth/authorize?oauth_token=19a8829c206931010a2d
+get '/oauth/authorize' => sub {
+    "OK";
+
+};
+
 get '/oauth/request_token' => sub 
 {
  #   "Hmmm";
@@ -173,14 +220,16 @@ get '/oauth/request_token' => sub
     try {
 	warn "going to try to decode the params";
 
-	my $oarequest = Net::OAuth->request("request token")->from_hash(
-	    {
+	my $oareqhash =    {
 		'oauth_consumer_key' => $params{oauth_consumer_key},
 		'oauth_nonce' => $params{oauth_nonce},
 		'oauth_signature' => $params{oauth_signature},
 		'oauth_timestamp' => $params{oauth_timestamp},
 		'oauth_signature_method' => $params{oauth_signature_method},
-	    },
+	};
+	$oareqhash->{oauth_version} =$params{oauth_version} if exists($params{oauth_version});
+	my $oarequest = Net::OAuth->request("request token")->from_hash(
+	    $oareqhash,
 	    'consumer_secret' => 'jJs8XFPjywSyrVlwkNvLanh7ZVyHaJWTQHWFOn1U',
 	    'request_method' => 'GET',
 	    'request_url' => 'http://pine02.fosm.org/FOSM-Api/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token',
