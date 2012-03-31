@@ -9,6 +9,18 @@ our $VERSION = '0.01';
 
 #use Inline CPP ;
 
+# sub get_oauth_test {
+#     my $param
+# #http://api06.dev.openstreetmap.org/oauth/request_token
+#     my $url = 'http://api06.dev.openstreetmap.org/oauth/request_token' . $param;
+# #/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token?oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_signature=XYvNFs0L%2Bdl2h72pskA47l7jEBw%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1333067078
+#     warn "Url $url";
+# #http://api06.dev.openstreetmap.org/oauth/request_token?oauth_signature=XYvNFs0L+dl2h72pskA47l7jEBw=&oauth_timestamp=1333067078&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_signature_method=HMAC-SHA1&
+#     my $req = HTTP::Request->new("GET", $url);
+#     my $res= $ua->request($req,)->as_string;
+#     warn $res;
+#     print $res;
+# }
 
 get '/' => sub {
     template 'index.tt', {}, { layout => undef };
@@ -90,10 +102,37 @@ get '/oauth/crossdomain.xml' => sub {
 };
 
 #use Net::OAuth::Client;
-
 use LWP::UserAgent;
 use YAML;
 use URI::Escape ();
+
+
+#public/dispatch.cgi/oauth/callback?oauth_token=BXg9GZJsuJgS6JVVKpM6xLZo2OnzALAmTgIzwkW1&oauth_verifier=z8hz4Fd7tLhkkdg5pqOA
+get '/oauth/callback' => sub 
+{
+    my %querystring_params = params('query');
+    my $verifier= $querystring_params{"oauth_verifier"} ;
+    my $dumpstr=	  Dump({ headers => request->headers,
+			 params  => request->params
+		       });
+    return "<h1>verifier : $verifier</h1>"
+	. "<h2>Hello WOrld</h2>" .$dumpstr;
+
+};
+
+
+#use OAuth::Lite::Util qw(:all);
+#use OAuth::Lite::ServerUtil;
+#use OAuth::Lite::AuthMethod qw(:all);
+#use OAuth::Lite::Problems qw(:all);
+use Net::OAuth::RequestTokenRequest;
+use Net::OAuth::AccessTokenResponse;
+use Try::Tiny;
+#from Jifty::Plugin::OAuth::Token
+sub generate_token {
+    return join '', map { unpack('H2', chr(int rand 256)) } 1..10;
+}
+
 get '/oauth/request_token' => sub 
 {
  #   "Hmmm";
@@ -103,31 +142,86 @@ get '/oauth/request_token' => sub
     my $ua = LWP::UserAgent->new;
     my %params = request->params;
  #   warn Dump(request->params);
-    my $param="?";
+    # my $param="?";
+    # if (!exists($params{oauth_version}))
+    # {
+    # 	$params{oauth_version}="1.0";
+
+    # }
+    warn "Params";
     for my $paramname (keys %params)
-    {
-	$param .= $paramname . "=". URI::Escape::uri_escape( $params{$paramname}) . '&';
+     {
+	 warn "Check params:".  $paramname . "=". URI::Escape::uri_escape( $params{$paramname}) . "\n";
+     }
+
+#     my %request_arg = (
+# 	consumer_key =>  $params{oauth_consumer_key},
+#         consumer_secret => 'jJs8XFPjywSyrVlwkNvLanh7ZVyHaJWTQHWFOn1U',
+#         request_method => 'GET',
+# #	callback => $params{oauth_callback} || 'oob',
+# #	protocol_version => '1',
+# #	version => '1.0',
+#         signature_method => $params{oauth_signature_method},
+#         signature => $params{oauth_signature},
+#         timestamp => $params{oauth_timestamp},
+# 	nonce => $params{oauth_nonce},
+# 	extra_params => {},
+# 	request_url => 'http://pine02.fosm.org/FOSM-Api/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token',
+
+#     );
+
+    try {
+	warn "going to try to decode the params";
+
+	my $oarequest = Net::OAuth->request("request token")->from_hash(
+	    {
+		'oauth_consumer_key' => $params{oauth_consumer_key},
+		'oauth_nonce' => $params{oauth_nonce},
+		'oauth_signature' => $params{oauth_signature},
+		'oauth_timestamp' => $params{oauth_timestamp},
+		'oauth_signature_method' => $params{oauth_signature_method},
+	    },
+	    'consumer_secret' => 'jJs8XFPjywSyrVlwkNvLanh7ZVyHaJWTQHWFOn1U',
+	    'request_method' => 'GET',
+	    'request_url' => 'http://pine02.fosm.org/FOSM-Api/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token',
+	    );
+
+
+	warn "going to try to verify";
+	if (! $oarequest->verify)
+	{
+	    warn "failed";
+	    status 401;
+	    return halt "Invalid signature (type: $params{oauth_signature_method}).";
+	}
+	else
+	{
+	    warn "OK!";
+	}
     }
+    catch {
+	warn "caught error: $_"; # not $@
+	status 500;
+	return halt "internal error $_";
+    };
 
-#    my $headers;
-#    my $body =request->body();
-#    warn "Body". $body;
-#    warn $headers;
-#    warn "Param". $params;
-#http://api06.dev.openstreetmap.org/oauth/request_token
-    my $url = 'http://api06.dev.openstreetmap.org/oauth/request_token' . $param;
-#/OSM-API-Proxy/public/dispatch.cgi/oauth/request_token?oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_signature=XYvNFs0L%2Bdl2h72pskA47l7jEBw%3D&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1333067078
-    warn "Url $url";
-#http://api06.dev.openstreetmap.org/oauth/request_token?oauth_signature=XYvNFs0L+dl2h72pskA47l7jEBw=&oauth_timestamp=1333067078&oauth_nonce=7FC225BF-FD81-3D53-49AC-60FD5BD81893&oauth_consumer_key=yUV5Mk9FZYEGdFEfZ786AiMl6R9D0flYWXsu10bQ&oauth_signature_method=HMAC-SHA1&
-    my $req = HTTP::Request->new("GET", $url);
+    warn "after try3";
 
-    #$request->{_query_params}
-    #    $new_request->{body}    = $request->body;
- #   $new_request->{headers} = $request->headers;
-    my $res= $ua->request($req,)->as_string;
-    warn $res;
-    print $res;
-#    delete $ENV{HTTP_PROXY};
+    # now we create and issue a token.
+    my $token  = generate_token();
+    my $secret = generate_token();
+
+    warn "new token and secret $token $secret!";
+    my $oauthresp = Net::OAuth::AccessTokenResponse->new(
+	token => $token,
+	token_secret => $secret,
+	extra_params => {},
+	);
+
+    my $output = $oauthresp->to_post_body;
+    warn "check output:".  $output;
+    return $output;
+    
 };
 
 get '/api/0.6/map' => sub {
