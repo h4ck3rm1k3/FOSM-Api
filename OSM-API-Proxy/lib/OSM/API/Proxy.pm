@@ -384,7 +384,8 @@ get '/api/0.6/changesets' => sub {
 };
 
 
-my $changesetid = time() + $$; # timestamp with pid, should be enough!
+my $changesetid = scalar time() ;#. $$. int rand 1024; # timestamp with pid, should be enough!
+warn "changeset is now ". $changesetid;
 
 put '/api/0.6/changeset/create' => sub {       
     
@@ -395,8 +396,9 @@ put '/api/0.6/changeset/create' => sub {
     header('Keep-Alive' => 'timeout=15, max=100');
     header('Connection' => 'Keep-Alive');
     #header('Transfer-Encoding' => 'chunked');
-    debug Dump(request->{body});    
-    $changesetid++ . "\n";
+#    debug Dump(request->{body});    
+    #$changesetid++ . "\n";
+    $changesetid . "\n";
 
 # send this to another server 
 # HTTP/1.1 200 OK
@@ -479,7 +481,8 @@ post '/api/0.6/changeset/*/upload' => sub {
       debug Dump(request->{body});
 
       ## now update
-      my $changesetfile="/pine02/www/FOSM-Api/OSM-API-Proxy/public/changesets/osmupdate_$id.osm";
+      my $newid = $id . time() . $$. int rand 1024;
+      my $changesetfile="/pine02/www/FOSM-Api/OSM-API-Proxy/public/changesets/osmupdate_${newid}.osm";
       open OUT, ">$changesetfile" or die "cannot open $changesetfile" ;
       print OUT request->{body};
       close OUT;
