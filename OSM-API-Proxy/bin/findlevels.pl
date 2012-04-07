@@ -6,9 +6,14 @@ use DBI;
 
 my $dbfile = "/pine02/planet/earthindex.sqlite";
 my @params = ( "dbi:Spatialite:dbname=$dbfile", '', '' );
-my $dbh = DBI->connect( @params );
+my $dbh = DBI->connect( @params , {
+
+    AutoCommit => 1,
+
+});
 
 # now we just create a new table to insert into
+$dbh->do("drop table idx_earthindex_bbox_node_expanded;");
 $dbh->do("create table idx_earthindex_bbox_node_expanded(parentnode int, childnode int, min_lon double, max_lon double, min_lat double, max_lat double)");
 #$dbh->do("SELECT AddGeometryColumn('idx_earthindex_bbox_node_expanded', 'bbox', 4326, 'POLYGON', 2);");
 
@@ -32,8 +37,9 @@ while (my $cols = $sth->fetch)
 	    my $maxx=$3;
 	    my $miny=$4;
 	    my $maxy=$5;
-	    #print join ("\t",		( $id, $childid,	  $minx,		$maxx,		 $miny,		$maxy) ). "\n";
-	    $sthi->execute( $id, $childid,	  $minx,		$maxx,		 $miny,		$maxy);
+
+	    my $res= $sthi->execute( $id, $childid,	  $minx,		$maxx,		 $miny,		$maxy);
+#	    warn "exec with res $res :" .		 join ("\t",		( $id, $childid,	  $minx,		$maxx,		 $miny,		$maxy) ). "\n";
 	}
     }
 };
