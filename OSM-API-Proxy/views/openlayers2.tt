@@ -1,0 +1,47 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>OpenLayers FOSM Block</title>
+
+    <link rel="stylesheet" href="/planet/OpenLayers-2.11/theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="/planet/OpenLayers-2.11/examples/style.css" type="text/css">
+    <script src="/planet/OpenLayers-2.11/OpenLayers.js"></script>
+
+
+ <script type="text/javascript">
+            var box_extents = [
+		[% boxes %]
+            ];
+            var map;
+            function init(){
+                map = new OpenLayers.Map('map');
+
+                var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                    "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'} );
+
+                var boxes  = new OpenLayers.Layer.Vector( "Boxes" );
+    
+                for (var i = 0; i < box_extents.length; i++) {
+                    ext = box_extents[i];
+                    bounds = OpenLayers.Bounds.fromArray(ext);
+                    
+                    box = new OpenLayers.Feature.Vector(bounds.toGeometry());
+                    boxes.addFeatures(box);
+                }
+
+                map.addLayers([ol_wms, boxes]);
+                map.addControl(new OpenLayers.Control.LayerSwitcher());
+                var sf = new OpenLayers.Control.SelectFeature(boxes);
+                map.addControl(sf);
+                sf.activate();
+                map.zoomToMaxExtent();
+            }
+        </script>
+
+    </head>
+    <body onload="init()">
+
+        <div size="%100" id="map" ></div>
+
+    </body>
