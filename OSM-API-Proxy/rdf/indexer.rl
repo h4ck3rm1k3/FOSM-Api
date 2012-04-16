@@ -161,7 +161,7 @@ action RecordStart {
 quote = ('\''|'\"' );
 
 id_val_start = ( 'id' '=' quote  @StartValue);
-id_val_value = (  digit+  $AddChar );
+id_val_value = (  '-'? digit+  $AddChar );
 id_val_end   = (  quote  @ FinishID );
 id_val = ( id_val_start id_val_value id_val_end );
 

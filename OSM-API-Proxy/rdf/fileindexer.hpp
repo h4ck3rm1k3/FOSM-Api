@@ -3,18 +3,21 @@ using namespace std;
 
 template <class T> class DataFile
 {
+
 public:
+
   vector<T> data;
   ofstream  file;
+  ofstream  txtfile;
   string    filename;
   long long total_count;
   
   DataFile(const char * filename)
-    :file(filename),
+    :file(string(string(filename) + ".bin").c_str()),
+     txtfile(string(string(filename) + ".txt").c_str()),
      total_count(0),
      filename(filename)
-  {
-    
+  {    
   }           
 
   ~DataFile()
@@ -22,13 +25,20 @@ public:
     int count =data.size();
     write(count);
     file.close();
+    txtfile.close();
     cout << "Closing file " << filename << ", wrote " << total_count << endl;
-  }      
-  
+  }
+
   void write(int count)
   {
     // append the data to the file
     file.write((const char*)&data[0], count * sizeof(T));
+
+    typename vector<T>::iterator i;
+    for(i=data.begin();i!=data.end();i++)
+      {
+        txtfile << *i << endl;
+      }
     data.clear(); // erase the data
   }
   
@@ -41,9 +51,7 @@ public:
       {
         write(count);
       }           
-
   }
-
        
 };
 
@@ -57,6 +65,7 @@ public:
     t_way,
     t_relation,
 
+    ///subobjects
     t_tag,
     t_nd,
     t_member
@@ -69,12 +78,25 @@ public:
   DataFile<long int> way_positions;
   DataFile<long int> rel_positions;
 
+  // the ids
+  DataFile<long int> rel_ids;
+  DataFile<long int> way_ids;
+  DataFile<long int> node_ids;
+
+
   OSMWorld () :
     current_id(0),
     current_element_type(t_none),
+
+    // positions
     node_positions("node_positions"),
     way_positions("way_positions"),
-    rel_positions("relation_positions")
+    rel_positions("relation_positions"),
+
+    //ids
+    node_ids("node_ids"),
+    way_ids("way_ids"),
+    rel_ids("relation_ids")
   {
 
   }
@@ -132,6 +154,25 @@ public:
 
   void set_current_id(long int id) {
     current_id=id;
+
+    // write to disk
+    switch (get_current_element_type()) {
+    case t_node:
+      node_ids.push_back(id);
+      break;
+      
+    case    t_way:
+      way_ids.push_back(id);
+      break;
+      
+    case    t_relation:
+      rel_ids.push_back(id);
+      break;
+
+    default:
+      break;
+    };
+    
   }
 
   void record_start_position() {
@@ -146,9 +187,11 @@ public:
       break;
       
     case    t_way:
+      add_way_position();            
       break;
       
     case    t_relation:
+      add_rel_position();            
       break;
       
     case    t_tag :
