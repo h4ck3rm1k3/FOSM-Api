@@ -147,14 +147,20 @@ action AddChar {
      currenttoken.push_back(fc);
 }
 
+action AddChar2 {
+//       cerr << fc << endl;
+     currenttoken.push_back(fc);
+}
+
 # ID Field
 action FinishID {
      char *endptr;   // ignore  
-//     cerr << "currenttoken" << currenttoken << endl;
+     cerr << "currenttoken" << currenttoken << endl;
      world.set_current_id(strtol(currenttoken.c_str(), &endptr, 10));
 }
 id_val_start = ( 'id' '=' quote  @StartValue);
-id_val_value = (  '-'? digit+  $AddChar );
+id_val_negvalue = (  '-'?  $AddChar2 );
+id_val_value = (  id_val_negvalue digit+  $AddChar );
 id_val_end   = (  quote  @ FinishID );
 id_val = ( id_val_start id_val_value id_val_end );
 
@@ -176,9 +182,7 @@ starter = ( start_element  |
             cs_val    |
             attrs_val |
             end_element
-        @{
-//                cout << "S"  << fcurs << ",";
-          } );
+           );
 
 
 main := starter @{ res = 1;      };  
