@@ -1,9 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <string>
-#include <string.h>
-#include <stdlib.h>
 
 %%{
 machine osmkeys;
@@ -54,7 +48,6 @@ el_tag
 
 std_attr = (
 'version' |
-'changeset' |
 'uid' |
 'user' |
 'timestamp' |
@@ -121,11 +114,12 @@ attrs_val = ( attrs '=' '\'' [^']+ '\'' |
               attrs '=' '\"' [^"]+ '\"' 
             );
 
-#   fgoto main;
+
 end_element  = ('/>'
                 |'>'
                 ) @{
-                world.set_current_element_type_none();
+                     world.finish_current_object();
+
                 };
 
 action ActEnterAttribute {
@@ -139,47 +133,55 @@ action ActEndAttribute {
            cout << "Attribute CS" << cs << endl;     
        }
 
-action AddChar {
-     currenttoken.push_back(fc);
-}
-
-action StartValue {
-     currenttoken.clear();  
-}
-
-action FinishID {
-     char *endptr;   // ignore
-     world.set_current_id(strtol(currenttoken.c_str(), &endptr, 10));
-//     cout << "ID " << id << endl;  
-}
 
 action RecordStart {
        // record the start of a type of object
        world.record_start_position();
 }
-
 quote = ('\''|'\"' );
 
+action StartValue {
+     currenttoken.clear();  
+}
+action AddChar {
+     currenttoken.push_back(fc);
+}
+
+# ID Field
+action FinishID {
+     char *endptr;   // ignore  
+//     cerr << "currenttoken" << currenttoken << endl;
+     world.set_current_id(strtol(currenttoken.c_str(), &endptr, 10));
+}
 id_val_start = ( 'id' '=' quote  @StartValue);
 id_val_value = (  '-'? digit+  $AddChar );
 id_val_end   = (  quote  @ FinishID );
 id_val = ( id_val_start id_val_value id_val_end );
 
+
+#changeset
+action FinishChangeset {
+     char *endptr;   // ignore
+     world.set_current_cs(strtol(currenttoken.c_str(), &endptr, 10));
+}
+cs_val_start = ( 'changeset' '=' quote  @StartValue);
+cs_val_value = (   digit+  $AddChar );
+cs_val_end   = (  quote  @ FinishChangeset );
+cs_val = ( cs_val_start cs_val_value cs_val_end );
+
+
 start_element = ( '<' tags @ RecordStart );
 starter = ( start_element  | 
             id_val    |
+            cs_val    |
             attrs_val |
             end_element
         @{
 //                cout << "S"  << fcurs << ",";
           } );
 
-#attrs_val 
-#attrs
 
-main := starter @{ res = 1; 
-//        cout << "Main \n" ;
-     };  
+main := starter @{ res = 1;      };  
 
 }%%
 
