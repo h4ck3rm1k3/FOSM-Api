@@ -47,7 +47,6 @@ el_tag
 );
 
 std_attr = (
-'version' |
 'uid' |
 'user' |
 'timestamp' |
@@ -155,7 +154,7 @@ action AddChar2 {
 # ID Field
 action FinishID {
      char *endptr;   // ignore  
-     cerr << "currenttoken" << currenttoken << endl;
+//     cerr << "currenttoken" << currenttoken << endl;
      world.set_current_id(strtol(currenttoken.c_str(), &endptr, 10));
 }
 id_val_start = ( 'id' '=' quote  @StartValue);
@@ -176,10 +175,23 @@ cs_val_end   = (  quote  @ FinishChangeset );
 cs_val = ( cs_val_start cs_val_value cs_val_end );
 
 
+#versions
+action FinishVersion {
+     char *endptr;   // ignore
+//     cerr << "Version " << currenttoken << endl;
+     world.set_current_ver(strtol(currenttoken.c_str(), &endptr, 10));
+}
+ver_val_start = ( 'version' '=' quote  @StartValue);
+ver_val_value = ( digit+  $AddChar );
+ver_val_end   = ( quote  @ FinishVersion );
+ver_val       = ( ver_val_start ver_val_value ver_val_end );
+
+
 start_element = ( '<' tags @ RecordStart );
 starter = ( start_element  | 
             id_val    |
             cs_val    |
+            ver_val   | 
             attrs_val |
             end_element
            );
