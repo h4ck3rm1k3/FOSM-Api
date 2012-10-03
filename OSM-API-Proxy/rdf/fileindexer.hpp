@@ -18,8 +18,8 @@ public:
   long long total_count;
   
   DataFile(const char * filename)
-    :file(string(string(filename) + ".bin").c_str()),
-     txtfile(string(string(filename) + ".txt").c_str()),
+    :file(string(string ("datafiles/") + string(filename) + ".bin").c_str()),
+     txtfile(string(string ("datafiles/") +  string(filename) + ".txt").c_str()),
      total_count(0),
      filename(filename)
   {    
@@ -59,7 +59,7 @@ public:
   
   void push_back (const T& v){
     total_count++;
-    //    cout << "pushing " << v << endl;
+    cout << "pushing " << filename << " value "<< v << endl;
     data.push_back(v);
     int count =data.size();
     if (count > 4096)    
@@ -89,22 +89,40 @@ public:
   
   long int object_count;
   long int current_id;
+  long int current_uid;
   long int current_cs;
   long int current_ver;
+  bool     current_vis;
+  string   current_timestamp;
+  //  string   current_user;
   istream::pos_type marker; // position in the file
 
   DataFile<long int> node_positions;
+  DataFile<string>   node_timestamp;
+  //  DataFile<string>   node_user;
+  DataFile<double>   node_lon;
+  DataFile<double>   node_lat;
   DataFile<long int> node_ids;
+  DataFile<int>     node_vis;
+  DataFile<long int> node_uids;
   DataFile<long int> node_cs;
   DataFile<long int> node_ver;
 
+  DataFile<int>     way_vis;
   DataFile<long int> way_positions;
+  DataFile<string>   way_timestamp;
+  //  DataFile<string>   way_user;
   DataFile<long int> way_ids;
+  DataFile<long int> way_uids;
   DataFile<long int> way_cs;
   DataFile<long int> way_ver;
 
+  DataFile<int>     rel_vis;
   DataFile<long int> rel_positions;
+  DataFile<string>   rel_timestamp;
+  //  DataFile<string>   rel_user;
   DataFile<long int> rel_ids;
+  DataFile<long int> rel_uids;
   DataFile<long int> rel_cs;
   DataFile<long int> rel_ver;
 
@@ -120,6 +138,11 @@ public:
     way_positions("way_positions"),
     rel_positions("relation_positions"),
 
+    
+    // node lat lon
+    node_lon("node_lon"),
+    node_lat("node_lat"),
+
     //ids
     node_ids("node_ids"),
     way_ids("way_ids"),
@@ -132,8 +155,26 @@ public:
 
     // version
     node_ver("node_ver"),
-    way_ver("way_ver"),
-    rel_ver("relation_ver")
+    way_ver ("way_ver"),
+    rel_ver ("relation_ver"),
+
+    node_timestamp("node_timestamp"),
+    way_timestamp ("way_timestamp"),
+    rel_timestamp ("rel_timestamp"),
+
+    node_uids("node_uids"),
+    way_uids ("way_uids"),
+    rel_uids ("rel_uids"),
+
+    node_user("node_user"),
+    way_user ("way_user"),
+    rel_user ("rel_user"),
+
+    node_vis("node_vis"),
+    way_vis ("way_vis"),
+    rel_vis ("rel_vis"),
+
+    object_count(0)
   {
 
   }
@@ -298,15 +339,12 @@ public:
 
   
   void set_current_id(long int id) {
-
     current_id=id;
-
     // write to disk
     switch (get_current_element_type()) {
     case t_node:
       node_ids.push_back(id);
-      break;
-      
+      break;     
     case    t_way:
       way_ids.push_back(id);
       break;
@@ -314,12 +352,111 @@ public:
     case    t_relation:
       rel_ids.push_back(id);
       break;
-
     default:
       break;
     };
   }
 
+  void set_current_uid(long int uid) {
+    current_uid=uid;
+    // write to disk
+    switch (get_current_element_type()) {
+    case t_node:
+      node_uids.push_back(uid);
+      break;     
+    case t_way:
+      way_uids.push_back(uid);
+      break;     
+    case t_relation:
+      rel_uids.push_back(uid);
+      break;
+    default:
+      break;
+    };
+  }
+
+  void set_current_vis(int vis) {
+    //    cerr << " vis " << vis << endl;
+    current_vis=vis;
+    switch (get_current_element_type()) {
+    case t_node:
+      node_vis.push_back(vis);
+      break;     
+    case t_way:
+      way_vis.push_back(vis);
+      break;     
+    case t_relation:
+      rel_vis.push_back(vis);
+      break;
+    default:
+      break;
+    };
+  }
+
+  void set_current_lat(double lat) {
+    switch (get_current_element_type()) {
+    case t_node:
+      node_lat.push_back(lat);
+      break;     
+    default:
+      break;
+    };
+  }
+
+  void set_current_lon(double lon) {
+    switch (get_current_element_type()) {
+    case t_node:
+      node_lon.push_back(lon);
+      break;     
+    default:
+      break;
+    };
+  }
+
+  void set_way_node_ref(long int ref) {
+    switch (get_current_element_type()) {
+    case t_node:
+      way_nodes.push_back(ref);
+      break;     
+    default:
+      break;
+    };
+  }
+
+  void set_current_user(string user) {
+    current_user=user;
+    // write to disk
+    switch (get_current_element_type()) {
+    case t_node:
+      node_user.push_back(user);
+      break;     
+    case t_way:
+      way_user.push_back(user);
+      break;     
+    case t_relation:
+      rel_user.push_back(user);
+      break;
+    default:
+      break;
+    };
+  }
+
+  void set_current_ts(string timestamp) {
+    current_timestamp=timestamp;
+    switch (get_current_element_type()) {
+    case t_node:
+      node_timestamp.push_back(timestamp);
+      break;     
+    case t_way:
+      way_timestamp.push_back(timestamp);
+      break;     
+    case t_relation:
+      rel_timestamp.push_back(timestamp);
+      break;
+    default:
+      break;
+    };
+  }
 
 void set_current_ver(long int id) {
     current_ver=id;
@@ -338,7 +475,6 @@ void set_current_ver(long int id) {
     };
   }
 
-
   void set_current_cs(long int cs) {
     current_cs=cs;
     // write to disk
@@ -352,13 +488,11 @@ void set_current_ver(long int id) {
     case    t_relation:
       rel_cs.push_back(cs);
       break;
-
     case t_tag:
     case t_nd:
     case t_member:
       //      cerr << "these types dont have changesets type: " << get_current_element_type() << " cs "<< cs << endl;
       break;
-
     default:
       cerr << "wrong type for cs " << cs << endl;
       break;
@@ -367,7 +501,6 @@ void set_current_ver(long int id) {
 
   void record_start_position() {
     // now we close the previous object if it is not closed
-
     switch (get_current_element_type()) {
     case         t_none:
       cout << "This should never happen none" << endl;
@@ -400,9 +533,7 @@ void set_current_ver(long int id) {
     current_cs=-1;// set the current value back to 0
     current_ver=-1;// set the current value back to 0
     current_id=0;// set the current value back to 0
-
   }
-
 };
 
 

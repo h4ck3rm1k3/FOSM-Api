@@ -46,30 +46,6 @@ el_member |
 el_tag
 );
 
-std_attr = (
-'uid' |
-'user' |
-'timestamp' |
-'visible' 
-);
-
-node_attr = (
-'lat' |
-'lon' |
-std_attr
-);
-
-way_attr = (
-std_attr
-);
-
-nd_attr = (
-'ref' 
-);
-
-relation_attr = (
-              std_attr
-);
 
 member_attr = (
 'type' |
@@ -77,10 +53,6 @@ member_attr = (
 'role' 
 );
 
-tag_attr = (
-'k' |
-'v'  
-);
 
 
 tag_k_names = (
@@ -101,11 +73,6 @@ coord = (
       );
 
 attrs = (
-      node_attr |
-      tag_attr  | 
-      way_attr  |
-      nd_attr  |
-      relation_attr  |
       member_attr 
       );
 
@@ -187,11 +154,101 @@ ver_val_end   = ( quote  @ FinishVersion );
 ver_val       = ( ver_val_start ver_val_value ver_val_end );
 
 
+
+
+
+
+#tag key
+action FinishK {
+     char *endptr;   // ignore
+     world.set_tag_key(currenttoken.c_str());
+}
+way_tag_key_start = ( 'ref' '=' quote  @StartValue);
+way_tag_key_value = ( digit+  $AddChar );
+way_tag_key_end   = ( quote  @ FinishK );
+way_tag_key       = ( way_tag_key_start way_tag_key_value way_tag_key_end );
+
+
+
+
+action FinishRef {
+     char *endptr;   // ignore
+     world.set_way_node_ref(strtol(currenttoken.c_str(), &endptr, 10));
+}
+way_nd_ref_val_start = ( 'ref' '=' quote  @StartValue);
+way_nd_ref_val_value = ( digit+  $AddChar );
+way_nd_ref_val_end   = ( quote  @ FinishRef );
+way_nd_ref_val       = ( way_nd_ref_val_start way_nd_ref_val_value way_nd_ref_val_end );
+
+
+
+
+#user
+action FinishUser {
+     char *endptr;   // ignore
+//     cerr << "user " << currenttoken << endl;
+     world.set_current_user(currenttoken.c_str());
+}
+user_val_start = ( 'user' '=' quote  @StartValue);
+user_val_value = ( [^\']+  $AddChar );
+user_val_end   = ( quote  @ FinishUser );
+user_val       = ( user_val_start user_val_value user_val_end );
+
+
+#visible
+action FinishVisT {
+     world.set_current_vis(1);
+}
+action FinishVisF {
+     world.set_current_vis(0);
+}
+vis_val_start = ( 'visible' '=' quote  @StartValue);
+vis_val_valuet = ( 'true'  @ FinishVisT );
+vis_val_valuef = ( 'false' @ FinishVisF );
+vis_val       = ( vis_val_start (vis_val_valuet|vis_val_valuef) quote );
+
+
+latlon_val_value_neg = (  '-' $AddChar );
+latlon_val_value_main = (  digit+ $AddChar );
+latlon_val_value_dec = ( ( '.' . digit+)  $AddChar );
+latlon_val_value = (  latlon_val_value_neg? latlon_val_value_main latlon_val_value_dec?  );
+
+action FinishLat {
+     char *endptr;   // ignore
+     cerr << "lat" << currenttoken << endl;
+     world.set_current_lat(strtod(currenttoken.c_str(), &endptr));
+}
+lat_val_start = ( 'lat' '=' quote  @StartValue);
+
+lat_val_end   = ( quote  @ FinishLat );
+lat_val       = ( lat_val_start latlon_val_value lat_val_end );
+
+action FinishLon {
+     char *endptr;   // ignore
+     cerr << "lon" << currenttoken << endl;
+     world.set_current_lon(strtod(currenttoken.c_str(), &endptr));
+}
+lon_val_start = ( 'lon' '=' quote  @StartValue);
+lon_val_end   = ( quote  @ FinishLon );
+lon_val       = ( lon_val_start latlon_val_value lon_val_end );
+
+
+###
+
 start_element = ( '<' tags @ RecordStart );
 starter = ( start_element  | 
             id_val    |
             cs_val    |
             ver_val   | 
+            uid_val   | 
+            ts_val    | 
+            vis_val   |         
+            user_val  |
+            lat_val  |
+            lon_val  |
+way_nd_ref_val       |
+way_tag_key |
+way_tag_val |
             attrs_val |
             end_element
            );
